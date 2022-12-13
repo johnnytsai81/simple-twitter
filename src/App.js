@@ -1,12 +1,16 @@
 import './App.css';
 import './assets/all.scss'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 
 function App() {
   return (
     <div className="App">
-      <SignUpPage />
-
+      <BrowserRouter>
+        <Routes>
+          <Route path="" element={<SignUpPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
