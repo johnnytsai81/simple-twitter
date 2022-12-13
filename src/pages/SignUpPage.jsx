@@ -3,6 +3,7 @@ import { AuthContainer ,
 import AuthInput from "../components/AccountForm/AuthInput";
 import { ACLogoIcon } from "../assets/icons";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SignUpPage = () => {
   const [username, setUsername] = useState('');
@@ -20,6 +21,14 @@ const SignUpPage = () => {
       <AuthInput
           label="帳號"
           placeholder="請輸入帳號"
+          value={username}
+          onChange={(nameInputValue) => setUsername(nameInputValue)}
+        />
+        </AuthInputContainer>
+        <AuthInputContainer>
+      <AuthInput
+          label="名稱"
+          placeholder="請輸入使用者名稱"
           value={username}
           onChange={(nameInputValue) => setUsername(nameInputValue)}
         />
@@ -46,12 +55,12 @@ const SignUpPage = () => {
           type="password"
           label="密碼確認"
           placeholder="請再次輸入密碼"
-          value={password}
-          onChange={(passwordInputValue) => setPassword(passwordInputValue)}
         />
       </AuthInputContainer>
       <AuthButton>註冊</AuthButton>
+      <Link to="/login">
       <AuthLinkText>取消</AuthLinkText>
+      </Link>
     </AuthContainer>
   )
 }

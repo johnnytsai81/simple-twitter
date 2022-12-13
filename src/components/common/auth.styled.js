@@ -40,12 +40,22 @@ const StyledLinkText = styled.div`
   font-size: 16px;
   font-weight: 400;
   text-decoration-line: underline;
-  }
 `;
+
+const StyledAuthLinkTextGroup = styled.div`
+  width: 160px;
+  height: 36px;
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  left: 805px;
+  top: 446px;
+`
 
 export {
   StyedContainer as AuthContainer,
   StyledAuthInputContainer as AuthInputContainer,
   StyledButton as AuthButton,
   StyledLinkText as AuthLinkText,
+  StyledAuthLinkTextGroup as AuthLinkTextGroup,
 };
