@@ -1,0 +1,138 @@
+// ---
+// Variables & Mixins
+// ---
+
+// colors
+$white: #FFFFFF;
+$main: #FF6600;
+$black-color: #000000;
+$dark-color: #1C1C1C;
+$iron-color: #657786;
+$gray-color: #9197A3;
+$light-color: #FAFAFB; // popular區塊底色
+$primary-color: #0062FF;
+$secondary-color: #6C757D;
+$success-color: #3DD598;
+$warning-color: #FFC542;
+$error-color: #FC5A5A; // 愛心的顏色
+$font-family: 'Noto Sans TC', 'Montserrat', sans-serif;
+
+// border
+$border-color: #E6ECF0;
+
+$border-l: 32px;
+$border-s: 4px;
+
+// 自訂 Breakpoint
+// Bootstrap 原生斷點：576, 768, 992, 1200
+// 擴充：1400, 1600
+
+$device: (
+  xlpc: 1600px,
+  pc: 1400px,
+  nb: 1200px,
+  xlpad: 992px,
+  pad: 769px,
+  phone: 576px,
+);
+
+// 取得自訂斷點
+/* 例如:
+  @include device(pc);
+  得到 1400px
+*/
+@function device($name) {
+  @return map-get($device, $name);
+}
+
+// Responsive Media Query
+// (to-pc 為 指定斷點以上的螢幕, to-mb 為指定斷點以下得螢幕)
+/*
+例如：
+  @include res(pad, to-pc) {...}
+  等同於
+  @media all and (min-width: 768px) {...}
+
+  @include res(pad, to-mb) {...}
+  等同於
+  @media all and (max-width: 767px) {...}
+*/
+@mixin res($selected, $mode: to-pc) {
+  @if $mode == to-pc {
+    @media all and (min-width: device($selected)) {
+      @content;
+    }
+  }
+  @if $mode == to-mb {
+    $size: device($selected) - 1px;
+    @media all and (max-width: $size) {
+      @content;
+    }
+  }
+}
+
+// 製作grid
+@mixin grid($items,$gap_x,$gap_y: null) {
+	display: grid;
+  @if $items==1 {
+		grid-template-columns: 1fr;
+	}
+	@if $items==2 {
+		grid-template-columns: 1fr 1fr;
+	}
+	@if $items==3 {
+			grid-template-columns: 1fr 1fr 1fr;
+	}
+	@if $items==4 {
+			grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+	@if $items==5 {
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	}
+	@if $items==6 {
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+	}
+	@if $gap_y==null {
+		gap: $gap_x;
+	}
+	@if $gap_y {
+		gap: $gap_y $gap_x;
+	}
+}
+
+// 設定 flexbox 置中
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 置中(absolute)
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// 設定圖片比例且設定模式(img) > 圖片路徑要自己放
+@mixin imgBox($width, $height, $mode: cover) {
+  aspect-ratio: $width / $height;
+  object-fit: $mode;
+  width: 100%;
+}
+
+// 設定圖片區塊且設定模式(background-image)
+@mixin backgroundBox($width, $height, $mode: cover, $repeat: no-repeat) {
+  background-position: center;
+  background-size: $mode;
+  background-repeat: $repeat;
+  position: relative;
+
+  &:before {
+    content: "";
+    display: block;
+    width: 100%;
+    padding-bottom: $height / $width * 100%;
+  }
+}
