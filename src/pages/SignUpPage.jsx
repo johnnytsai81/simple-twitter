@@ -25,6 +25,14 @@ const SignUpPage = () => {
         />
         </AuthInputContainer>
         <AuthInputContainer>
+      <AuthInput
+          label="名稱"
+          placeholder="請輸入使用者名稱"
+          value={username}
+          onChange={(nameInputValue) => setUsername(nameInputValue)}
+        />
+        </AuthInputContainer>
+        <AuthInputContainer>
         <AuthInput
           label="Email"
           placeholder="請輸入email"
