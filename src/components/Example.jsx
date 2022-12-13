@@ -10,7 +10,7 @@ const Example = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button className="en-font-family" variant="primary" onClick={handleShow}>
         Launch demo modal
       </Button>
 

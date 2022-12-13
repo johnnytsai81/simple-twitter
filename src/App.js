@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import "~bootstrap/scss/bootstrap";
-import './style/common.scss'
+import './assets/all.scss'
 import Example from './components/Example';
+import Example2 from './components/Example2';
 
 function App() {
   return (
@@ -12,15 +12,10 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Example/>
+        <div className="gap-8">
+          <Example/>
+          <Example2/>
+        </div>
       </header>
     </div>
   );

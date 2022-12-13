@@ -1,0 +1,17 @@
+// 主要按鈕
+.btn-primary{
+  background-color: $main;
+  border-radius: $border-l;
+  color: $white;
+  &:hover{
+    color: $white;
+  }
+}
+
+// 簍空按鈕
+.btn-outline-primary{
+  border-radius: $border-l;
+  &:hover{
+    color: $white;
+  }
+}

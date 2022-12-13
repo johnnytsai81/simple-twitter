@@ -1,0 +1,13 @@
+//Bootstrap Required
+@import "node_modules/bootstrap/scss/functions";
+// 覆寫變數
+@import "./variables"; 
+@import "node_modules/bootstrap/scss/mixins";
+
+//Bootstrap
+@import "node_modules/bootstrap/scss/bootstrap";
+
+// global page layout
+@import "./reboot";
+// 覆寫元件樣式
+@import "./rewrite";
