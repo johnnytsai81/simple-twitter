@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
+import AdminLoginPage from './pages/AdminLoginPage';
+import AdminMainPage from './pages/AdminMainPage';
 
 
 
@@ -16,6 +18,8 @@ function App() {
           <Route path="signup" element={<SignUpPage />} /> 
           <Route path="login" element={<LoginPage />} />
           <Route path="main" element={<MainPage />} />
+          <Route path="Adminlogin" element={<AdminLoginPage />} />
+          <Route path="Adminmain" element={<AdminMainPage />} />
           {/* <Route path="" element={<ProfilePage />} />
           <Route path="" element={<ReplyPage />} />
           <Route path="" element={<UserFollowerPage />} />

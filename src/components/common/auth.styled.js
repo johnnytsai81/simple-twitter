@@ -46,10 +46,10 @@ const StyledAuthLinkTextGroup = styled.div`
   width: 160px;
   height: 36px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   position: absolute;
   left: 805px;
-  top: 446px;
+  top: 448px;
 `
 
 export {

@@ -1,5 +1,5 @@
 import { AuthContainer ,
-  AuthInputContainer ,AuthButton ,AuthLinkText ,AuthLinkTextGroup } from "../components/common/auth.styled";
+  AuthInputContainer ,AuthButton ,AuthLinkText } from "../components/common/auth.styled";
 import AuthInput from "../components/AccountForm/AuthInput";
 import { ACLogoIcon } from "../assets/icons";
 import { useState } from "react";
@@ -7,18 +7,18 @@ import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
 
-const LoginPage = () => {
+const AdminLoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
 
   return (
-    <Container >
+    <Container>
     <AuthContainer>
     <div>
       <ACLogoIcon />
     </div>
-      <h2 style={{margin:'20px 0 10px 0'}}>登入Alphitter</h2>
+      <h2 style={{margin:'20px 0 10px 0'}}>後台登入</h2>
       <AuthInputContainer>
       <AuthInput
           label="帳號"
@@ -37,13 +37,12 @@ const LoginPage = () => {
         />
       </AuthInputContainer>
       <AuthButton>登入</AuthButton>
-      <AuthLinkTextGroup>
-        <Link to='/signup'><AuthLinkText>註冊</AuthLinkText></Link>
-      ．<Link to='/adminlogin'><AuthLinkText>後台登入</AuthLinkText></Link>
-      </AuthLinkTextGroup>
+      <div style={{position: 'absolute', left: '890px', top:'448px'}}>
+        <Link to='/login'><AuthLinkText>前台登入</AuthLinkText></Link>
+      </div>
     </AuthContainer>
     </Container>
   )
 }
 
-export default LoginPage
+export default AdminLoginPage
