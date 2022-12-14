@@ -10,7 +10,7 @@ import Container from 'react-bootstrap/Container';
 // main區塊
 const MainStyle = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
 `
 
 // sidebar區塊
@@ -18,7 +18,6 @@ const LeftContainer = styled.div`
   flex: 5 1 0;
   padding: 1rem;
   min-height: 100vh;
-  border: 1px solid var(--border-color);
   display: flex;
   flex-flow: column;
 `
@@ -35,8 +34,7 @@ const CenterContainer = styled.div`
 // popular區塊
 const RightContainer = styled.div`
   flex: 6 1 0;
-  padding: 3rem;
-  border: 1px solid var(--border-color);
+  padding: 1rem 0 1rem 0;
   .inner{
     display: flex;
     flex-direction: column;
@@ -70,22 +68,22 @@ function Main() {
         <CenterContainer>
           {/* back為返回記號 */}
           <Breadcrumb title={'首頁'} back={false} />
-          <TextArea/>
-          <PostItem/>
-          <PostItem/>
-          <PostItem/>
-          <PostItem/>
-          <PostItem/>
-          <PostItem/>
+          <TextArea src={'https://i.imgur.com/buZlxFF.jpeg'} />
+          <PostItem account={'apple'} name={'kkk'} time={'3小時'} reply={'12'} like={'7'} likeActive={true} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <PostItem account={'apple2'} name={'dfdfdfd'} time={'2小時'} reply={'2'} like={'7'} likeActive={false} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <PostItem account={'appl2'} name={'apple'} time={'7小時'} reply={'12'} like={'37'} likeActive={true} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <PostItem account={'apple222'} name={'apple'} time={'4天'} reply={'1'} like={'7'} likeActive={false} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <PostItem account={'apple'} name={'apple'} time={'1分鐘'} reply={'12'} like={'0'} likeActive={false} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <PostItem account={'apple'} name={'apple'} time={'10分鐘'} reply={'33'} like={'7'} likeActive={false} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
         </CenterContainer>
         <RightContainer>
           <div className="inner">
             <h3>推薦跟隨</h3>
-            <PopularUserItem follow={false}/>
-            <PopularUserItem follow={true}/>
-            <PopularUserItem follow={true}/>
-            <PopularUserItem follow={true}/>
-            <PopularUserItem follow={false}/>
+            <PopularUserItem name={'PizzaHut'} account={'pizzahut'} follow={false}/>
+            <PopularUserItem name={'Mac'} account={'mac'} follow={true}/>
+            <PopularUserItem name={'Pizza Hut'} account={'pizzahut'} follow={true}/>
+            <PopularUserItem name={'Pizza Hut xxx xxxx'} account={'pizzahut'} follow={true}/>
+            <PopularUserItem name={'Pizza Hut xxx xxxx'} account={'pizzahut'} follow={false}/>
           </div>
         </RightContainer>
       </MainStyle>

@@ -38,10 +38,11 @@ const StyledInput = styled.textarea`
   resize: none;
 `;
 
-function TextArea() {
+function TextArea(props) {
+  let src = props.src
   return (
     <CardStyle>
-      <img className="avatar" src={("https://i.imgur.com/buZlxFF.jpeg")} alt="Avatar"/>
+      <img className="avatar" src={src} alt="Avatar"/>
       <div className="card-content">
         <StyledInput placeholder={'有什麼新鮮事？'} />
         <Button variant="primary" size="sm">推文</Button>{' '}

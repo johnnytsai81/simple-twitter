@@ -63,22 +63,29 @@ const CardStyle = styled.div`
   }
 `
 
-function PostItem() {
+function PostItem(props) {
+  let tweet = props.tweet
+  let time = props.time
+  let name = props.name
+  let like = props.like
+  let likeActive = props.likeActive
+  let reply = props.reply
+  let account = props.account
   return (
     <CardStyle>
       <NoImage className="avatar" />
       <div className="card-content">
         <div className="card-header">
-          <h3 className="name mb-0">Apple</h3>
-          <p className="account mb-0">@apple・<span className="time">3 小時</span></p>
+          <h3 className="name mb-0">{name}</h3>
+          <p className="account mb-0">@{account}・<span className="time">{time}</span></p>
         </div>
-        <p className="text-start mb-0">Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. </p>
+        <p className="text-start mb-0">{tweet}</p>
         <div className="card-footer">
           <div className="icon-wrap">
-            <ReplyIcon className="reply" /><span className="en-font-family">12</span>
+            <ReplyIcon className="reply" /><span className="en-font-family">{reply}</span>
           </div>
           <div className="icon-wrap">
-            <LikeIcon className="like" /><span className="en-font-family">12</span>
+            <LikeIcon className="like" data-active={likeActive} /><span className="en-font-family">{like}</span>
           </div>
         </div>
       </div>
