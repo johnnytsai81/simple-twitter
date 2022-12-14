@@ -21,6 +21,22 @@ $en-font-family: 'Montserrat', sans-serif;
 // border
 $border-color: #E6ECF0;
 
+:root{
+  --main-color: #FF6600;
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --dark-color: #1C1C1C;
+  --iron-color: #657786;
+  --gray-color: #9197A3;
+  --light-color: #FAFAFB; // popular區塊底色
+  --primary-color: #0062FF;
+  --secondary-color: #6C757D;
+  --success-color: #3DD598;
+  --warning-color: #FFC542;
+  --error-color: #FC5A5A; // 愛心的顏色
+  --border-color: #E6ECF0;
+}
+
 $border-l: 32px;
 $border-s: 4px;
 

@@ -62,12 +62,13 @@ function SideBar() {
     <>
       <Logo className="d-block check-icon ms-4 mb-4" />
       <PageListStyle>
-        <PageLink active={'true'} text={'首頁'} name={'home'}/>
-        <PageLink active={'false'} text={'個人資料'} name={'person'}/>
-        <PageLink active={'false'} text={'設定'} name={'setting'}/>
+        {/* active狀態會變色 */}
+        <PageLink active={true} text={'首頁'} name={'home'}/>
+        <PageLink active={false} text={'個人資料'} name={'person'}/>
+        <PageLink active={false} text={'設定'} name={'setting'}/>
         <Button variant="primary">推文</Button>{' '}
       </PageListStyle>
-      <PageLink active={'false'} text={'登出'} name={'logout'}/>
+      <PageLink active={false} text={'登出'} name={'logout'}/>
     </>
   );
 }
