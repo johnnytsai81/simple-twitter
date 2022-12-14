@@ -4,6 +4,7 @@ import AuthInput from "../components/AccountForm/AuthInput";
 import { ACLogoIcon } from "../assets/icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 const SignUpPage = () => {
   const [username, setUsername] = useState('');
@@ -12,6 +13,7 @@ const SignUpPage = () => {
 
 
   return (
+    <Container>
     <AuthContainer>
     <div>
       <ACLogoIcon />
@@ -62,6 +64,7 @@ const SignUpPage = () => {
       <AuthLinkText>取消</AuthLinkText>
       </Link>
     </AuthContainer>
+    </Container>
   )
 }
 
