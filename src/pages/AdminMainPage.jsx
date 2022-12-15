@@ -1,34 +1,37 @@
+import styled from 'styled-components';
 import { UserContainer, UserItem, AvatarIcon,NameLink,AccountLink,PostLink,LinkGroup,UserItemContainer } from '../components/Main/AdminPostItem';
 import SideBar from '../components/SideBar';
-import styled from 'styled-components';
 import Container from 'react-bootstrap/Container';
-import {ReactComponent as CloseIcon} from '../assets/icons/close.svg';
+import { ReactComponent as CloseIcon } from '../assets/icons/close.svg';
 
 
 // main區塊
 const MainStyle = styled.div`
   display: flex;
-  gap: 2rem;
 `
 // sidebar區塊
 const LeftContainer = styled.div`
   flex: 5 1 0;
+  width: 178px;
   padding: 1rem;
   min-height: 100vh;
-  border: 1px solid #E6ECF0;
+  border-right: 1px solid #E6ECF0;
   display: flex;
   flex-flow: column;
   `
 
-const AdminMain = () => {
+const AdminMainPage = () => {
   return (
     
     <Container>
+
+      {/* 左側sidebar */}
       <MainStyle>
         <LeftContainer>
           <SideBar/>
         </LeftContainer>
     
+      {/* 中間-右側的推文清單 */}
       <UserContainer>
       <h3 style={{margin: '20px', }}>推文清單</h3>
       
@@ -159,4 +162,4 @@ const AdminMain = () => {
   )
 }
 
-export default AdminMain
+export default AdminMainPage

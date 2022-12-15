@@ -1,12 +1,13 @@
 import './App.css';
 import './assets/all.scss';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import { SignUpPage, LoginPage, MainPage, ProfilePage, ReplyPage, UserFollowerPage, UserOtherPage, AdminMainPage, AdminUsersPage } from './pages';
+// import { SignUpPage, LoginPage, MainPage, ProfilePage, ReplyPage, UserFollowerPage, UserOtherPage, AdminMainPage, AdminUsersPage,AdminLoginPage } from 'pages';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminMainPage from './pages/AdminMainPage';
+import AdminUsersPage from './pages/AdminUsersPage';
 
 
 
@@ -18,8 +19,9 @@ function App() {
           <Route path="signup" element={<SignUpPage />} /> 
           <Route path="login" element={<LoginPage />} />
           <Route path="main" element={<MainPage />} />
-          <Route path="Adminlogin" element={<AdminLoginPage />} />
-          <Route path="Adminmain" element={<AdminMainPage />} />
+          <Route path="adminlogin" element={<AdminLoginPage />} />
+          <Route path="adminmain" element={<AdminMainPage />} />
+          <Route path="adminusers" element={<AdminUsersPage />} />
           {/* <Route path="" element={<ProfilePage />} />
           <Route path="" element={<ReplyPage />} />
           <Route path="" element={<UserFollowerPage />} />

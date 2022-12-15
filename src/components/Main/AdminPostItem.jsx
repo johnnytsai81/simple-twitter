@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 const StyledUserContainer = styled.div`
 border-right: 1px solid #E6ECF0;
-border-left: 1px solid #E6ECF0;
-width: 937px;
+width: 80%;
 height: 1200px;
 margin: 0 auto;
 
