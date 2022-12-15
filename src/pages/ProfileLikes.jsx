@@ -1,9 +1,11 @@
 import SideBar from '../components/SideBar';
 import PostItem from '../components/Main/PostItem';
-import TextArea from '../components/Main/TweetList/TextArea';
+import UserInfoArea from '../components/Main/UserPostList/UserInfoArea';
 import Breadcrumb from '../components/Main/Breadcrumb';
 import PopularUserItem from '../components/Main/PopularUserItem';
+import TabLink from '../components/Main/TabLink';
 
+// 載入方法
 import styled from 'styled-components';
 import Container from 'react-bootstrap/Container';
 
@@ -58,17 +60,18 @@ const RightContainer = styled.div`
   }
 `
 
-function Main() {
+function ProfileLikes() {
   return (
     <Container>
       <MainStyle>
         <LeftContainer>
-          <SideBar location={'home'}/>
+          <SideBar location={'person'}/>
         </LeftContainer>
         <CenterContainer>
           {/* back為返回記號 number為推文數 */}
-          <Breadcrumb title={'首頁'} number={''} back={false} />
-          <TextArea src={'https://i.imgur.com/buZlxFF.jpeg'} />
+          <Breadcrumb title={'John Doe'} number={'25'} back={true} />
+          <UserInfoArea name={'John Doe'} account={'heyjohn'} follower={'24'} followed={'11'} selfIntro={"Hi I'm Kobe"} coverImage={'https://i.imgur.com/Uongp79.jpg'} avatar={'https://i.imgur.com/buZlxFF.jpeg'}></UserInfoArea>
+          <TabLink UserId={'self'}/>
           <PostItem account={'apple'} name={'kkk'} time={'3小時'} reply={'12'} like={'7'} likeActive={true} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
           <PostItem account={'apple2'} name={'dfdfdfd'} time={'2小時'} reply={'2'} like={'7'} likeActive={false} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
           <PostItem account={'appl2'} name={'apple'} time={'7小時'} reply={'12'} like={'37'} likeActive={true} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
@@ -91,4 +94,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default ProfileLikes;

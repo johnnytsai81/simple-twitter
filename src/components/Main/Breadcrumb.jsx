@@ -12,13 +12,26 @@ const CardStyle = styled.div`
   border-bottom: 1px solid var(--border-color)
 `
 
+const TitleStyle = styled.div`
+  display:flex;
+  flex-direction: column;
+  .title{
+    font-size: 1.125rem;
+  }
+  .number{
+    color: var(--secondary-color);
+    font-size: 0.875rem;
+  }
+`
+
 function Breadcrumb(props) {
   let back = props.back
   let title = props.title
+  let number = props.number
   return (
     <CardStyle>
       {back === true && <BackIcon />}
-      <h3 className="mb-0">{title}</h3>
+      {number === '' ? (<h3 className="mb-0">{title}</h3>) : (<TitleStyle><h3 className="title mb-0">{title}</h3><p className="number mb-0">{number} 推文</p></TitleStyle>)}
     </CardStyle>
   );
 }
