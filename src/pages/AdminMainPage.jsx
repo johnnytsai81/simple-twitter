@@ -1,9 +1,8 @@
 import styled from 'styled-components';
+import AdminSideBar from '../components/SideBar/AdminSideBar';
 import { UserContainer, UserItem, AvatarIcon,NameLink,AccountLink,PostLink,LinkGroup,UserItemContainer } from '../components/Main/AdminPostItem';
-import SideBar from '../components/SideBar';
 import Container from 'react-bootstrap/Container';
-import { ReactComponent as CloseIcon } from '../assets/icons/close.svg';
-
+import { CloseIcon } from '../assets/icons';
 
 // main區塊
 const MainStyle = styled.div`
@@ -28,7 +27,7 @@ const AdminMainPage = () => {
       {/* 左側sidebar */}
       <MainStyle>
         <LeftContainer>
-          <SideBar/>
+          <AdminSideBar/>
         </LeftContainer>
     
       {/* 中間-右側的推文清單 */}

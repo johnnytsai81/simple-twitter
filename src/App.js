@@ -11,6 +11,7 @@ import AdminUsersPage from './pages/AdminUsersPage';
 import ProfileTweets from './pages/ProfileTweets';
 import ProfileReply from './pages/ProfileReply';
 import ProfileLikes from './pages/ProfileLikes';
+import SettingPage from './pages/SettingPage';
 
 function App() {
   return (
@@ -20,18 +21,18 @@ function App() {
         <Route path="signup" element={<SignUpPage />} /> 
         <Route path="login" element={<LoginPage />} />
         <Route path="main" element={<MainPage />} />
-        <Route path="adminlogin" element={<AdminLoginPage />} />
-        <Route path="adminmain" element={<AdminMainPage />} />
-        <Route path="adminusers" element={<AdminUsersPage />} />
+        <Route path="admin_login" element={<AdminLoginPage />} />
+        <Route path="admin_main" element={<AdminMainPage />} />
+        <Route path="admin_users" element={<AdminUsersPage />} />
         <Route path="user/self/" element={<ProfileTweets />} />
         <Route path="user/self/replied_tweets" element={<ProfileReply />} />
         <Route path="user/self/likes" element={<ProfileLikes />} />
+        <Route path="user/setting" element={<SettingPage />} />
+
         {/* <Route path="" element={<ProfilePage />} />
         <Route path="" element={<ReplyPage />} />
         <Route path="" element={<UserFollowerPage />} />
-        <Route path="" element={<UserOtherPage />} />
-        <Route path="" element={<AdminMainPage />} />
-        <Route path="" element={<AdminUsersPage />} /> */}
+        <Route path="" element={<UserOtherPage />} /> */}
         </Routes>
       </BrowserRouter>
     </div>
