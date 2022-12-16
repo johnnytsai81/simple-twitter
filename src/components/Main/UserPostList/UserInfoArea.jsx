@@ -1,6 +1,7 @@
 // 引入方法
 import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
+import { NavLink } from "react-router-dom";
 
 // 引入圖片
 
@@ -38,8 +39,8 @@ const CardStyle = styled.div`
     .text-wrap{
       display: flex;
       gap: 2rem;
-      span{
-        color: var(--secondary-color);
+      a{
+        color: var(--secondary-color) !important;
       }
     }
   }
@@ -53,6 +54,7 @@ function UserInfoArea(props) {
   let follower = props.follower
   let followed = props.followed
   let selfIntro = props.selfIntro
+  let UserId = props.UserId
   return (
     <CardStyle>
       <img className="background" src={coverImage} alt="background"/>
@@ -67,8 +69,8 @@ function UserInfoArea(props) {
       <div className="card-footer">
         <div className="mb-2">{selfIntro}</div>
         <div className="text-wrap">
-          <div className="text">{followed}<span>個跟隨中</span></div>
-          <div className="text">{follower}<span>位跟隨者</span></div>
+          <div className="text">{followed}個<NavLink to={`/user/${UserId}/following`}>跟隨中</NavLink></div>
+          <div className="text">{follower}位<NavLink to={`/user/${UserId}/followers`}>跟隨者</NavLink></div>
         </div>
       </div>
     </CardStyle>

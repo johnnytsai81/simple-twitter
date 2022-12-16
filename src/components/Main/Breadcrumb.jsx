@@ -1,8 +1,9 @@
 // 引入方法
 import styled from 'styled-components';
-import {ReactComponent as BackIcon} from '../../assets/icons/back.svg';
+import { useNavigate } from "react-router-dom";
 
 // 引入圖片
+import {ReactComponent as BackIcon} from '../../assets/icons/back.svg';
 
 const CardStyle = styled.div`
   display: flex;
@@ -28,9 +29,10 @@ function Breadcrumb(props) {
   let back = props.back
   let title = props.title
   let number = props.number
+  const navigate = useNavigate();
   return (
     <CardStyle>
-      {back === true && <BackIcon />}
+      {back === true && <BackIcon onClick={() => navigate('/main')}/>}
       {number === '' ? (<h3 className="mb-0">{title}</h3>) : (<TitleStyle><h3 className="title mb-0">{title}</h3><p className="number mb-0">{number} 推文</p></TitleStyle>)}
     </CardStyle>
   );

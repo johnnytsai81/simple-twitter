@@ -7,7 +7,9 @@ import {ReactComponent as NoImage} from '../../assets/icons/no-image.svg';
 
 const CardStyle = styled.div`
   display: flex;
+  padding: 1rem 1.5rem;
   gap: 1rem;
+  border-bottom: 1px solid var(--border-color);
   .avatar{
     width:50px;
     height:50px;
@@ -15,50 +17,38 @@ const CardStyle = styled.div`
   }
   .card-content{
     display: flex;
-    align-items:center;
+    flex-direction: column;
+    justify-content:center;
     gap: 0.5rem;
-    width: 100%;
     .card-header{
-      flex: 0 0 calc(100% - 98px);
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
     }
     .name{
       font-size: 1rem;
       font-weight: 600;
-      display: -webkit-box;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      -webkit-box-orient: vertical;
-      line-height: 1.5em;
-      -webkit-line-clamp: 1;
+      margin-right: 0.5rem;
     }
-    .account{
-      font-size: 0.875rem;
-      color: var(--secondary-color);
-    }
-  }
-  button{
-    margin-left: auto;
   }
 `
 
-function PopularUserItem(props) {
-  let follow = props.follow
+function FollowItem(props) {
+  let selfIntro = props.selfIntro
   let name = props.name
-  let account = props.account
+  let follower = props.follower
   return (
     <CardStyle>
       <NoImage className="avatar" />
       <div className="card-content">
         <div className="card-header">
           <h3 className="name mb-0">{name}</h3>
-          <p className="account mb-0">@{account}</p>
+          {follower === true ? <Button variant="primary" size="sm">正在跟隨</Button> : <Button variant="outline-primary" size="sm">跟隨</Button>}
         </div>
-        {follow === true ? <Button variant="primary" size="sm">正在跟隨</Button> : <Button variant="outline-primary" size="sm">跟隨</Button>}
+        <p className="text-start mb-0">{selfIntro}</p>
       </div>
     </CardStyle>
   );
 }
 
-export default PopularUserItem;
+export default FollowItem;

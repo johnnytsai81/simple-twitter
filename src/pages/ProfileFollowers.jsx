@@ -1,9 +1,10 @@
 import SideBar from '../components/SideBar';
-import PostItem from '../components/Main/PostItem';
-import TextArea from '../components/Main/TweetList/TextArea';
+import FollowItem from '../components/Main/FollowItem';
 import Breadcrumb from '../components/Main/Breadcrumb';
 import PopularUserItem from '../components/Main/PopularUserItem';
+import FollowTab from '../components/Main/FollowTab';
 
+// 載入方法
 import styled from 'styled-components';
 import Container from 'react-bootstrap/Container';
 
@@ -58,7 +59,7 @@ const RightContainer = styled.div`
   }
 `
 
-function Main() {
+function ProfileFollowers() {
   return (
     <Container>
       <MainStyle>
@@ -67,14 +68,14 @@ function Main() {
         </LeftContainer>
         <CenterContainer>
           {/* back為返回記號 number為推文數 */}
-          <Breadcrumb title={'首頁'} number={''} back={false} />
-          <TextArea src={'https://i.imgur.com/buZlxFF.jpeg'} />
-          <PostItem account={'apple'} name={'kkk'} time={'3小時'} reply={'12'} like={'7'} likeActive={true} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
-          <PostItem account={'apple2'} name={'dfdfdfd'} time={'2小時'} reply={'2'} like={'7'} likeActive={false} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
-          <PostItem account={'appl2'} name={'apple'} time={'7小時'} reply={'12'} like={'37'} likeActive={true} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
-          <PostItem account={'apple222'} name={'apple'} time={'4天'} reply={'1'} like={'7'} likeActive={false} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
-          <PostItem account={'apple'} name={'apple'} time={'1分鐘'} reply={'12'} like={'0'} likeActive={false} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
-          <PostItem account={'apple'} name={'apple'} time={'10分鐘'} reply={'33'} like={'7'} likeActive={false} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <Breadcrumb title={'John Doe'} number={'25'} back={true} />
+          <FollowTab UserId={'self'}/>
+          <FollowItem name={'apple'} follower={true} selfIntro={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <FollowItem name={'apple2'} follower={true} selfIntro={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <FollowItem name={'appl2'} follower={true} selfIntro={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <FollowItem name={'apple222'} follower={true} selfIntro={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <FollowItem name={'apple'} follower={true} selfIntro={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <FollowItem name={'apple'} follower={true} selfIntro={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
         </CenterContainer>
         <RightContainer>
           <div className="inner">
@@ -91,4 +92,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default ProfileFollowers;

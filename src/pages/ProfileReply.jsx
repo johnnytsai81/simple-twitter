@@ -3,7 +3,7 @@ import ReplyItem from '../components/Main/ReplyList/ReplyItem';
 import UserInfoArea from '../components/Main/UserPostList/UserInfoArea';
 import Breadcrumb from '../components/Main/Breadcrumb';
 import PopularUserItem from '../components/Main/PopularUserItem';
-import TabLink from '../components/Main/TabLink';
+import UserMenuTab from '../components/Main/UserMenuTab';
 
 // 載入方法
 import styled from 'styled-components';
@@ -26,7 +26,7 @@ const LeftContainer = styled.div`
 
 // twitter區塊
 const CenterContainer = styled.div`
-  flex: 14 1 0;
+  flex: 16 1 0;
   border: 1px solid var(--border-color);
   overflow-y: auto;
   overflow-x: hidden;
@@ -35,7 +35,7 @@ const CenterContainer = styled.div`
 
 // popular區塊
 const RightContainer = styled.div`
-  flex: 6 1 0;
+  flex: 7 1 0;
   padding: 1rem 0 1rem 0;
   .inner{
     display: flex;
@@ -70,8 +70,8 @@ function ProfileReply() {
         <CenterContainer>
           {/* back為返回記號 number為推文數 */}
           <Breadcrumb title={'John Doe'} number={'25'} back={true} />
-          <UserInfoArea name={'John Doe'} account={'heyjohn'} follower={'24'} followed={'11'} selfIntro={"Hi I'm Kobe"} coverImage={'https://i.imgur.com/Uongp79.jpg'} avatar={'https://i.imgur.com/buZlxFF.jpeg'}></UserInfoArea>
-          <TabLink UserId={'self'}/>
+          <UserInfoArea name={'John Doe'} account={'heyjohn'}  UserId={'self'} follower={'24'} followed={'11'} selfIntro={"Hi I'm Kobe"} coverImage={'https://i.imgur.com/Uongp79.jpg'} avatar={'https://i.imgur.com/buZlxFF.jpeg'}></UserInfoArea>
+          <UserMenuTab UserId={'self'}/>
           <ReplyItem replyAccount={'apple'} userAccount={'heyjohn'} username={'John Doe'} time={'3小時'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
           <ReplyItem replyAccount={'apple2'} userAccount={'heyjohn'} username={'John Doe'} time={'2小時'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
           <ReplyItem replyAccount={'apple3'} userAccount={'heyjohn'} username={'John Doe'} time={'7小時'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>

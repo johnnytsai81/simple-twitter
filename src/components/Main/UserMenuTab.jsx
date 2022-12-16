@@ -15,7 +15,7 @@ const PageListStyle = styled.div`
 
 const PageItemStyle = styled.div`
   position: relative;
-  padding: 0.75rem 1rem;
+  padding: 1rem 1rem;
   color: var(--iron-color);
   cursor: pointer;
   &:hover{
@@ -43,25 +43,23 @@ function PageLink(props) {
   );
 }
 
-function TabLink(props) {
+function UserMenuTab(props) {
   let UserId = props.UserId
   return (
     <>
       <PageListStyle>
         {/* active狀態會變色 */}
-        <NavLink to={`/user/${UserId}/`} exact="true">
+        <NavLink to={`/user/${UserId}/tweet`}>
           {({ isActive }) =>
             isActive ? (
               <PageLink
                 active={true}
                 text={'推文'}
-                name={'tweet'}
               />
             ) : (
               <PageLink
                 active={false}
                 text={'推文'}
-                name={'tweet'}
               />
             )
           }
@@ -72,30 +70,26 @@ function TabLink(props) {
               <PageLink
                 active={true}
                 text={'回覆'}
-                name={'reply'}
               />
             ) : (
               <PageLink
                 active={false}
                 text={'回覆'}
-                name={'reply'}
               />
             )
           }
         </NavLink>
-        <NavLink to={`/user/${UserId}/likes`}>
+        <NavLink to={{ pathname: `/user/${UserId}/likes`, state: 'like'}}>
           {({ isActive }) =>
             isActive ? (
               <PageLink
                 active={true}
                 text={'喜歡的內容'}
-                name={'like'}
               />
             ) : (
               <PageLink
                 active={false}
                 text={'喜歡的內容'}
-                name={'like'}
               />
             )
           }
@@ -105,4 +99,4 @@ function TabLink(props) {
   );
 }
 
-export default TabLink;
+export default UserMenuTab;
