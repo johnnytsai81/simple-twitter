@@ -1,12 +1,12 @@
-import SideBar from '../components/SideBar';
+import AdminSideBar from '../components/SideBar/AdminSideBar';
 import styled from 'styled-components';
 import Container from 'react-bootstrap/Container';
 
 import background from '../assets/images/bg-1.png'
 import avatar from '../assets/images/avatar-1.png'
 
-import { ReactComponent as AddIcon }  from '../assets/icons/edit-solid.svg';
-import { ReactComponent as LikeIcon }  from '../assets/icons/like-hollow.svg';
+import { EditIcon, LikeIcon } from '../assets/icons';
+
 
 // main區塊
 const MainStyle = styled.div`
@@ -25,7 +25,7 @@ const LeftContainer = styled.div`
   // 使用者列表區塊
   const UserContainer = styled.div`
   border-right: 1px solid #E6ECF0;
-  width: 85%;
+  width: 80%;
   height: 1200px;
   margin: 0 auto;
 
@@ -108,7 +108,7 @@ color: #6C757D;
 
         {/* 左側sidebar */}
         <LeftContainer>
-          <SideBar/>
+          <AdminSideBar/>
         </LeftContainer>
 
         {/* 中間-右側的使用者列表 */}
@@ -130,7 +130,7 @@ color: #6C757D;
  
           {/* 追隨/喜歡欄位 */}
           <IconContainer>
-          <AddIcon style={{width:'23.87px', height: '21.6px'}}/> 1.5k
+          <EditIcon style={{width:'23.87px', height: '21.6px'}}/> 1.5k
           <LikeIcon style={{width:'20.1px', height: '18.9px', margin:'0 0 0 10px'}}/> 20k
           </IconContainer>
 
