@@ -25,6 +25,10 @@ const TitleStyle = styled.div`
   }
 `
 
+const IconStyle = styled.div`
+  cursor:pointer;
+`
+
 function Breadcrumb(props) {
   let back = props.back
   let title = props.title
@@ -32,7 +36,7 @@ function Breadcrumb(props) {
   const navigate = useNavigate();
   return (
     <CardStyle>
-      {back === true && <BackIcon onClick={() => navigate('/main')}/>}
+      {back === true && <IconStyle><BackIcon onClick={() => navigate('/main')}/></IconStyle>}
       {number === '' ? (<h3 className="mb-0">{title}</h3>) : (<TitleStyle><h3 className="title mb-0">{title}</h3><p className="number mb-0">{number} 推文</p></TitleStyle>)}
     </CardStyle>
   );

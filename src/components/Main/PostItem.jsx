@@ -1,59 +1,63 @@
 // 引入方法
-import styled from 'styled-components';
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 // 引入圖片
-import {ReactComponent as LikeIcon} from '../../assets/icons/like-solid.svg';
-import {ReactComponent as NoImage} from '../../assets/icons/no-image.svg';
-import {ReactComponent as ReplyIcon} from '../../assets/icons/reply.svg';
+import { ReactComponent as LikeIcon } from "../../assets/icons/like-solid.svg";
+import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
+import { ReactComponent as ReplyIcon } from "../../assets/icons/reply.svg";
 
 const CardStyle = styled.div`
   display: flex;
   padding: 1rem 1.5rem;
   gap: 1rem;
   border-bottom: 1px solid var(--border-color);
-  .avatar{
-    width:50px;
-    height:50px;
+  .avatar {
+    width: 50px;
+    height: 50px;
     flex: 0 0 50px;
+    img{
+      border-radius: 50px;
+    }
   }
-  .card-content{
+  .card-content {
     display: flex;
     flex-direction: column;
-    justify-content:center;
+    justify-content: center;
     gap: 0.5rem;
-    .card-header{
+    .card-header {
       display: flex;
     }
-    .name{
+    .name {
       font-size: 1rem;
       font-weight: 600;
       margin-right: 0.5rem;
     }
-    .account{
+    .account {
       font-size: 0.875rem;
       color: var(--secondary-color);
     }
-    .like{
+    .like {
       width: 1rem;
       height: 1rem;
       fill: var(--white-color);
       stroke: var(--secondary-color);
       stroke-width: 2px;
-      &[data-active="true"]{
+      &[data-active="true"] {
         fill: var(--error-color);
-        stroke:  var(--error-color);
+        stroke: var(--error-color);
       }
     }
-    .reply{
+    .reply {
       width: 1rem;
       height: 1rem;
     }
-    .card-footer{
+    .card-footer {
       display: flex;
       align-items: center;
       gap: 2rem;
     }
-    .icon-wrap{
+    .icon-wrap {
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -61,31 +65,44 @@ const CardStyle = styled.div`
       color: var(--secondary-color);
     }
   }
-`
+`;
 
 function PostItem(props) {
-  let tweet = props.tweet
-  let time = props.time
-  let name = props.name
-  let like = props.like
-  let likeActive = props.likeActive
-  let reply = props.reply
-  let account = props.account
+  let tweet = props.tweet;
+  let time = props.time;
+  let name = props.name;
+  let like = props.like;
+  let likeActive = props.likeActive;
+  let reply = props.reply;
+  let account = props.account;
+  let TweetId = props.TweetId;
+  let profileImage = props.profileImage;
+  let UserId = props.UserId;
   return (
     <CardStyle>
-      <NoImage className="avatar" />
+      <NavLink className="avatar" to={`/user/${UserId}/tweet`}>
+        {profileImage === '' ? (<NoImage/>) : (<img src={profileImage} alt="avatar"/>)}
+      </NavLink>
       <div className="card-content">
-        <div className="card-header">
-          <h3 className="name mb-0">{name}</h3>
-          <p className="account mb-0">@{account}・<span className="time">{time}</span></p>
-        </div>
-        <p className="text-start mb-0">{tweet}</p>
+        <NavLink to={`/user/${UserId}/tweet`}>
+          <div className="card-header">
+            <h3 className="name mb-0">{name}</h3>
+            <p className="account mb-0">
+              @{account}・<span className="time">{time}</span>
+            </p>
+          </div>
+        </NavLink>
+        <NavLink to={`/tweet/${TweetId}/replies`}>
+          <p className="text-start mb-0">{tweet}</p>
+        </NavLink>
         <div className="card-footer">
           <div className="icon-wrap">
-            <ReplyIcon className="reply" /><span className="en-font-family">{reply}</span>
+            <ReplyIcon className="reply" />
+            <span className="en-font-family">{reply}</span>
           </div>
           <div className="icon-wrap">
-            <LikeIcon className="like" data-active={likeActive} /><span className="en-font-family">{like}</span>
+            <LikeIcon className="like" data-active={likeActive} />
+            <span className="en-font-family">{like}</span>
           </div>
         </div>
       </div>

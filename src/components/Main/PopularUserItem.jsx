@@ -47,6 +47,7 @@ function PopularUserItem(props) {
   let follow = props.follow
   let name = props.name
   let account = props.account
+  // let profileImage = props.profileImage;
   return (
     <CardStyle>
       <NoImage className="avatar" />

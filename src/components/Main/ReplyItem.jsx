@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 // 引入圖片
-import {ReactComponent as NoImage} from '../../../assets/icons/no-image.svg';
+import {ReactComponent as NoImage} from '../../assets/icons/no-image.svg';
 
 const CardStyle = styled.div`
   display: flex;
@@ -67,7 +67,7 @@ const CardStyle = styled.div`
 function ReplyItem(props) {
   let tweet = props.tweet
   let time = props.time
-  let username = props.username
+  let replyname = props.replyname
   let userAccount = props.userAccount
   let replyAccount = props.replyAccount
   return (
@@ -75,10 +75,10 @@ function ReplyItem(props) {
       <NoImage className="avatar" />
       <div className="card-content">
         <div className="card-header">
-          <h3 className="name mb-0">{username}</h3>
-          <p className="account mb-0">@{userAccount}・<span className="time">{time}</span></p>
+          <h3 className="name mb-0">{replyname}</h3>
+          <p className="account mb-0">@{replyAccount}・<span className="time">{time}</span></p>
         </div>
-        <p className="reply-account mb-0">回覆<span>@{replyAccount}</span></p>
+        <p className="reply-account mb-0">回覆<span>@{userAccount}</span></p>
         <p className="text-start mb-0">{tweet}</p>
       </div>
     </CardStyle>

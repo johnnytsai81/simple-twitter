@@ -1,5 +1,5 @@
 import SideBar from '../components/SideBar';
-import ReplyItem from '../components/Main/ReplyList/ReplyItem';
+import ReplyItem from '../components/Main/ReplyItem';
 import UserInfoArea from '../components/Main/UserPostList/UserInfoArea';
 import Breadcrumb from '../components/Main/Breadcrumb';
 import PopularUserItem from '../components/Main/PopularUserItem';
@@ -72,12 +72,12 @@ function ProfileReply() {
           <Breadcrumb title={'John Doe'} number={'25'} back={true} />
           <UserInfoArea name={'John Doe'} account={'heyjohn'}  UserId={'self'} follower={'24'} followed={'11'} selfIntro={"Hi I'm Kobe"} coverImage={'https://i.imgur.com/Uongp79.jpg'} avatar={'https://i.imgur.com/buZlxFF.jpeg'}></UserInfoArea>
           <UserMenuTab UserId={'self'}/>
-          <ReplyItem replyAccount={'apple'} userAccount={'heyjohn'} username={'John Doe'} time={'3小時'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
-          <ReplyItem replyAccount={'apple2'} userAccount={'heyjohn'} username={'John Doe'} time={'2小時'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
-          <ReplyItem replyAccount={'apple3'} userAccount={'heyjohn'} username={'John Doe'} time={'7小時'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
-          <ReplyItem replyAccount={'apple4'} userAccount={'heyjohn'} username={'John Doe'} time={'4天'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
-          <ReplyItem replyAccount={'apple56'} userAccount={'heyjohn'} username={'John Doe'} time={'1分鐘'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
-          <ReplyItem replyAccount={'apple7789'} userAccount={'heyjohn'} username={'John Doe'} time={'10分鐘'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <ReplyItem userAccount={'apple'} replyAccount={'heyjohn'} replyname={'John Doe'} time={'3小時'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <ReplyItem userAccount={'apple2'} replyAccount={'heyjohn'} replyname={'John Doe'} time={'2小時'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <ReplyItem userAccount={'apple3'} replyAccount={'heyjohn'} replyname={'John Doe'} time={'7小時'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <ReplyItem userAccount={'apple4'} replyAccount={'heyjohn'} replyname={'John Doe'} time={'4天'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <ReplyItem userAccount={'apple56'} replyAccount={'heyjohn'} replyname={'John Doe'} time={'1分鐘'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
+          <ReplyItem userAccount={'apple7789'} replyAccount={'heyjohn'} replyname={'John Doe'} time={'10分鐘'} tweet={'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.'}/>
         </CenterContainer>
         <RightContainer>
           <div className="inner">

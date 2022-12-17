@@ -59,7 +59,7 @@ const RightContainer = styled.div`
   }
 `
 
-function ProfileFollowing() {
+function UserFollowingPage() {
   return (
     <Container>
       <MainStyle>
@@ -92,4 +92,4 @@ function ProfileFollowing() {
   );
 }
 
-export default ProfileFollowing;
+export default UserFollowingPage;
