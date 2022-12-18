@@ -136,7 +136,10 @@ const ProfileEditModal = (props) => {
     <Modal size="lg" show={show} onHide={handleClose}>
       <ModalStyle>
         <Modal.Header>
-          <CloseOrangeIcon style={{ cursor: "pointer" }} />
+          <CloseOrangeIcon
+            style={{ cursor: "pointer" }}
+            onClick={handleClose}
+          />
           <div className="title-wrap">
             <Modal.Title>編輯個人資料</Modal.Title>
             <Button variant="primary" size="sm" onClick={handleClose}>
