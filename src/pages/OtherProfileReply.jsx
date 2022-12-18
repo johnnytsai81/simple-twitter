@@ -1,6 +1,6 @@
 import SideBar from "../components/SideBar";
 import ReplyItem from "../components/Main/ReplyItem";
-import UserInfoArea from "../components/Main/UserPostList/UserInfoArea";
+import UserInfoArea from "../components/Main/UserInfoArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import UserMenuTab from "../components/Main/UserMenuTab";

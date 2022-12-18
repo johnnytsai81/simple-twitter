@@ -50,7 +50,7 @@ function UserFollowingPage() {
           <Breadcrumb title={"John Doe"} number={"25"} back={true} />
           <FollowTab UserId={"self"} />
           <FollowItem
-            name={"apple"}
+            username={"apple"}
             UserId={1}
             isFollowed={true}
             profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
@@ -59,7 +59,7 @@ function UserFollowingPage() {
             }
           />
           <FollowItem
-            name={"apple2"}
+            username={"apple2"}
             UserId={1}
             isFollowed={true}
             profileImage={"https://i.imgur.com/w0BeCel.jpg"}
@@ -68,7 +68,7 @@ function UserFollowingPage() {
             }
           />
           <FollowItem
-            name={"appl2"}
+            username={"appl2"}
             UserId={1}
             isFollowed={false}
             profileImage={""}
@@ -77,7 +77,7 @@ function UserFollowingPage() {
             }
           />
           <FollowItem
-            name={"apple222"}
+            username={"apple222"}
             UserId={1}
             isFollowed={false}
             profileImage={""}
@@ -86,7 +86,7 @@ function UserFollowingPage() {
             }
           />
           <FollowItem
-            name={"apple"}
+            username={"apple"}
             UserId={1}
             isFollowed={false}
             profileImage={""}
@@ -95,7 +95,7 @@ function UserFollowingPage() {
             }
           />
           <FollowItem
-            name={"apple"}
+            username={"apple"}
             UserId={1}
             isFollowed={false}
             profileImage={""}

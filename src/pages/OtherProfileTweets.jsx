@@ -1,6 +1,6 @@
 import SideBar from "../components/SideBar";
 import PostItem from "../components/Main/PostItem";
-import UserInfoArea from "../components/Main/UserPostList/UserInfoArea";
+import UserInfoArea from "../components/Main/UserInfoArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import UserMenuTab from "../components/Main/UserMenuTab";
@@ -65,7 +65,7 @@ function OtherProfileTweets() {
             account={"apple"}
             UserId={"self"}
             TweetId={1}
-            name={"kkk"}
+            username={"kkk"}
             profileImage={""}
             time={"3小時"}
             reply={12}
@@ -79,7 +79,7 @@ function OtherProfileTweets() {
             account={"apple2"}
             UserId={"self"}
             TweetId={1}
-            name={"dfdfdfd"}
+            username={"dfdfdfd"}
             profileImage={"https://i.imgur.com/jt2Gsoe.jpg"}
             time={"2小時"}
             reply={2}
@@ -93,7 +93,7 @@ function OtherProfileTweets() {
             account={"appl2"}
             UserId={"self"}
             TweetId={1}
-            name={"apple"}
+            username={"apple"}
             profileImage={"https://i.imgur.com/w0BeCel.jpg"}
             time={"7小時"}
             reply={12}
@@ -107,7 +107,7 @@ function OtherProfileTweets() {
             account={"apple222"}
             UserId={"self"}
             TweetId={1}
-            name={"apple"}
+            username={"apple"}
             profileImage={"https://imgur.com/8R1V7JG.jpg"}
             time={"4天"}
             reply={1}
@@ -121,7 +121,7 @@ function OtherProfileTweets() {
             account={"apple"}
             UserId={"self"}
             TweetId={1}
-            name={"apple"}
+            username={"apple"}
             profileImage={""}
             time={"1分鐘"}
             reply={12}
@@ -135,7 +135,7 @@ function OtherProfileTweets() {
             account={"apple"}
             UserId={"self"}
             TweetId={1}
-            name={"apple"}
+            username={"apple"}
             profileImage={""}
             time={"10分鐘"}
             reply={33}

@@ -95,7 +95,7 @@ const InputStyle = styled.textarea`
 function ReplyModal(props) {
   let show = props.show;
   let setShow = props.setShow;
-  let name = props.name;
+  let username = props.username;
   let account = props.account;
   let time = props.time;
   let tweet = props.tweet;
@@ -116,7 +116,7 @@ function ReplyModal(props) {
             )}
             <div className="content">
               <div className="d-flex align-items-center">
-                <h3 className="name mb-0">{name}</h3>
+                <h3 className="name mb-0">{username}</h3>
                 <p className="account mb-0">
                   @{account}・<span className="time">{time}</span>
                 </p>

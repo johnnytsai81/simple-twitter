@@ -7,6 +7,9 @@ import { ReactComponent as LikeIcon } from "../../assets/icons/like-solid.svg";
 import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
 import { ReactComponent as ReplyIcon } from "../../assets/icons/reply.svg";
 
+// 引入元件
+import ReplyModal from "./ReplyModal";
+
 const CardStyle = styled.div`
   display: flex;
   flex-direction: column;
@@ -114,6 +117,7 @@ const CardStyle = styled.div`
     .reply {
       width: 2rem;
       height: 2rem;
+      cursor: pointer;
     }
   }
 `;
@@ -124,10 +128,17 @@ function ReplyMenu(props) {
   let like = props.like;
   let likeActive = props.likeActive;
   let reply = props.reply;
+  // TODO 彈跳視窗專用(之後再看要不要統一一下名稱)
+  let account = props.userAccount;
   let username = props.username;
   let userAccount = props.userAccount;
+  let profileImage = props.profileImage;
   const [showLike, setShowLike] = useState(likeActive);
   const [countLike, setCountLike] = useState(like);
+  const [show, setShow] = useState(false);
+
+  // 開啟跟關閉modal
+  const handleShow = () => setShow(true);
 
   // 愛心狀態
   function handleShowLike() {
@@ -164,7 +175,7 @@ function ReplyMenu(props) {
         </div>
       </div>
       <div className="card-icon">
-        <ReplyIcon className="reply" />
+        <ReplyIcon className="reply" onClick={handleShow}/>
         {showLike ? (
           <LikeIcon
             className="like active"
@@ -183,6 +194,16 @@ function ReplyMenu(props) {
           />
         )}
       </div>
+      <ReplyModal
+        show={show}
+        setShow={setShow}
+        profileImage={profileImage}
+        username={username}
+        account={account}
+        time={time}
+        tweet={tweet}
+        selfImage={'https://i.imgur.com/buZlxFF.jpg'}
+      />
     </CardStyle>
   );
 }

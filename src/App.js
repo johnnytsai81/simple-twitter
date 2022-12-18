@@ -18,7 +18,6 @@ import UserFollowerPage from './pages/UserFollowerPage';
 import UserFollowingPage from './pages/UserFollowingPage';
 import SettingPage from './pages/SettingPage';
 import ReplyPage from './pages/ReplyPage';
-import SelfEditModal from './pages/modal';
 
 function App() {
   return (
@@ -42,14 +41,7 @@ function App() {
         <Route path="user/1/tweet" element={<OtherProfileTweets />} />
         <Route path="user/1/replied_tweets" element={<OtherProfileReply />} />
         <Route path="user/1/likes" element={<OtherProfileLikes />} />
-<Route path="*" element={<SelfEditModal />} />
-
-        {/* <Route path="" element={<ProfilePage />} />
-        <Route path="" element={<ReplyPage />} />
-        <Route path="" element={<UserFollowerPage />} />
-        <Route path="" element={<UserOtherPage />} />
-        <Route path="" element={<AdminMainPage />} />
-        <Route path="" element={<AdminUsersPage />} />
+        {/* 
         <Route path="*">
           <NoMatch404 />
         </Route> */}

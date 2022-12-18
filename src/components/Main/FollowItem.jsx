@@ -38,7 +38,7 @@ const CardStyle = styled.div`
 
 function FollowItem(props) {
   let selfIntro = props.selfIntro;
-  let name = props.name;
+  let username = props.username;
   let isFollowed = props.isFollowed;
   let profileImage = props.profileImage;
   let UserId = props.UserId;
@@ -61,7 +61,7 @@ function FollowItem(props) {
         )}
         <div className="card-content">
           <div className="card-header">
-            <h3 className="name mb-0">{name}</h3>
+            <h3 className="name mb-0">{username}</h3>
             {followState === true ? (
               <Button variant="primary" size="sm" onClick={(e) => {
                 handleFollow(e);

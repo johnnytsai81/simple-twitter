@@ -1,6 +1,6 @@
 import SideBar from "../components/SideBar";
 import ReplyItem from "../components/Main/ReplyItem";
-import UserInfoArea from "../components/Main/UserPostList/UserInfoArea";
+import UserInfoArea from "../components/Main/UserInfoArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import UserMenuTab from "../components/Main/UserMenuTab";
@@ -50,7 +50,7 @@ function ProfileReply() {
           {/* back為返回記號 number為推文數 */}
           <Breadcrumb title={"John Doe"} number={"25"} back={true} />
           <UserInfoArea
-            name={"John Doe"}
+            username={"John Doe"}
             account={"heyjohn"}
             UserId={"self"}
             ReplyId={1}

@@ -4,15 +4,15 @@ import Modal from "react-bootstrap/Modal";
 import styled from "styled-components";
 
 // 引入圖片
-import { CloseOrangeIcon } from "../../../assets/icons";
+import { CloseOrangeIcon } from "../../assets/icons";
 import { MdOutlineCameraEnhance } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
-import { ReactComponent as NoImage } from "../../../assets/icons/no-image.svg";
+import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
 
 // 引入元件
-import AuthInput from "../../../components/AccountForm/AuthInput";
-import { AuthInputContainer } from "../../../components/common/auth.styled";
-import IntroductionInput from "../../../components/common/IntroductionInput";
+import AuthInput from "../AccountForm/AuthInput";
+import { AuthInputContainer } from "../common/auth.styled";
+import IntroductionInput from "../common/IntroductionInput";
 
 const ModalStyle = styled.div`
   .modal-header {

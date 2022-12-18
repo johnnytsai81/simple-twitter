@@ -1,6 +1,6 @@
 import SideBar from "../components/SideBar";
 import PostItem from "../components/Main/PostItem";
-import UserInfoArea from "../components/Main/UserPostList/UserInfoArea";
+import UserInfoArea from "../components/Main/UserInfoArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import UserMenuTab from "../components/Main/UserMenuTab";
@@ -50,7 +50,7 @@ function ProfileTweets() {
           {/* back為返回記號 number為推文數 */}
           <Breadcrumb title={"John Doe"} number={"25"} back={true} />
           <UserInfoArea
-            name={"John Doe"}
+            username={"John Doe"}
             account={"heyjohn"}
             UserId={"self"}
             follower={24}
@@ -65,7 +65,7 @@ function ProfileTweets() {
             TweetId={1}
             UserId={1}
             profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
-            name={"kkk"}
+            username={"kkk"}
             time={"3小時"}
             reply={12}
             like={7}
@@ -79,7 +79,7 @@ function ProfileTweets() {
             TweetId={1}
             UserId={1}
             profileImage={"https://i.imgur.com/w0BeCel.jpg"}
-            name={"dfdfdfd"}
+            username={"dfdfdfd"}
             time={"2小時"}
             reply={2}
             like={7}
@@ -93,7 +93,7 @@ function ProfileTweets() {
             TweetId={1}
             UserId={1}
             profileImage={"https://imgur.com/8R1V7JG.jpg"}
-            name={"apple"}
+            username={"apple"}
             time={"7小時"}
             reply={12}
             like={37}
@@ -107,7 +107,7 @@ function ProfileTweets() {
             TweetId={1}
             UserId={1}
             profileImage={""}
-            name={"apple"}
+            username={"apple"}
             time={"4天"}
             reply={1}
             like={7}
@@ -121,7 +121,7 @@ function ProfileTweets() {
             TweetId={1}
             UserId={1}
             profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
-            name={"apple"}
+            username={"apple"}
             time={"1分鐘"}
             reply={12}
             like={0}
@@ -135,7 +135,7 @@ function ProfileTweets() {
             TweetId={1}
             UserId={1}
             profileImage={"https://imgur.com/8R1V7JG.jpg"}
-            name={"apple"}
+            username={"apple"}
             time={"10分鐘"}
             reply={33}
             like={7}

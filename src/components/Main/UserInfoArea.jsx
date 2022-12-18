@@ -5,9 +5,9 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 // 引入圖片
-import { ReactComponent as MailIcon } from "../../../assets/icons/mail-hollow.svg";
-import { ReactComponent as BellHollowIcon } from "../../../assets/icons/bell-hollow.svg";
-import { ReactComponent as BellSolidIcon } from "../../../assets/icons/bell-solid.svg";
+import { ReactComponent as MailIcon } from "../../assets/icons/mail-hollow.svg";
+import { ReactComponent as BellHollowIcon } from "../../assets/icons/bell-hollow.svg";
+import { ReactComponent as BellSolidIcon } from "../../assets/icons/bell-solid.svg";
 
 // 引入元件
 import ProfileEditModal from "./ProfileEditModal";
@@ -86,7 +86,7 @@ const ButtonStyle = styled.div`
 function UserInfoArea(props) {
   let coverImage = props.coverImage;
   let avatar = props.avatar;
-  let name = props.name;
+  let username = props.username;
   let account = props.account;
   let isFollowed = props.isFollowed;
   let follower = props.follower;
@@ -149,7 +149,7 @@ function UserInfoArea(props) {
         )}
       </div>
       <div className="card-body">
-        <h3 className="name mb-2">{name}</h3>
+        <h3 className="name mb-2">{username}</h3>
         <p className="account mb-0">@{account}</p>
       </div>
       <div className="card-footer">
