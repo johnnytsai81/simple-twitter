@@ -88,35 +88,6 @@ $device: (
   }
 }
 
-// 製作grid
-@mixin grid($items,$gap_x,$gap_y: null) {
-	display: grid;
-  @if $items==1 {
-		grid-template-columns: 1fr;
-	}
-	@if $items==2 {
-		grid-template-columns: 1fr 1fr;
-	}
-	@if $items==3 {
-			grid-template-columns: 1fr 1fr 1fr;
-	}
-	@if $items==4 {
-			grid-template-columns: 1fr 1fr 1fr 1fr;
-	}
-	@if $items==5 {
-			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	}
-	@if $items==6 {
-			grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-	}
-	@if $gap_y==null {
-		gap: $gap_x;
-	}
-	@if $gap_y {
-		gap: $gap_y $gap_x;
-	}
-}
-
 // 設定 flexbox 置中
 @mixin flex-center {
   display: flex;
@@ -130,26 +101,4 @@ $device: (
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-// 設定圖片比例且設定模式(img) > 圖片路徑要自己放
-@mixin imgBox($width, $height, $mode: cover) {
-  aspect-ratio: $width / $height;
-  object-fit: $mode;
-  width: 100%;
-}
-
-// 設定圖片區塊且設定模式(background-image)
-@mixin backgroundBox($width, $height, $mode: cover, $repeat: no-repeat) {
-  background-position: center;
-  background-size: $mode;
-  background-repeat: $repeat;
-  position: relative;
-
-  &:before {
-    content: "";
-    display: block;
-    width: 100%;
-    padding-bottom: $height / $width * 100%;
-  }
 }

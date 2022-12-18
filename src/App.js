@@ -12,6 +12,8 @@ import ProfileTweets from './pages/ProfileTweets';
 import ProfileReply from './pages/ProfileReply';
 import ProfileLikes from './pages/ProfileLikes';
 import OtherProfileTweets from './pages/OtherProfileTweets';
+import OtherProfileReply from './pages/OtherProfileReply';
+import OtherProfileLikes from './pages/OtherProfileLikes';
 import UserFollowerPage from './pages/UserFollowerPage';
 import UserFollowingPage from './pages/UserFollowingPage';
 import SettingPage from './pages/SettingPage';
@@ -38,7 +40,10 @@ function App() {
         <Route path="user/setting" element={<SettingPage />} />
         <Route path="tweet/1/replies" element={<ReplyPage />} />
         <Route path="user/1/tweet" element={<OtherProfileTweets />} />
-        <Route path="*" element={<SelfEditModal />} />
+        <Route path="user/1/replied_tweets" element={<OtherProfileReply />} />
+        <Route path="user/1/likes" element={<OtherProfileLikes />} />
+<Route path="*" element={<SelfEditModal />} />
+
         {/* <Route path="" element={<ProfilePage />} />
         <Route path="" element={<ReplyPage />} />
         <Route path="" element={<UserFollowerPage />} />

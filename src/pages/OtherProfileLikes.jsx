@@ -1,8 +1,9 @@
 import SideBar from "../components/SideBar";
-import FollowItem from "../components/Main/FollowItem";
+import PostItem from "../components/Main/PostItem";
+import UserInfoArea from "../components/Main/UserPostList/UserInfoArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
-import FollowTab from "../components/Main/FollowTab";
+import UserMenuTab from "../components/Main/UserMenuTab";
 
 // 載入方法
 import styled from "styled-components";
@@ -38,7 +39,7 @@ const RightContainer = styled.div`
   padding: 1rem 0 1rem 0;
 `;
 
-function ProfileFollowers() {
+function OtherProfileLikes() {
   return (
     <Container>
       <MainStyle>
@@ -47,59 +48,100 @@ function ProfileFollowers() {
         </LeftContainer>
         <CenterContainer>
           {/* back為返回記號 number為推文數 */}
-          <Breadcrumb title={"John Doe"} number={"25"} back={true} />
-          <FollowTab UserId={"self"} />
-          <FollowItem
-            name={"apple"}
+          <Breadcrumb title={"Doja Cat"} number={"77"} back={true} />
+          <UserInfoArea
+            name={"Doja Cat"}
+            account={"dojacat"}
             UserId={1}
             isFollowed={true}
-            profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
-            selfIntro={
+            follower={24}
+            followed={11}
+            selfIntro={"you’re annoying stfu"}
+            coverImage={"https://i.imgur.com/8adzIYk.jpg"}
+            avatar={"https://i.imgur.com/Nnf5Vc6.jpg"}
+          ></UserInfoArea>
+          <UserMenuTab UserId={"1"} />
+          <PostItem
+            account={"apple"}
+            UserId={"self"}
+            TweetId={1}
+            name={"kkk"}
+            profileImage={""}
+            time={"3小時"}
+            reply={12}
+            like={7}
+            likeActive={true}
+            tweet={
               "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
             }
           />
-          <FollowItem
-            name={"apple2"}
-            UserId={1}
-            isFollowed={true}
+          <PostItem
+            account={"apple2"}
+            UserId={"self"}
+            TweetId={1}
+            name={"dfdfdfd"}
+            profileImage={"https://i.imgur.com/jt2Gsoe.jpg"}
+            time={"2小時"}
+            reply={2}
+            like={7}
+            likeActive={true}
+            tweet={
+              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
+            }
+          />
+          <PostItem
+            account={"appl2"}
+            UserId={"self"}
+            TweetId={1}
+            name={"apple"}
             profileImage={"https://i.imgur.com/w0BeCel.jpg"}
-            selfIntro={
+            time={"7小時"}
+            reply={12}
+            like={37}
+            likeActive={true}
+            tweet={
               "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
             }
           />
-          <FollowItem
-            name={"appl2"}
-            UserId={1}
-            isFollowed={true}
-            profileImage={""}
-            selfIntro={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <FollowItem
-            name={"apple222"}
-            UserId={1}
-            isFollowed={true}
-            profileImage={""}
-            selfIntro={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <FollowItem
+          <PostItem
+            account={"apple222"}
+            UserId={"self"}
+            TweetId={1}
             name={"apple"}
-            UserId={1}
-            isFollowed={true}
             profileImage={"https://imgur.com/8R1V7JG.jpg"}
-            selfIntro={
+            time={"4天"}
+            reply={1}
+            like={7}
+            likeActive={true}
+            tweet={
               "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
             }
           />
-          <FollowItem
+          <PostItem
+            account={"apple"}
+            UserId={"self"}
+            TweetId={1}
             name={"apple"}
-            UserId={1}
-            isFollowed={true}
-            profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
-            selfIntro={
+            profileImage={""}
+            time={"1分鐘"}
+            reply={12}
+            like={0}
+            likeActive={true}
+            tweet={
+              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
+            }
+          />
+          <PostItem
+            account={"apple"}
+            UserId={"self"}
+            TweetId={1}
+            name={"apple"}
+            profileImage={""}
+            time={"10分鐘"}
+            reply={33}
+            like={7}
+            likeActive={true}
+            tweet={
               "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
             }
           />
@@ -112,4 +154,4 @@ function ProfileFollowers() {
   );
 }
 
-export default ProfileFollowers;
+export default OtherProfileLikes;

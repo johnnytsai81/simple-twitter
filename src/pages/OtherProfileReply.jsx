@@ -1,8 +1,9 @@
 import SideBar from "../components/SideBar";
-import FollowItem from "../components/Main/FollowItem";
+import ReplyItem from "../components/Main/ReplyItem";
+import UserInfoArea from "../components/Main/UserPostList/UserInfoArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
-import FollowTab from "../components/Main/FollowTab";
+import UserMenuTab from "../components/Main/UserMenuTab";
 
 // 載入方法
 import styled from "styled-components";
@@ -38,7 +39,7 @@ const RightContainer = styled.div`
   padding: 1rem 0 1rem 0;
 `;
 
-function ProfileFollowers() {
+function OtherProfileReply() {
   return (
     <Container>
       <MainStyle>
@@ -47,59 +48,94 @@ function ProfileFollowers() {
         </LeftContainer>
         <CenterContainer>
           {/* back為返回記號 number為推文數 */}
-          <Breadcrumb title={"John Doe"} number={"25"} back={true} />
-          <FollowTab UserId={"self"} />
-          <FollowItem
-            name={"apple"}
+          <Breadcrumb title={"Doja Cat"} number={"77"} back={true} />
+          <UserInfoArea
+            name={"Doja Cat"}
+            account={"dojacat"}
             UserId={1}
             isFollowed={true}
+            follower={24}
+            followed={11}
+            selfIntro={"you’re annoying stfu"}
+            coverImage={"https://i.imgur.com/8adzIYk.jpg"}
+            avatar={"https://i.imgur.com/Nnf5Vc6.jpg"}
+          ></UserInfoArea>
+          <UserMenuTab UserId={1} />
+          <ReplyItem
+            userAccount={"apple"}
+            UserId={1}
+            ReplyId={"self"}
+            TweetId={1}
+            replyAccount={"dojacat"}
+            replyName={"Doja Cat"}
             profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
-            selfIntro={
+            time={"3小時"}
+            tweet={
               "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
             }
           />
-          <FollowItem
-            name={"apple2"}
+          <ReplyItem
+            userAccount={"apple2"}
             UserId={1}
-            isFollowed={true}
-            profileImage={"https://i.imgur.com/w0BeCel.jpg"}
-            selfIntro={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <FollowItem
-            name={"appl2"}
-            UserId={1}
-            isFollowed={true}
-            profileImage={""}
-            selfIntro={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <FollowItem
-            name={"apple222"}
-            UserId={1}
-            isFollowed={true}
-            profileImage={""}
-            selfIntro={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <FollowItem
-            name={"apple"}
-            UserId={1}
-            isFollowed={true}
-            profileImage={"https://imgur.com/8R1V7JG.jpg"}
-            selfIntro={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <FollowItem
-            name={"apple"}
-            UserId={1}
-            isFollowed={true}
+            ReplyId={"self"}
+            TweetId={1}
+            replyAccount={"dojacat"}
+            replyName={"Doja Cat"}
             profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
-            selfIntro={
+            time={"2小時"}
+            tweet={
+              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
+            }
+          />
+          <ReplyItem
+            userAccount={"apple3"}
+            UserId={1}
+            ReplyId={"self"}
+            TweetId={1}
+            replyAccount={"dojacat"}
+            replyName={"Doja Cat"}
+            profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
+            time={"7小時"}
+            tweet={
+              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
+            }
+          />
+          <ReplyItem
+            userAccount={"apple4"}
+            UserId={1}
+            ReplyId={"self"}
+            TweetId={1}
+            replyAccount={"dojacat"}
+            replyName={"Doja Cat"}
+            profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
+            time={"4天"}
+            tweet={
+              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
+            }
+          />
+          <ReplyItem
+            userAccount={"apple56"}
+            UserId={1}
+            ReplyId={"self"}
+            TweetId={1}
+            replyAccount={"dojacat"}
+            replyName={"Doja Cat"}
+            profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
+            time={"1分鐘"}
+            tweet={
+              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
+            }
+          />
+          <ReplyItem
+            userAccount={"apple7789"}
+            UserId={1}
+            ReplyId={"self"}
+            TweetId={1}
+            replyAccount={"dojacat"}
+            replyName={"Doja Cat"}
+            profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
+            time={"10分鐘"}
+            tweet={
               "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
             }
           />
@@ -112,4 +148,4 @@ function ProfileFollowers() {
   );
 }
 
-export default ProfileFollowers;
+export default OtherProfileReply;

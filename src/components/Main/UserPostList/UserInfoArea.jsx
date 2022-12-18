@@ -2,11 +2,15 @@
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 // 引入圖片
 import { ReactComponent as MailIcon } from "../../../assets/icons/mail-hollow.svg";
 import { ReactComponent as BellHollowIcon } from "../../../assets/icons/bell-hollow.svg";
 import { ReactComponent as BellSolidIcon } from "../../../assets/icons/bell-solid.svg";
+
+// 引入元件
+import ProfileEditModal from "./ProfileEditModal";
 
 const CardStyle = styled.div`
   position: relative;
@@ -72,7 +76,7 @@ const ButtonStyle = styled.div`
     fill: var(--main-color);
     border: 1px solid var(--main-color);
     border-radius: 50px;
-    &.solid{
+    &.solid {
       background: var(--main-color);
       fill: var(--white-color);
     }
@@ -84,18 +88,37 @@ function UserInfoArea(props) {
   let avatar = props.avatar;
   let name = props.name;
   let account = props.account;
-  let follow = props.follow;
+  let isFollowed = props.isFollowed;
   let follower = props.follower;
   let followed = props.followed;
   let selfIntro = props.selfIntro;
   let UserId = props.UserId;
+  const [showNotice, setShowNotice] = useState(false);
+  const [followState, setFollowState] = useState(isFollowed);
+  const [show, setShow] = useState(false);
+
+  // 開啟跟關閉modal
+  const handleShow = () => setShow(true);
+
+  // 預設為不開啟小鈴鐺
+  function handleShowNotice() {
+    setShowNotice(!showNotice);
+  }
+
+  // 切換follow狀態
+  function handleFollow(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    setFollowState(!followState);
+  }
+
   return (
     <CardStyle>
       <img className="background" src={coverImage} alt="background" />
       <img className="avatar" src={avatar} alt="avatar" />
       <div className="card-header">
         {UserId === "self" ? (
-          <Button variant="outline-primary ms-auto mt-4 me-4">
+          <Button variant="outline-primary ms-auto mt-4 me-4" onClick={handleShow}>
             編輯個人資料
           </Button>
         ) : (
@@ -103,16 +126,24 @@ function UserInfoArea(props) {
             <div className="mail-icon">
               <MailIcon />
             </div>
-            <div className="bell-icon hollow">
-              <BellHollowIcon />
-            </div>
-            <div className="bell-icon solid">
-              <BellSolidIcon />
-            </div>
-            {follow === true ? (
-              <Button variant="primary">正在跟隨</Button>
+            {followState === true ? (
+              showNotice === true ? (
+                <div className="bell-icon solid" onClick={handleShowNotice}>
+                  <BellSolidIcon />
+                </div>
+              ) : (
+                <div className="bell-icon hollow" onClick={handleShowNotice}>
+                  <BellHollowIcon />
+                </div>
+              )
             ) : (
-              <Button variant="outline-primary">跟隨</Button>
+              ""
+            )}
+
+            {followState === true ? (
+              <Button variant="primary" onClick={handleFollow}>正在跟隨</Button>
+            ) : (
+              <Button variant="outline-primary" onClick={handleFollow}>跟隨</Button>
             )}
           </ButtonStyle>
         )}
@@ -134,6 +165,12 @@ function UserInfoArea(props) {
           </div>
         </div>
       </div>
+      <ProfileEditModal
+        show={show}
+        setShow={setShow}
+        selfImage={'https://i.imgur.com/buZlxFF.jpg'}
+        coverImage={'https://i.imgur.com/Uongp79.jpg'}
+      />
     </CardStyle>
   );
 }

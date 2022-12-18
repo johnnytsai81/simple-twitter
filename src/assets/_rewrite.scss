@@ -6,6 +6,9 @@
   &:hover{
     color: $white;
   }
+  &:active{
+    color: $white !important;
+  }
 }
 
 // 簍空按鈕
@@ -14,4 +17,12 @@
   &:hover{
     color: $white;
   }
+  &:active{
+    color: $white !important;
+  }
+}
+
+// modal大小
+.modal-lg{
+  --bs-modal-width: 600px !important;
 }

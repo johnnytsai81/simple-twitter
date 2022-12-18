@@ -1,5 +1,6 @@
 // 引入方法
 import styled from 'styled-components';
+import { NavLink } from "react-router-dom";
 
 // 引入圖片
 import {ReactComponent as NoImage} from '../../assets/icons/no-image.svg';
@@ -9,10 +10,13 @@ const CardStyle = styled.div`
   padding: 1rem 1.5rem;
   gap: 1rem;
   border-bottom: 1px solid var(--border-color);
-  .avatar{
-    width:50px;
-    height:50px;
+  .avatar {
+    width: 50px;
+    height: 50px;
     flex: 0 0 50px;
+    img{
+      border-radius: 50px;
+    }
   }
   .card-content{
     display: flex;
@@ -67,19 +71,31 @@ const CardStyle = styled.div`
 function ReplyItem(props) {
   let tweet = props.tweet
   let time = props.time
-  let replyname = props.replyname
+  let replyName = props.replyName
   let userAccount = props.userAccount
   let replyAccount = props.replyAccount
+  let profileImage = props.profileImage
+  let UserId = props.UserId;
+  let TweetId = props.TweetId;
+  let ReplyId = props.ReplyId;
   return (
     <CardStyle>
-      <NoImage className="avatar" />
+      <NavLink className="avatar" to={`/user/${UserId}/tweet`}>
+        {profileImage === '' ? (<NoImage/>) : (<img src={profileImage} alt="avatar"/>)}
+      </NavLink>
       <div className="card-content">
-        <div className="card-header">
-          <h3 className="name mb-0">{replyname}</h3>
-          <p className="account mb-0">@{replyAccount}・<span className="time">{time}</span></p>
-        </div>
-        <p className="reply-account mb-0">回覆<span>@{userAccount}</span></p>
-        <p className="text-start mb-0">{tweet}</p>
+        <NavLink to={`/user/${UserId}/tweet`}>
+          <div className="card-header">
+            <h3 className="name mb-0">{replyName}</h3>
+            <p className="account mb-0">@{replyAccount}・<span className="time">{time}</span></p>
+          </div>
+        </NavLink>
+        <NavLink to={`/user/${ReplyId}/tweet`}>
+          <p className="reply-account mb-0">回覆<span>@{userAccount}</span></p>
+        </NavLink>
+        <NavLink to={`/tweet/${TweetId}/replies`}>
+          <p className="text-start mb-0">{tweet}</p>
+        </NavLink>
       </div>
     </CardStyle>
   );

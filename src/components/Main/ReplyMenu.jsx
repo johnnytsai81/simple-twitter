@@ -1,5 +1,6 @@
 // 引入方法
 import styled from "styled-components";
+import { useState } from "react";
 
 // 引入圖片
 import { ReactComponent as LikeIcon } from "../../assets/icons/like-solid.svg";
@@ -62,14 +63,14 @@ const CardStyle = styled.div`
       color: var(--secondary-color);
     }
   }
-  .card-footer{
-    position:relative;
+  .card-footer {
+    position: relative;
     display: flex;
     gap: 1rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    &:before{
-      content: '';
+    &:before {
+      content: "";
       position: absolute;
       height: 1px;
       left: 0;
@@ -77,8 +78,8 @@ const CardStyle = styled.div`
       top: 0;
       background-color: var(--border-color);
     }
-    &:after{
-      content: '';
+    &:after {
+      content: "";
       position: absolute;
       height: 1px;
       left: 0;
@@ -86,18 +87,17 @@ const CardStyle = styled.div`
       bottom: 0;
       background-color: var(--border-color);
     }
-    .wrap{
+    .wrap {
       color: var(--secondary-color);
-      span{
+      span {
         font-weight: 600;
         color: var(--dark-color);
         padding-right: 4px;
       }
-      
     }
   }
-  .card-icon{
-    display:flex;
+  .card-icon {
+    display: flex;
     gap: 4rem;
     padding-top: 0.5rem;
     .like {
@@ -106,6 +106,10 @@ const CardStyle = styled.div`
       fill: var(--white-color);
       stroke: var(--secondary-color);
       stroke-width: 2px;
+      &.active {
+        fill: var(--error-color);
+        stroke: var(--error-color);
+      }
     }
     .reply {
       width: 2rem;
@@ -118,9 +122,28 @@ function ReplyMenu(props) {
   let tweet = props.tweet;
   let time = props.time;
   let like = props.like;
+  let likeActive = props.likeActive;
   let reply = props.reply;
   let username = props.username;
   let userAccount = props.userAccount;
+  const [showLike, setShowLike] = useState(likeActive);
+  const [countLike, setCountLike] = useState(like);
+
+  // 愛心狀態
+  function handleShowLike() {
+    setShowLike(!showLike);
+  }
+
+  // 愛心數量
+  function handleCountLike(type) {
+    if (type === "increment") {
+      setCountLike(countLike + 1);
+    }
+    if (type === "decrement") {
+      setCountLike(countLike - 1);
+    }
+  }
+
   return (
     <CardStyle>
       <div className="card-content">
@@ -137,12 +160,28 @@ function ReplyMenu(props) {
           <span className="en-font-family">{reply}</span>回覆
         </div>
         <div className="wrap">
-          <span className="en-font-family">{like}</span>喜歡次數
+          <span className="en-font-family">{countLike}</span>喜歡次數
         </div>
       </div>
       <div className="card-icon">
         <ReplyIcon className="reply" />
-        <LikeIcon className="like"/>
+        {showLike ? (
+          <LikeIcon
+            className="like active"
+            onClick={() => {
+              handleShowLike();
+              handleCountLike("decrement");
+            }}
+          />
+        ) : (
+          <LikeIcon
+            className="like"
+            onClick={() => {
+              handleShowLike();
+              handleCountLike("increment");
+            }}
+          />
+        )}
       </div>
     </CardStyle>
   );
