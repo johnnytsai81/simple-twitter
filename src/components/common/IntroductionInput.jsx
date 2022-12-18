@@ -3,10 +3,10 @@ import styled from "styled-components";
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  align-items: start;
   background-color: #f5f8fa;
   width: 100%;
-  height: 54px;
+  height: 147px;
   border-bottom: 2px solid black;
 `;
 const StyledLabel = styled.label`
@@ -22,7 +22,7 @@ const StyledInput = styled.input`
   border-radius: 0px;
 `;
 
-const AuthInput = ({ type, label, value, placeholder, onChange}) => {
+const IntroductionInput = ({ type, label, value, placeholder, onChange}) => {
   return (
     <StyledContainer>
       <StyledLabel>{label}</StyledLabel>
@@ -36,4 +36,4 @@ const AuthInput = ({ type, label, value, placeholder, onChange}) => {
   );
 };
 
-export default AuthInput;
+export default IntroductionInput;

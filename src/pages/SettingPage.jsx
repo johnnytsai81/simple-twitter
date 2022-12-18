@@ -66,13 +66,13 @@ const SettingPage = () => {
 
         {/* 中間-右邊區塊 */}
         <CenterContainer>
-          <h3 style={{margin: '20px', }}>帳戶設定</h3>
+          <h3 style={{ margin: '20px' }}>帳戶設定</h3>
           <BorderLine/>
 
           {/* 控制表格欄位內的置中 */}
           <InputContainer>
 
-            <AuthInputContainer style={{width:'90%'}}>
+            <AuthInputContainer style={{ width:'90%' }}>
               <AuthInput
                 label="帳號"
                 placeholder="請輸入帳號"
@@ -81,7 +81,7 @@ const SettingPage = () => {
             </AuthInputContainer>
 
 
-            <AuthInputContainer style={{width:'90%'}}>
+            <AuthInputContainer style={{ width:'90%' }}>
               <AuthInput
                 label="名稱"
                 placeholder="請輸入名稱"
@@ -90,7 +90,7 @@ const SettingPage = () => {
             </AuthInputContainer>
           
 
-            <AuthInputContainer style={{width:'90%'}}>
+            <AuthInputContainer style={{ width:'90%' }}>
               <AuthInput
                 label="Email"
                 placeholder="請輸入Email"
@@ -98,7 +98,7 @@ const SettingPage = () => {
               />
             </AuthInputContainer>
 
-            <AuthInputContainer style={{width:'90%'}}>
+            <AuthInputContainer style={{ width:'90%' }}>
               <AuthInput
                 type="password"
                 label="密碼"
@@ -108,7 +108,8 @@ const SettingPage = () => {
             </AuthInputContainer>
 
 
-            <AuthInputContainer style={{width:'90%'}}>
+            <AuthInputContainer style={{ width:'90%' 
+          }}>
               <AuthInput
                 type="password"
                 label="密碼再確認"
