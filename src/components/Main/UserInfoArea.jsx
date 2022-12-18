@@ -46,9 +46,7 @@ const CardStyle = styled.div`
     .text-wrap {
       display: flex;
       gap: 2rem;
-      a {
-        color: var(--secondary-color) !important;
-      }
+      color: var(--secondary-color) !important;
     }
   }
 `;
@@ -118,7 +116,10 @@ function UserInfoArea(props) {
       <img className="avatar" src={avatar} alt="avatar" />
       <div className="card-header">
         {UserId === "self" ? (
-          <Button variant="outline-primary ms-auto mt-4 me-4" onClick={handleShow}>
+          <Button
+            variant="outline-primary ms-auto mt-4 me-4"
+            onClick={handleShow}
+          >
             編輯個人資料
           </Button>
         ) : (
@@ -141,9 +142,13 @@ function UserInfoArea(props) {
             )}
 
             {followState === true ? (
-              <Button variant="primary" onClick={handleFollow}>正在跟隨</Button>
+              <Button variant="primary" onClick={handleFollow}>
+                正在跟隨
+              </Button>
             ) : (
-              <Button variant="outline-primary" onClick={handleFollow}>跟隨</Button>
+              <Button variant="outline-primary" onClick={handleFollow}>
+                跟隨
+              </Button>
             )}
           </ButtonStyle>
         )}
@@ -156,20 +161,20 @@ function UserInfoArea(props) {
         <div className="mb-2">{selfIntro}</div>
         <div className="text-wrap">
           <div className="text">
-            {followed}個
-            <NavLink to={`/user/${UserId}/following`}>跟隨中</NavLink>
+            <NavLink to={`/user/${UserId}/following`}>{followed}個</NavLink>
+            跟隨中
           </div>
           <div className="text">
-            {follower}位
-            <NavLink to={`/user/${UserId}/followers`}>跟隨者</NavLink>
+            <NavLink to={`/user/${UserId}/followers`}>{follower}位</NavLink>
+            跟隨者
           </div>
         </div>
       </div>
       <ProfileEditModal
         show={show}
         setShow={setShow}
-        selfImage={'https://i.imgur.com/buZlxFF.jpg'}
-        coverImage={'https://i.imgur.com/Uongp79.jpg'}
+        selfImage={"https://i.imgur.com/buZlxFF.jpg"}
+        coverImage={"https://i.imgur.com/Uongp79.jpg"}
       />
     </CardStyle>
   );

@@ -109,10 +109,11 @@ function SideBarModal(props) {
             ) : (
               <img className="avatar" src={selfImage} alt="avatar" />
             )}
-            <InputStyle placeholder={"推你的回覆"} />
+            <InputStyle placeholder={"有什麼新鮮事?"} />
           </div>
         </Modal.Body>
         <Modal.Footer>
+          <label style={{fontSize:'13px',color:'red',marginRight:'20px'}}>字數不可超過140字</label>
           <Button variant="primary" size="sm" onClick={handleClose}>
             推文
           </Button>

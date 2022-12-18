@@ -50,7 +50,7 @@ function OtherProfileReply() {
           {/* back為返回記號 number為推文數 */}
           <Breadcrumb title={"Doja Cat"} number={"77"} back={true} />
           <UserInfoArea
-            name={"Doja Cat"}
+            username={"Doja Cat"}
             account={"dojacat"}
             UserId={1}
             isFollowed={true}
@@ -141,7 +141,7 @@ function OtherProfileReply() {
           />
         </CenterContainer>
         <RightContainer>
-          <PopularUserList/>
+          <PopularUserList />
         </RightContainer>
       </MainStyle>
     </Container>
