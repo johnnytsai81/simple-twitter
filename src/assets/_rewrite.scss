@@ -9,6 +9,9 @@
   &:active{
     color: $white !important;
   }
+  &:disabled{
+    color: $white !important;
+  }
 }
 
 // 簍空按鈕

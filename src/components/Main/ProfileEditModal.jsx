@@ -2,6 +2,7 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import styled from "styled-components";
+import { useState, useRef, useEffect, useMemo } from "react";
 
 // 引入圖片
 import { CloseOrangeIcon } from "../../assets/icons";
@@ -13,6 +14,7 @@ import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
 import AuthInput from "../AccountForm/AuthInput";
 import { AuthInputContainer } from "../common/auth.styled";
 import IntroductionInput from "../common/IntroductionInput";
+import useUpdateUser from "../../hooks/useUpdateUser";
 
 const ModalStyle = styled.div`
   .modal-header {
@@ -30,18 +32,22 @@ const ModalStyle = styled.div`
       position: relative;
     }
     .background {
-      position: absolute;
+      position: relative;
       width: 100%;
       height: 200px;
       filter: opacity(80%);
+      object-fit: cover;
     }
     .background-icon-wrap {
-      position: relative;
+      position: absolute;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 3rem;
       height: 200px;
+      width: 100%;
+      top: 0;
+      pointer-events: none;
       .background-icon {
         width: 25px;
         height: 25px;
@@ -59,12 +65,14 @@ const ModalStyle = styled.div`
         width: 140px;
         border: 4px solid var(--white-color);
         border-radius: 100px;
+        pointer-events: none;
         z-index: 2;
       }
       .avatar {
         height: 140px;
         width: 140px;
         border-radius: 100px;
+        object-fit: cover;
 
         filter: brightness(70%);
       }
@@ -113,24 +121,133 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   .input {
     width: 100%;
+    .caption {
+      font-size: 0.75rem;
+      color: var(--secondary-color);
+      text-align: end;
+    }
+    &.active div:first-child {
+      border-bottom: 2px solid var(--error-color);
+    }
+    &.active .caption {
+      color: var(--error-color);
+    }
   }
-  .caption {
+  .alert-text {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--error-color);
     font-size: 0.75rem;
-    color: var(--secondary-color);
-    margin-top: 0.5rem;
-    text-align: end;
+    margin-bottom: 0;
+    text-align: start;
+    &::before {
+      content: "";
+      display: block;
+      position: relative;
+      width: 1rem;
+      height: 1rem;
+      mask-size: 1rem;
+      mask-repeat: no-repeat;
+      background-color: var(--error-color);
+      mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3E%3Ccircle cx='6' cy='6' r='4.5'/%3E%3Cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3E%3Ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3E%3C/svg%3E");
+    }
   }
 `;
 
 const ProfileEditModal = (props) => {
   let show = props.show;
   let setShow = props.setShow;
-  let selfImage = props.selfImage;
-  let coverImage = props.coverImage;
-  const handleClose = () => setShow(false);
+  let user = props.user;
+  // eslint-disable-next-line 
+  let setUser = props.setUser;
+  const coverRef = useRef();
+  const [name, setName] = useState("");
+  const [introduction, setIntroduction] = useState("");
+  const [nameCount, setNameCount] = useState("");
+  const [introductionCount, setIntroductionCount] = useState("");
+  const [coverImage, setCoverImage] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+
+  const { isUpdating, updateUser } = useUpdateUser();
+
+  const handleSubmit = async () => {
+    await updateUser({
+      coverImage,
+      avatar,
+      name,
+      introduction
+    });
+    handleClose();
+  };
+
+  // 表單限制
+  const isValid = useMemo(() => {
+    if (!name || name.length > 50) {
+      return false;
+    }
+
+    if (!introduction || introduction.length > 130) {
+      return false;
+    }
+
+    return true;
+  }, [name, introduction]);
+
+  // 匯入user資料
+  useEffect(() => {
+    setCoverImage(user?.coverImage);
+    setAvatar(user?.avatar);
+    setName(user?.name);
+    setIntroduction(user?.introduction);
+  }, [user]);
+
+  // 更新字的數量
+  // useEffect(() => {
+  //   setNameCount(name.length);
+  //   setIntroductionCount(introduction.length);
+  // }, [user]);
+
+  // 換圖片
+  const handleImgChange = (e, type) => {
+    if (isUpdating) {
+      return;
+    }
+
+    const selectedFile = e.target.files[0];
+    const objectUrl = URL.createObjectURL(selectedFile);
+
+    console.log(objectUrl);
+    if (type === "cover") {
+      setCoverImage(objectUrl);
+    } else if (type === "avatar") {
+      setAvatar(objectUrl);
+    }
+  };
+
+
+  // 關閉彈跳視窗時執行清空資料
+  const clearForm = () => {
+    setCoverImage(null);
+    setAvatar(null);
+    setName("");
+    setIntroduction("");
+  };
+
+  const handleClose = () => {
+    setShow(false);
+    // clearForm();
+  };
+
+  // 清空資料
+  useEffect(() => {
+    return () => {
+      clearForm();
+    };
+  }, []);
 
   return (
     <Modal size="lg" show={show} onHide={handleClose}>
@@ -142,14 +259,32 @@ const ProfileEditModal = (props) => {
           />
           <div className="title-wrap">
             <Modal.Title>編輯個人資料</Modal.Title>
-            <Button variant="primary" size="sm" onClick={handleClose}>
-              儲存
+            <Button
+              variant="primary"
+              size="sm"
+              disabled={!isValid}
+              onClick={() => {
+                handleSubmit();
+              }}
+            >
+              {isUpdating ? "處理中..." : "儲存"}
             </Button>
           </div>
         </Modal.Header>
         <Modal.Body>
           <div className="user-edit-area">
-            <img className="background" src={coverImage} alt="background" />
+            <label htmlFor={isUpdating ? "" : "cover"}>
+              <img className="background" src={coverImage} alt="background" />
+              <input
+                ref={coverRef}
+                type="file"
+                id="cover"
+                onChange={(e) => handleImgChange(e, "cover")}
+                style={{
+                  display: "none",
+                }}
+              />
+            </label>
             <div className="background-icon-wrap">
               {/* 相機icon */}
               <MdOutlineCameraEnhance className="background-icon" />
@@ -157,10 +292,21 @@ const ProfileEditModal = (props) => {
               <IoMdClose className="background-icon" />
             </div>
             <div className="avatar-wrap">
-              {selfImage === "" ? (
+              {coverImage === "" ? (
                 <NoImage />
               ) : (
-                <img className="avatar" src={selfImage} alt="avatar" />
+                <label htmlFor={isUpdating ? "" : "avatar"}>
+                  <img className="avatar" src={avatar} alt="" />
+                  <input
+                    ref={coverRef}
+                    type="file"
+                    id="avatar"
+                    onChange={(e) => handleImgChange(e, "avatar")}
+                    style={{
+                      display: "none",
+                    }}
+                  />
+                </label>
               )}
               {/* 相機icon */}
               <MdOutlineCameraEnhance className="avatar-icon" />
@@ -168,22 +314,68 @@ const ProfileEditModal = (props) => {
           </div>
 
           <InputContainer>
-            <AuthInputContainer className="input">
-              <AuthInput
-                label="名稱"
-                placeholder="請輸入名稱"
-                value="John Doe"
-              />
-              <div className="caption">8/50</div>
-            </AuthInputContainer>
-            <AuthInputContainer className="input">
-              <IntroductionInput
-                label="自我介紹"
-                placeholder="請輸入自我介紹"
-                value="John Doe"
-              />
-              <div className="caption">0/160</div>
-            </AuthInputContainer>
+            {nameCount > 50 ? (
+              <AuthInputContainer className="input active">
+                <AuthInput
+                  label="名稱"
+                  placeholder="請輸入名稱"
+                  value={name || ""}
+                  onChange={(e) => {
+                    setName(e);
+                    setNameCount(e.length || "");
+                  }}
+                />
+
+                <div className="d-flex justify-content-between align-items-center mt-2">
+                  <p className="alert-text">暱稱不能多於 50 個字</p>
+                  <div className="caption">{nameCount}/50</div>
+                </div>
+              </AuthInputContainer>
+            ) : (
+              <AuthInputContainer className="input">
+                <AuthInput
+                  label="名稱"
+                  placeholder="請輸入名稱"
+                  value={name || ""}
+                  onChange={(e) => {
+                    setName(e);
+                    setNameCount(e.length || "");
+                  }}
+                />
+                <div className="caption mt-2">{nameCount}/50</div>
+              </AuthInputContainer>
+            )}
+
+            {introductionCount > 160 ? (
+              <AuthInputContainer className="input active">
+                <IntroductionInput
+                  label="自我介紹"
+                  placeholder="請輸入自我介紹"
+                  value={introduction || ""}
+                  onChange={(e) => {
+                    setIntroduction(e);
+                    setIntroductionCount(e.length || "");
+                  }}
+                />
+                <div className="d-flex justify-content-between align-items-center mt-2">
+                  <p className="alert-text">自我介紹不能多於 160 個字</p>
+                  <div className="caption">{introductionCount}/160</div>
+                </div>
+              </AuthInputContainer>
+            ) : (
+              <AuthInputContainer className="input">
+                <IntroductionInput
+                  label="自我介紹"
+                  placeholder="請輸入自我介紹"
+                  value={introduction || ""}
+                  onChange={(e) => {
+                    setIntroduction(e);
+                    setIntroductionCount(e.length || "");
+                  }}
+                />
+                <div className="caption">{introductionCount}/160</div>
+              </AuthInputContainer>
+            )}
           </InputContainer>
         </Modal.Body>
       </ModalStyle>

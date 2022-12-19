@@ -15,11 +15,14 @@ const StyledLabel = styled.label`
   text-align: start;
 `;
 
-const StyledInput = styled.input`
+const StyledInput = styled.textarea`
+  width: 100%;
+  height: 100%;
   outline: none;
   border: none;
-  background-color: #f5f8fa;
+  background-color: unset;
   border-radius: 0px;
+  resize: none;
 `;
 
 const IntroductionInput = ({ type, label, value, placeholder, onChange}) => {

@@ -4,6 +4,9 @@ import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
+// 假資料
+import { mockUser } from "../../mock/user";
+
 // 引入圖片
 import { ReactComponent as MailIcon } from "../../assets/icons/mail-hollow.svg";
 import { ReactComponent as BellHollowIcon } from "../../assets/icons/bell-hollow.svg";
@@ -82,6 +85,7 @@ const ButtonStyle = styled.div`
 `;
 
 function UserInfoArea(props) {
+  const [user, setUser] = useState(null);
   let coverImage = props.coverImage;
   let avatar = props.avatar;
   let username = props.username;
@@ -118,7 +122,10 @@ function UserInfoArea(props) {
         {UserId === "self" ? (
           <Button
             variant="outline-primary ms-auto mt-4 me-4"
-            onClick={handleShow}
+            onClick={() => {
+              handleShow(mockUser);
+              setUser(mockUser);
+            }}
           >
             編輯個人資料
           </Button>
@@ -173,8 +180,8 @@ function UserInfoArea(props) {
       <ProfileEditModal
         show={show}
         setShow={setShow}
-        selfImage={"https://i.imgur.com/buZlxFF.jpg"}
-        coverImage={"https://i.imgur.com/Uongp79.jpg"}
+        user={user}
+        setUser={setUser}
       />
     </CardStyle>
   );
