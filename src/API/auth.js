@@ -90,17 +90,3 @@ export const adminLogin = async ({ account, password }) => {
       });
   }
 }
-
-
-export const checkPermission = async (token) => {
-  try {
-    const response = await axios.get(`${authURL}/signIn`,{
-      headers:{
-        Authorization: 'Bearer '+ token,
-      }
-    })
-     return response.data
-  } catch (error) {
-    console.error('[Check Permission Failed]:',error.response)
-  }
-}
