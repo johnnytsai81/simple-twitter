@@ -6,11 +6,11 @@ import {
 } from "../components/common/auth.styled";
 import AuthInput from "../components/AccountForm/AuthInput";
 import { ACLogoIcon } from "../assets/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Swal from "sweetalert2";
-import { register } from "../API/auth";
+import { checkPermission, register } from "../API/auth";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
@@ -60,6 +60,20 @@ const SignUpPage = () => {
       console.log(data.message);
     }
   };
+
+  useEffect(() => {
+    const checkTokenIsValid = async () => {
+      const authToken = localStorage.getItem("authToken");
+      if(!authToken) {
+        return
+      }
+      const result = await checkPermission(authToken)
+      if(result) {
+        navigate('/main')
+      }
+    }
+    checkTokenIsValid()
+  },[navigate])
 
   return (
     <Container>

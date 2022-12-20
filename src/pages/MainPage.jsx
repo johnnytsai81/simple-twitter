@@ -38,6 +38,9 @@ const RightContainer = styled.div`
 `;
 
 function Main() {
+
+
+  
   return (
     <Container>
       <MainStyle>

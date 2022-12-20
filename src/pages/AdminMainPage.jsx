@@ -3,6 +3,9 @@ import AdminSideBar from '../components/SideBar/AdminSideBar';
 import { UserContainer, UserItem, AvatarIcon,NameLink,AccountLink,PostLink,LinkGroup,UserItemContainer } from '../components/Main/AdminPostItem';
 import Container from 'react-bootstrap/Container';
 import { CloseIcon } from '../assets/icons';
+import { useEffect } from 'react';
+import { checkPermission } from '../API/auth';
+import { useNavigate } from "react-router-dom";
 
 // main區塊
 const MainStyle = styled.div`
@@ -20,6 +23,24 @@ const LeftContainer = styled.div`
   `
 
 const AdminMainPage = () => {
+
+const navigate = useNavigate();
+   
+   useEffect(() => {
+     const checkTokenIsValid = async () => {
+       const authToken = localStorage.getItem("authToken");
+       if (!authToken) {
+         navigate('/admin_login')
+       }
+       const result = await checkPermission(authToken);
+       if (!result) {
+         navigate("/admin_login");
+       }
+     };
+     checkTokenIsValid();
+   }, [navigate]);
+
+
   return (
     
     <Container>
