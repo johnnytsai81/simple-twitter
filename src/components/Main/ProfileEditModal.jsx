@@ -199,10 +199,12 @@ const ProfileEditModal = (props) => {
 
   // 匯入user資料
   useEffect(() => {
-    setCoverImage(user?.coverImage);
-    setAvatar(user?.avatar);
-    setName(user?.name);
-    setIntroduction(user?.introduction);
+    if (!user) return;
+
+    setCoverImage(user[0]?.coverImage);
+    setAvatar(user[0]?.avatar);
+    setName(user[0]?.name);
+    setIntroduction(user[0]?.introduction);
   }, [user]);
 
   // 更新字的數量
