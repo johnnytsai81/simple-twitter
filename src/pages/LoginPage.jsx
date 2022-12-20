@@ -8,7 +8,7 @@ import {
 import AuthInput from "../components/AccountForm/AuthInput";
 import { ACLogoIcon } from "../assets/icons";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { login } from "../API/auth";
 import Swal from "sweetalert2";
@@ -16,6 +16,7 @@ import Swal from "sweetalert2";
 const LoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleClick = async () => {
     if (account.length === 0) {
@@ -25,12 +26,13 @@ const LoginPage = () => {
       return;
     }
 
-    const { sucess, token } = await login({
+    const data = await login({
       account,
       password,
     });
+    const token = data.data.token;
 
-    if (sucess) {
+    if (data.success) {
       localStorage.setItem("authToken", token);
 
       // 登入成功訊息
@@ -41,17 +43,31 @@ const LoginPage = () => {
         icon: "success",
         showConfirmButton: false,
       });
+      navigate("/main");
       return;
+    } else if (data.data.user.role === "admin") {
+      Swal.fire({
+        position: "top",
+        title: "帳號不存在",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
+      // 登入失敗後欄位清空
+      setAccount("");
+      setPassword("");
+    } else {
+      Swal.fire({
+        position: "top",
+        title: '登入失敗',
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
+      // 登入失敗後欄位清空
+      setAccount("");
+      setPassword("");
     }
-    
-    // 登入失敗訊息
-    Swal.fire({
-      position: "top",
-      title: "登入失敗",
-      timer: 1000,
-      icon: "error",
-      showConfirmButton: false,
-    });
   };
 
   return (

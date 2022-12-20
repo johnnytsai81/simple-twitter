@@ -113,7 +113,7 @@ color: #6C757D;
 
         {/* 中間-右側的使用者列表 */}
         <UserContainer>
-        <h3 style={{margin: '20px', }}>使用者列表</h3>
+        <h3 style={{margin:'20px'}}>使用者列表</h3>
         <BorderLine />
 
         <UsersItem>
@@ -125,7 +125,7 @@ color: #6C757D;
           </ImageContainer>
 
           {/* 姓名/帳號欄位 */}
-          <NameLink style={{position: 'absolute',top:'55%'}}>John Doe</NameLink>
+          <NameLink style={{position:'absolute',top:'55%'}}>John Doe</NameLink>
           <AccountLink style={{position: 'absolute',top:'62%'}}>@heyjohn</AccountLink>
  
           {/* 追隨/喜歡欄位 */}

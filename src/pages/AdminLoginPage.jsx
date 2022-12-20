@@ -8,14 +8,69 @@ import {
 import AuthInput from "../components/AccountForm/AuthInput";
 import { ACLogoIcon } from "../assets/icons";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
-
+import { adminLogin } from "../API/auth";
+import Swal from "sweetalert2";
 
 const AdminLoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [account, setAccount] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
+  const handleClick = async () => {
+    if (account.length === 0) {
+      return;
+    }
+    if (password.length === 0) {
+      return;
+    }
+
+    const data = await adminLogin({
+      account,
+      password,
+    });
+    const token = data.data.token;
+
+    if (data.success) {
+      localStorage.setItem("authToken", token);
+      // 登入成功訊息
+      Swal.fire({
+        position: "top",
+        title: "登入成功",
+        timer: 1000,
+        icon: "success",
+        showConfirmButton: false,
+      });
+      navigate("/admin_main");
+      return;
+    } else if (data.data.user.role !== "admin") {
+      // 登入失敗訊息
+      Swal.fire({
+        position: "top",
+        title: "使用者不存在!",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
+      // 登入失敗後欄位清空
+      setAccount("");
+      setPassword("");
+    } else {
+      // 登入失敗訊息
+      Swal.fire({
+        position: "top",
+        title: "登入失敗",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
+      // 登入失敗後欄位清空
+      setAccount("");
+      setPassword("");
+    }
+    
+  };
 
   return (
     <Container>
@@ -28,8 +83,8 @@ const AdminLoginPage = () => {
           <AuthInput
             label="帳號"
             placeholder="請輸入帳號"
-            value={username}
-            onChange={(nameInputValue) => setUsername(nameInputValue)}
+            value={account}
+            onChange={(accountInputValue) => setAccount(accountInputValue)}
           />
         </AuthInputContainer>
         <AuthInputContainer>
@@ -41,7 +96,7 @@ const AdminLoginPage = () => {
             onChange={(passwordInputValue) => setPassword(passwordInputValue)}
           />
         </AuthInputContainer>
-        <AuthButton>登入</AuthButton>
+        <AuthButton onClick={handleClick}>登入</AuthButton>
         <AuthLinkTextGroup>
           <Link to="/login">
             <AuthLinkText>前台登入</AuthLinkText>
@@ -50,6 +105,6 @@ const AdminLoginPage = () => {
       </AuthContainer>
     </Container>
   );
-}
+};
 
-export default AdminLoginPage
+export default AdminLoginPage;
