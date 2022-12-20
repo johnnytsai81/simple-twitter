@@ -3,6 +3,11 @@ import PostItem from "../components/Main/PostItem";
 import TextArea from "../components/Main/TweetTextArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
+import { getAllTweets } from "../API/tweets";
+import { useAuth } from '../contexts/AuthContext'; // 引用封裝好的資訊
+
+// 引入方法
+import { useState, useEffect } from "react";
 
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
@@ -38,6 +43,29 @@ const RightContainer = styled.div`
 `;
 
 function Main() {
+  const [tweets, setTweets] = useState([]);
+  const { isAuthenticated, currentMember } = useAuth(); // 取出需要的狀態與方法
+
+  useEffect(() => {
+
+    async function getData() {
+      const { success, data, message } = await getAllTweets()
+      if (success) {
+        // update data
+        setTweets(data)
+      } else {
+        // handle error
+        console.error(message)
+      }
+    }
+    getData()
+    // refresh when add new tweet or reply
+  }, [])
+
+  const tweetList = tweets.map((tweet) => {
+    return <PostItem UserId={tweet.id} description={tweet.description} />;
+  });
+
   return (
     <Container>
       <MainStyle>
@@ -49,7 +77,8 @@ function Main() {
           <Breadcrumb title={"首頁"} number={""} back={false} />
           <TextArea src={"https://i.imgur.com/buZlxFF.jpeg"} />
           {/* account為帳號名稱前面有@ username為名字 */}
-          <PostItem
+          {tweetList}
+          {/* <PostItem
             account={"apple"}
             TweetId={1}
             UserId={1}
@@ -132,7 +161,7 @@ function Main() {
             tweet={
               "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
             }
-          />
+          /> */}
         </CenterContainer>
         <RightContainer>
           <PopularUserList />

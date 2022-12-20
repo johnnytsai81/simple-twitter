@@ -83,7 +83,7 @@ const LikeIconStyle = styled.div`
 `;
 
 function PostItem(props) {
-  let tweet = props.tweet;
+  let description = props.description;
   let time = props.time;
   let username = props.username;
   let like = props.like;
@@ -134,7 +134,7 @@ function PostItem(props) {
           </div>
         </NavLink>
         <NavLink to={`/tweet/${TweetId}/replies`}>
-          <p className="text-start mb-0">{tweet}</p>
+          <p className="text-start mb-0">{description}</p>
         </NavLink>
         <div className="card-footer">
           <ReplyIconStyle onClick={handleShow}>
@@ -171,7 +171,7 @@ function PostItem(props) {
         username={username}
         account={account}
         time={time}
-        tweet={tweet}
+        tweet={description}
         selfImage={'https://i.imgur.com/buZlxFF.jpg'}
       />
     </CardStyle>

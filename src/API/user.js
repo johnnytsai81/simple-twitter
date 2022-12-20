@@ -1,9 +1,6 @@
 import axios from "axios";
 
-const BASE = "https://ck-mami-2022-twitter.herokuapp.com/";
-// const BASE = "https://shielded-brook-33484.herokuapp.com";
-
-const BASE_URL = BASE + "/api/users/";
+const BASE = "https://ck-mami-2022-twitter.herokuapp.com/api/users";
 
 //攔截器設定
 //https://github.com/axios/axios#request-config

@@ -90,3 +90,16 @@ export const adminLogin = async ({ account, password }) => {
       });
   }
 }
+
+export const checkPermission = async (authToken) => {
+  try {
+    const response = await axios.get(`${authURL}/signIn`, {
+      headers: {
+        Authorization: 'Bearer ' + authToken,
+      },
+    });
+    return response.data.success;
+  } catch (error) {
+    console.error('[Check Permission Failed]:', error);
+  }
+};
