@@ -6,7 +6,7 @@ import { ReactComponent as LogoutIcon } from "../../assets/icons/logout.svg";
 
 // 引入方法
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const PageListStyle = styled.div`
   display: flex;
@@ -67,6 +67,11 @@ function PageLink(props) {
 }
 
 function AdminSideBar(props) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    localStorage.removeItem("authToken");
+    navigate("/admin_login");
+  };
   return (
     <>
       <Logo className="d-block check-icon ms-4 mb-4" />
@@ -91,9 +96,9 @@ function AdminSideBar(props) {
           }
         </NavLink>
       </PageListStyle>
-      <NavLink to={`/admin_login`}>
-        <PageLink text={"登出"} name={"logout"} />
-      </NavLink>
+      <button onClick={handleClick} style={{ background: 'none' }}>
+        <PageLink text={"登出"} name={"logout"} onClick={handleClick} />
+      </button>
     </>
   );
 }

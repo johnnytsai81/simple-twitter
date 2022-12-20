@@ -9,6 +9,8 @@ const StyledContainer = styled.div`
   height: 54px;
   border-bottom: 2px solid black;
 `;
+
+
 const StyledLabel = styled.label`
   font-size: 14px;
   color: '#696974';
