@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyedContainer = styled.div`
-  width: 50%;
+  width: 60%;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -9,6 +9,7 @@ const StyedContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+
 `;
 
 const StyledAuthInputContainer = styled.div`
@@ -24,7 +25,7 @@ const StyledButton = styled.button`
   margin: 40px 0 30px 0;
 
   color: white;
-  width: 356px;
+  width: 50%;
   height: 46px;
 
   padding: 8px 24px;
@@ -43,13 +44,12 @@ const StyledLinkText = styled.div`
 `;
 
 const StyledAuthLinkTextGroup = styled.div`
-  width: 160px;
+  width: 50%;
   height: 36px;
   display: flex;
-  justify-content: space-evenly;
-  position: absolute;
-  left: 805px;
-  top: 448px;
+  justify-content: flex-end;
+
+
 `
 
 export {
