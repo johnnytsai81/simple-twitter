@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 const authURL = 'https://ck-mami-2022-twitter.herokuapp.com/api'
 
-export const login = async ({ account, password }) => {
+export const userLogin = async ({ account, password }) => {
   try {
     const { data } = await axios.post(`${authURL}/signIn`,{
       account,
