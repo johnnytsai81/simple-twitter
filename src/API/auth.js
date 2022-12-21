@@ -1,6 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 
+
 const authURL = 'https://ck-mami-2022-twitter.herokuapp.com/api'
 
 export const userLogin = async ({ account, password }) => {
@@ -19,15 +20,16 @@ export const userLogin = async ({ account, password }) => {
     return data
     
   } catch (error) {
-    console.log('[Login Failed]:', error)
+    console.log('[Login Failed]:', error.response.data)
         // 登入失敗訊息
       Swal.fire({
         position: "top",
-        title: "登入失敗",
+        title: error.response.data.message,
         timer: 1000,
         icon: "error",
         showConfirmButton: false,
       });
+
   }
 }
 
@@ -79,11 +81,11 @@ export const adminLogin = async ({ account, password }) => {
     return data
     
   } catch (error) {
-    console.log('[Admin Login Failed]:', error)
+    console.log('[Admin Login Failed]:', error.response.data)
         // 登入失敗訊息
       Swal.fire({
         position: "top",
-        title: "登入失敗",
+        title: error.response.data.message,
         timer: 1000,
         icon: "error",
         showConfirmButton: false,

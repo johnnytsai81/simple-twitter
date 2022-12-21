@@ -7,10 +7,10 @@ import {
 } from "../components/common/auth.styled";
 import AuthInput from "../components/AccountForm/AuthInput";
 import { ACLogoIcon } from "../assets/icons";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import { adminLogin, checkPermission } from "../API/auth";
+import { adminLogin } from "../API/auth";
 import Swal from "sweetalert2";
 
 const AdminLoginPage = () => {
@@ -71,19 +71,19 @@ const AdminLoginPage = () => {
     }
   };
 
-  useEffect(() => {
-    const checkTokenIsValid = async () => {
-      const authToken = localStorage.getItem("authToken");
-      if (!authToken) {
-        return;
-      }
-      const result = await checkPermission(authToken);
-      if (result) {
-        navigate("/admin_main");
-      }
-    };
-    checkTokenIsValid();
-  }, [navigate]);
+  // useEffect(() => {
+  //   const checkTokenIsValid = async () => {
+  //     const authToken = localStorage.getItem("authToken");
+  //     if (!authToken) {
+  //       return;
+  //     }
+  //     const result = await checkPermission(authToken);
+  //     if (result) {
+  //       navigate("/admin_main");
+  //     }
+  //   };
+  //   checkTokenIsValid();
+  // }, [navigate]);
 
   return (
     <Container>

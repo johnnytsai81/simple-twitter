@@ -6,11 +6,13 @@ import {
 } from "../components/common/auth.styled";
 import AuthInput from "../components/AccountForm/AuthInput";
 import { ACLogoIcon } from "../assets/icons";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Swal from "sweetalert2";
-import { checkPermission, register } from "../API/auth";
+import { register } from "../API/auth";
+import { useNavigate } from "react-router-dom";
+
 
 const SignUpPage = () => {
   const [name, setName] = useState("");

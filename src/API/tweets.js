@@ -32,6 +32,27 @@ export async function getAllTweets() {
   }
 }
 
+// For Ashley use (後台取得所有推文)
+export const getAllTweets2 = async() => {
+ try {
+   const res = await axiosInstance.get(`${baseUrl}/tweets`);
+   return res.data;
+ } catch (error) {
+  console.error('[Get All Tweets failed]:', error);
+ }
+}
+
+// For Ashley use (後台刪除推文)
+export const deleteTweet2 = async (id) => {
+  try {
+    const { data } = await axiosInstance.delete(`${baseUrl}/admin/tweets/${id}`);
+    return data.deletedTweet
+  } catch (error) {
+    console.error('[Delete tweet failed]:', error);
+  }
+};
+
+
 export async function getTweet(tweetId) {
   try {
     const { data } = await axiosInstance.get(

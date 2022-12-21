@@ -3,5 +3,6 @@ import { ReactComponent as EditIcon } from './edit-solid.svg'
 import { ReactComponent as LikeIcon } from './like-hollow.svg'
 import { ReactComponent as CloseIcon } from './close.svg'
 import { ReactComponent as CloseOrangeIcon} from './closeOrange.svg'
+import { ReactComponent as NoImage } from './no-image-big.svg';
 
-export { ACLogoIcon, EditIcon, LikeIcon, CloseIcon, CloseOrangeIcon }; 
+export { ACLogoIcon, EditIcon, LikeIcon, CloseIcon, CloseOrangeIcon, NoImage }; 
