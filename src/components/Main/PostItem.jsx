@@ -10,6 +10,7 @@ import { ReactComponent as ReplyIcon } from "../../assets/icons/reply.svg";
 
 // 引入元件
 import ReplyModal from "./ReplyModal";
+import relativeTime from '../../utilities/relativeTime'
 
 const CardStyle = styled.div`
   display: flex;
@@ -84,16 +85,16 @@ const LikeIconStyle = styled.div`
 
 function PostItem(props) {
   let description = props.description;
-  let time = props.time;
+  let createdAt = props.createdAt;
   let username = props.username;
   let like = props.like;
-  let likeActive = props.likeActive;
+  let isLiked = props.isLiked;
   let reply = props.reply;
   let account = props.account;
   let TweetId = props.TweetId;
-  let profileImage = props.profileImage;
+  let avatar = props.avatar;
   let UserId = props.UserId;
-  const [showLike, setShowLike] = useState(likeActive);
+  const [showLike, setShowLike] = useState(isLiked);
   const [countLike, setCountLike] = useState(like);
   const [show, setShow] = useState(false);
 
@@ -118,10 +119,10 @@ function PostItem(props) {
   return (
     <CardStyle>
       <NavLink className="avatar" to={`/user/${UserId}/tweet`}>
-        {profileImage === "" ? (
+        {avatar === "" ? (
           <NoImage />
         ) : (
-          <img src={profileImage} alt="avatar" />
+          <img src={avatar} alt="avatar" />
         )}
       </NavLink>
       <div className="card-content">
@@ -129,7 +130,7 @@ function PostItem(props) {
           <div className="card-header">
             <h3 className="name mb-0">{username}</h3>
             <p className="account mb-0">
-              @{account}・<span className="time">{time}</span>
+              @{account}・<span className="time">{relativeTime(createdAt)}</span>
             </p>
           </div>
         </NavLink>
@@ -167,10 +168,10 @@ function PostItem(props) {
       <ReplyModal
         show={show}
         setShow={setShow}
-        profileImage={profileImage}
+        avatar={avatar}
         username={username}
         account={account}
-        time={time}
+        createdAt={createdAt}
         tweet={description}
         selfImage={'https://i.imgur.com/buZlxFF.jpg'}
       />
