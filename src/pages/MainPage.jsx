@@ -4,7 +4,6 @@ import TextArea from "../components/Main/TweetTextArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import { getAllTweets } from "../API/tweets";
-import { useAuth } from '../contexts/AuthContext'; // 引用封裝好的資訊
 
 // 引入方法
 import { useState, useEffect } from "react";
@@ -44,7 +43,6 @@ const RightContainer = styled.div`
 
 function Main() {
   const [tweets, setTweets] = useState([]);
-  const { isAuthenticated, currentMember } = useAuth(); // 取出需要的狀態與方法
 
   useEffect(() => {
 

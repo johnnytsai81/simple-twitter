@@ -93,7 +93,7 @@ export const adminLogin = async ({ account, password }) => {
 
 export const checkPermission = async (authToken) => {
   try {
-    const response = await axios.get(`${authURL}/signIn`, {
+    const response = await axios.get(`${authURL}/auth/test-token`, {
       headers: {
         Authorization: 'Bearer ' + authToken,
       },
