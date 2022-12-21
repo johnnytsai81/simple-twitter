@@ -98,7 +98,7 @@ const LoginPage = () => {
         <AuthLinkTextGroup>
           <Link to="/signup">
             <AuthLinkText>註冊</AuthLinkText>
-          </Link>
+          </Link>{'．'}
           <Link to="/admin_login">
             <AuthLinkText>後台登入</AuthLinkText>
           </Link>

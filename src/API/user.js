@@ -33,6 +33,17 @@ export async function getAllUsers() {
   }
 }
 
+// For Ashley use (後台取得所有推文)
+export const getAllUsers2 = async() => {
+ try {
+   const res = await axiosInstance.get(`${baseUrl}/admin/users`);
+   return res.data;
+ } catch (error) {
+  console.error('[Get All Users failed]:', error);
+ }
+}
+
+
 export async function getTop10Users() {
   try {
     const { data } = await axiosInstance.get(`${baseUrl}/${basePath}/top`)
