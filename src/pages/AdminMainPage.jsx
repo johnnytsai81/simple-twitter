@@ -26,19 +26,19 @@ const AdminMainPage = () => {
 
 const navigate = useNavigate();
    
-   useEffect(() => {
-     const checkTokenIsValid = async () => {
-       const authToken = localStorage.getItem("authToken");
-       if (!authToken) {
-         navigate('/admin_login')
-       }
-       const result = await checkPermission(authToken);
-       if (!result) {
-         navigate("/admin_login");
-       }
-     };
-     checkTokenIsValid();
-   }, [navigate]);
+  //  useEffect(() => {
+  //    const checkTokenIsValid = async () => {
+  //      const authToken = localStorage.getItem("authToken");
+  //      if (!authToken) {
+  //        navigate('/admin_login')
+  //      }
+  //      const result = await checkPermission(authToken);
+  //      if (!result) {
+  //        navigate("/admin_login");
+  //      }
+  //    };
+  //    checkTokenIsValid();
+  //  }, [navigate]);
 
 
   return (
