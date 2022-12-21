@@ -3,10 +3,12 @@ import PostItem from "../components/Main/PostItem";
 import TextArea from "../components/Main/TweetTextArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
+import { useAuth } from '../contexts/AuthContext'
 import { getAllTweets } from "../API/tweets";
 
 // 引入方法
 import { useState, useEffect } from "react";
+// import { useNavigate } from 'react-router-dom'
 
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
@@ -42,7 +44,20 @@ const RightContainer = styled.div`
 `;
 
 function Main() {
+  
   const [tweets, setTweets] = useState([]);
+  const { logout, currentUser } = useAuth()
+
+  // 等做好再加
+  // const navigate = useNavigate()
+  // const { logout, currentUser, isAuthenticated } = useAuth()
+
+  
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     navigate('/login')
+  //   }
+  // }, [])
 
   useEffect(() => {
 
@@ -61,19 +76,19 @@ function Main() {
   }, [])
 
   const tweetList = tweets.map((tweet) => {
-    return <PostItem UserId={tweet.id} description={tweet.description} />;
+    return <PostItem key={tweet.id} description={tweet.description} />;
   });
 
   return (
     <Container>
       <MainStyle>
         <LeftContainer>
-          <SideBar />
+          <SideBar logout={logout}/>
         </LeftContainer>
         <CenterContainer>
           {/* back為返回記號 number為推文數 */}
           <Breadcrumb title={"首頁"} number={""} back={false} />
-          <TextArea src={"https://i.imgur.com/buZlxFF.jpeg"} />
+          <TextArea currentUserId={currentUser?.id} src={"https://i.imgur.com/buZlxFF.jpeg"} />
           {/* account為帳號名稱前面有@ username為名字 */}
           {tweetList}
           {/* <PostItem

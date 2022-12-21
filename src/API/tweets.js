@@ -1,91 +1,137 @@
-import axios from "axios";
+import axios from 'axios'
 
-const TWEET_URL = "https://ck-mami-2022-twitter.herokuapp.com/api/tweets";
+const baseUrl = 'https://ck-mami-2022-twitter.herokuapp.com/api'
+const basePath = 'tweets'
 
-const axiosInstance = axios.create({ baseURL: TWEET_URL });
-
+const axiosInstance = axios.create({
+  baseURL: `${baseUrl}`,
+  validateStatus: (status) => status >= 200 && status <= 500,
+})
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('authToken')
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers['Authorization'] = 'Bearer ' + token
     }
-    return config;
+    return config
   },
-  (error) => {
-    console.error(error);
-  }
-);
-//使用者發文
-export const postTweet = async (description) => {
+  (err) => console.error(err)
+)
+
+export async function getAllTweets() {
   try {
-    const res = await axiosInstance.post(`${TWEET_URL}`, {
+    const { data } = await axiosInstance.get(`${baseUrl}/${basePath}`)
+    // if fetch success: [], else {success: false, message: '...'}
+    if (data.success === false) return { ...data }
+    return { success: true, data }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get tweets failed]: ${err}`,
+    }
+  }
+}
+
+export async function getTweet(tweetId) {
+  try {
+    const { data } = await axiosInstance.get(
+      `${baseUrl}/${basePath}/${tweetId}`
+    )
+    // if fetch success: [], else {success: false, message: '...'}
+    if (data.success === false) return { ...data }
+    return { success: true, data }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get tweet failed]: ${err}`,
+    }
+  }
+}
+
+export async function addTweet(description) {
+  try {
+    const { data } = await axiosInstance.post(`${baseUrl}/${basePath}`, {
       description,
-    });
-    return res.data.status;
-  } catch (error) {
-    console.error("[Post Tweet Failed]: ", error);
+    })
+    return data
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get tweet failed]: ${err}`,
+    }
   }
-};
+}
 
-//使用者回覆
-export const postReply = async (tweet_id, comment) => {
+export async function deleteTweet(tweetId) {
   try {
-    const res = await axiosInstance.post(`${TWEET_URL}/${tweet_id}/replies`, {
-      comment,
-    });
-    return res;
-  } catch (error) {
-    console.error("[Post Reply Failed]: ", error);
+    const { data } = await axiosInstance.delete(
+      `${baseUrl}/admin/${basePath}/${tweetId}`
+    )
+    return data
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Detele tweet failed]: ${err}`,
+    }
   }
-};
+}
 
-//取得所有推文
-export const getAllTweets = async () => {
+export async function likeTweet(tweetId) {
   try {
-    const res = await axiosInstance.get(`${TWEET_URL}`);
-    return res.data;
-  } catch (error) {
-    console.error("[Get All Tweets Failed]: ", error);
+    const { data } = await axiosInstance.post(
+      `${baseUrl}/${basePath}/${tweetId}/like`
+    )
+    return data
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Like tweet failed]: ${err}`,
+    }
   }
-};
+}
 
-//查閱單一推文內容
-export const getOneTweet = async (tweet_id) => {
+export async function dislikeTweet(tweetId) {
   try {
-    const res = await axiosInstance.get(`${TWEET_URL}/${tweet_id}`);
-    return res.data;
-  } catch (error) {
-    console.error("[Get One Tweet Failed]: ", error);
+    const { data } = await axiosInstance.post(
+      `${baseUrl}/${basePath}/${tweetId}/unlike`
+    )
+    return data
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Dislike tweet failed]: ${err}`,
+    }
   }
-};
+}
 
-//取得特定推文所有回覆
-export const getTweetReplies = async (tweet_id) => {
+export async function getAllReplies(tweetId) {
   try {
-    const res = await axiosInstance.get(`${TWEET_URL}/${tweet_id}/replies`);
-    return res.data;
-  } catch (error) {
-    console.error("[Get Replies Failed]: ", error);
+    const { data } = await axiosInstance.get(
+      `${baseUrl}/${basePath}/${tweetId}/replies`
+    )
+    // if fetch success: [], else {success: false, message: '...'}
+    if (data.success === false) return { ...data }
+    return { success: true, data }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get Replies failed]: ${err}`,
+    }
   }
-};
+}
 
-//like推文
-export const postLike = async (tweet_id) => {
+export async function addReply(data) {
+  const { tweetId, comment } = data
   try {
-    const res = await axiosInstance.post(`${TWEET_URL}/${tweet_id}/like`);
-    return res;
-  } catch (error) {
-    console.error("[Like Failed]: ", error);
+    const { data } = await axiosInstance.post(
+      `${baseUrl}/${basePath}/${tweetId}/replies`,
+      { comment }
+    )
+    return { success: true, data }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Add Reply failed]: ${err}`,
+    }
   }
-};
-
-//unlike推文
-export const postUnlike = async (tweet_id) => {
-  try {
-    const res = await axiosInstance.post(`${TWEET_URL}/${tweet_id}/unlike`);
-    return res;
-  } catch (error) {
-    console.error("[Unlike Failed]: ", error);
-  }
-};
+}

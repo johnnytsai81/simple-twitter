@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 const authURL = 'https://ck-mami-2022-twitter.herokuapp.com/api'
 
-export const login = async ({ account, password }) => {
+export const userLogin = async ({ account, password }) => {
   try {
     const { data } = await axios.post(`${authURL}/signIn`,{
       account,
@@ -90,16 +90,3 @@ export const adminLogin = async ({ account, password }) => {
       });
   }
 }
-
-export const checkPermission = async (authToken) => {
-  try {
-    const response = await axios.get(`${authURL}/auth/test-token`, {
-      headers: {
-        Authorization: 'Bearer ' + authToken,
-      },
-    });
-    return response.data.success;
-  } catch (error) {
-    console.error('[Check Permission Failed]:', error);
-  }
-};

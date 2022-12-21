@@ -10,7 +10,7 @@ import { ACLogoIcon } from "../assets/icons";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import { login } from "../API/auth";
+import { userLogin } from "../API/auth";
 import Swal from "sweetalert2";
 
 const LoginPage = () => {
@@ -26,7 +26,7 @@ const LoginPage = () => {
       return;
     }
 
-    const data = await login({
+    const data = await userLogin({
       account,
       password,
     });

@@ -18,13 +18,13 @@ import UserFollowerPage from './pages/UserFollowerPage';
 import UserFollowingPage from './pages/UserFollowingPage';
 import SettingPage from './pages/SettingPage';
 import ReplyPage from './pages/ReplyPage';
-import { AuthProvider } from './contexts/AuthContext'; // 引用封裝好的資訊
+import { AuthContextProvider } from './contexts/AuthContext'
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <AuthProvider>
+        <AuthContextProvider>
           <Routes>
           <Route path="signup" element={<SignUpPage />} /> 
           <Route path="login" element={<LoginPage />} />
@@ -48,7 +48,7 @@ function App() {
             <NoMatch404 />
           </Route> */}
           </Routes>
-        </AuthProvider>
+        </AuthContextProvider>
       </BrowserRouter>
     </div>
   );
