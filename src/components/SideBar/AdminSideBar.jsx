@@ -97,7 +97,7 @@ function AdminSideBar(props) {
         </NavLink>
       </PageListStyle>
       <button onClick={handleClick} style={{ background: 'none' }}>
-        <PageLink text={"登出"} name={"logout"} onClick={handleClick} />
+        <PageLink text={"登出"} name={"logout"} />
       </button>
     </>
   );

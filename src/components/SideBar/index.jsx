@@ -7,7 +7,7 @@ import { ReactComponent as LogoutIcon } from "../../assets/icons/logout.svg";
 
 // 引入方法
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 
@@ -79,6 +79,11 @@ function PageLink(props) {
 
 function SideBar(props) {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const handleClick = () => {
+    localStorage.removeItem("authToken");
+    navigate("/admin_login");
+  };
 
   // 開啟跟關閉modal
   const handleShow = () => setShow(true);
@@ -115,15 +120,17 @@ function SideBar(props) {
             )
           }
         </NavLink>
-        <Button variant="primary" onClick={handleShow}>推文</Button>
+        <Button variant="primary" onClick={handleShow}>
+          推文
+        </Button>
       </PageListStyle>
-      <NavLink to={`/login`}>
+      <button onClick={handleClick} style={{ background: "none" }}>
         <PageLink text={"登出"} name={"logout"} />
-      </NavLink>
+      </button>
       <SideBarModal
         show={show}
         setShow={setShow}
-        selfImage={'https://i.imgur.com/buZlxFF.jpg'}
+        selfImage={"https://i.imgur.com/buZlxFF.jpg"}
       />
     </>
   );
