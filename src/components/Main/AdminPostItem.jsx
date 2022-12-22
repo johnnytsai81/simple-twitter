@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { CloseIcon } from "../../assets/icons";
+import relativeTime from "../../utilities/relativeTime";
 
 // 每一欄使用者
 const UserItem = styled.div`
@@ -60,6 +61,12 @@ const PostLink = styled.div`
   font-size: 16px;
   font-weight: 400;
   text-align: left;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  line-height: 1.5em;
+  -webkit-line-clamp: 2;
 `;
 
 const AdminPostItem = ({
@@ -95,7 +102,7 @@ const AdminPostItem = ({
         <LinkGroup>
           <NameLink>{username}</NameLink>
           <AccountLink>
-            @{account}・{time}
+            @{account}・{relativeTime(time)}
           </AccountLink>
         </LinkGroup>
         <PostLink>{description}</PostLink>

@@ -3,9 +3,13 @@ import ReplyItem from "../components/Main/ReplyItem";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import ReplyMenu from "../components/Main/ReplyMenu";
+import { getAllReplies, getAllTweets } from "../API/tweets";
 
+// 引入方法
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
+import { useParams } from "react-router-dom";
 
 // main區塊
 const MainStyle = styled.div`
@@ -38,6 +42,76 @@ const RightContainer = styled.div`
 `;
 
 function ReplyPage() {
+  const [replies, setReplies] = useState([]);
+  const [menu, setMenu] = useState([]);
+  const TweetId = useParams();
+  useEffect(() => {
+    async function getData() {
+      const { success, data, message } = await getAllReplies(TweetId.TweetId);
+      if (success) {
+        // update data
+        setReplies(data);
+      } else {
+        // handle error
+        console.error(message);
+      }
+    }
+    async function getMenu() {
+      const { success, data, message } = await getAllTweets();
+      if (success) {
+        // update data
+        setMenu(data);
+      } else {
+        // handle error
+        console.error(message);
+      }
+    }
+    async function startOrder(){
+      await getMenu();
+      getData();
+    }
+    startOrder()
+    // eslint-disable-next-line
+  }, []);
+
+
+  const replyList = replies.map((reply) => {
+    const filter = menu.filter(item => item.id === Number(TweetId.TweetId))
+    return (
+      <ReplyItem
+        key={reply.id}
+        avatar={reply.User.avatar}
+        name={reply.User.name}
+        replyAccount={reply.User.account}
+        userAccount={filter[0].User.account}
+        replyId={reply.UserId}
+        comment={reply.comment}
+        updatedAt={reply.updatedAt}
+        createdAt={reply.createdAt}
+      />
+    );
+  });
+
+  // 只要此貼文的資料
+  const filter = menu.filter(item => item.id === Number(TweetId.TweetId))
+
+  const replyMenu = filter.map((item) => {
+    return (
+      <ReplyMenu
+        key={filter[0].id}
+        username={filter[0].User.name}
+        account={filter[0].User.account}
+        avatar={filter[0].User.avatar}
+        totalReplies={filter[0].Replies.totalReplies}
+        totalLikes={filter[0].Likes.totalLikes}
+        isLiked={filter[0].isLiked}
+        description={filter[0].description}
+        updatedAt={filter[0].updatedAt}
+        TweetId={TweetId.TweetId}
+      />
+    );
+  });
+
   return (
     <Container>
       <MainStyle>
@@ -47,117 +121,11 @@ function ReplyPage() {
         <CenterContainer>
           {/* back為返回記號 number為推文數 */}
           <Breadcrumb title={"推文"} number={""} back={true} />
-          <ReplyMenu
-            username={"John Doe"}
-            userAccount={"devon_lane"}
-            profileImage={"https://i.imgur.com/w0BeCel.jpg"}
-            time={"上午 10:05・2021年11月10日"}
-            reply={38}
-            like={747}
-            likeActive={true}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. "
-            }
-          />
-          <ReplyItem
-            userAccount={"devon_lane"}
-            replyName={"JJJJJ"}
-            replyAccount={"jjjjj"}
-            profileImage={"https://i.imgur.com/w0BeCel.jpg"}
-            UserId={1}
-            ReplyId={"self"}
-            TweetId={1}
-            time={"3小時"}
-            reply={12}
-            like={7}
-            likeActive={true}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <ReplyItem
-            userAccount={"devon_lane"}
-            replyName={"GGGG"}
-            replyAccount={"gggg"}
-            profileImage={""}
-            UserId={1}
-            ReplyId={"self"}
-            TweetId={1}
-            time={"2小時"}
-            reply={2}
-            like={7}
-            likeActive={false}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <ReplyItem
-            userAccount={"devon_lane"}
-            replyName={"GG"}
-            replyAccount={"gg"}
-            profileImage={""}
-            UserId={1}
-            ReplyId={"self"}
-            TweetId={1}
-            time={"7小時"}
-            reply={12}
-            like={37}
-            likeActive={true}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <ReplyItem
-            userAccount={"devon_lane"}
-            replyName={"DDDDD"}
-            replyAccount={"ddddd"}
-            profileImage={""}
-            UserId={1}
-            ReplyId={"self"}
-            TweetId={1}
-            time={"4天"}
-            reply={1}
-            like={7}
-            likeActive={false}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <ReplyItem
-            userAccount={"devon_lane"}
-            replyName={"SSSSS"}
-            replyAccount={"sssss"}
-            profileImage={"https://imgur.com/8R1V7JG.jpg"}
-            UserId={1}
-            ReplyId={"self"}
-            TweetId={1}
-            time={"1分鐘"}
-            reply={12}
-            like={0}
-            likeActive={false}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <ReplyItem
-            userAccount={"devon_lane"}
-            replyName={"ZZZZ"}
-            replyAccount={"zzzz"}
-            profileImage={"https://imgur.com/8R1V7JG.jpg"}
-            UserId={1}
-            ReplyId={"self"}
-            TweetId={1}
-            time={"10分鐘"}
-            reply={33}
-            like={7}
-            likeActive={false}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
+          {replyMenu}
+          {replyList}
         </CenterContainer>
         <RightContainer>
-          <PopularUserList/>
+          <PopularUserList />
         </RightContainer>
       </MainStyle>
     </Container>

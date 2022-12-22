@@ -1,34 +1,35 @@
 // 引入方法
-import styled from 'styled-components';
-import Button from 'react-bootstrap/Button';
+import styled from "styled-components";
+import Button from "react-bootstrap/Button";
 
 // 引入圖片
+import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
 
 const CardStyle = styled.div`
   display: flex;
   padding: 1rem 1.5rem;
   gap: 1rem;
   border-bottom: 10px solid var(--border-color);
-  .avatar{
-    width:50px;
-    height:50px;
+  .avatar {
+    width: 50px;
+    height: 50px;
     border-radius: 50px;
     flex: 0 0 50px;
   }
-  .card-content{
+  .card-content {
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 0.5rem;
     padding-top: 0.75rem;
-    input{
+    input {
     }
-    .btn-primary{
+    .btn-primary {
       width: fit-content;
       margin-left: auto;
     }
   }
-`
+`;
 
 const StyledInput = styled.textarea`
   outline: none;
@@ -39,13 +40,15 @@ const StyledInput = styled.textarea`
 `;
 
 function TextArea(props) {
-  let src = props.src
+  let avatar = props.avatar;
   return (
     <CardStyle>
-      <img className="avatar" src={src} alt="Avatar"/>
+      {avatar === "" ? <NoImage className="avatar" /> : <img className="avatar" src={avatar} alt="avatar" />}
       <div className="card-content">
-        <StyledInput placeholder={'有什麼新鮮事？'} />
-        <Button variant="primary" size="sm">推文</Button>{' '}
+        <StyledInput placeholder={"有什麼新鮮事？"} />
+        <Button variant="primary" size="sm">
+          推文
+        </Button>{" "}
       </div>
     </CardStyle>
   );

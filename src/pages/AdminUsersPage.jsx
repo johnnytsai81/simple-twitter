@@ -41,7 +41,10 @@ const BorderLine = styled.div`
 
 const CardArea = styled.div`
   width: 100%;
-  display: flex;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
   flex-direction: row;
   flex-wrap: wrap;
 `;

@@ -76,12 +76,16 @@ function Main() {
     return (
       <PostItem
         key={tweet.id}
+        TweetId={tweet.id}
         UserId={tweet.UserId}
         username={tweet.User.name}
         account={tweet.User.account}
         avatar={tweet.User.avatar}
         description={tweet.description}
+        totalLikes={tweet.Likes.totalLikes}
         isLiked={tweet.isLiked}
+        totalReplies={tweet.Replies.totalReplies}
+        updatedAt={tweet.updatedAt}
         createdAt={tweet.createdAt}
       />
     );
@@ -98,7 +102,7 @@ function Main() {
           <Breadcrumb title={"首頁"} number={""} back={false} />
           <TextArea
             currentUserId={currentUser?.id}
-            src={"https://i.imgur.com/buZlxFF.jpeg"}
+            avatar={currentUser?.avatar}
           />
           {tweetList}
         </CenterContainer>

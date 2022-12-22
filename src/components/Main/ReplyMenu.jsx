@@ -1,6 +1,7 @@
 // 引入方法
 import styled from "styled-components";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 // 引入圖片
 import { ReactComponent as LikeIcon } from "../../assets/icons/like-solid.svg";
@@ -9,6 +10,7 @@ import { ReactComponent as ReplyIcon } from "../../assets/icons/reply.svg";
 
 // 引入元件
 import ReplyModal from "./ReplyModal";
+import creatTime from "../../utilities/creatTime";
 
 const CardStyle = styled.div`
   display: flex;
@@ -20,6 +22,9 @@ const CardStyle = styled.div`
     width: 50px;
     height: 50px;
     flex: 0 0 50px;
+    img {
+      border-radius: 50px;
+    }
   }
   .text {
     margin-bottom: 0;
@@ -123,18 +128,16 @@ const CardStyle = styled.div`
 `;
 
 function ReplyMenu(props) {
-  let tweet = props.tweet;
-  let time = props.time;
-  let like = props.like;
-  let likeActive = props.likeActive;
-  let reply = props.reply;
-  // TODO 彈跳視窗專用(之後再看要不要統一一下名稱)
-  let account = props.userAccount;
+  let description = props.description;
+  let updatedAt = props.updatedAt;
+  let totalLikes = props.totalLikes;
+  let isLiked = props.isLiked;
+  let totalReplies = props.totalReplies;
+  let account = props.account;
   let username = props.username;
-  let userAccount = props.userAccount;
-  let profileImage = props.profileImage;
-  const [showLike, setShowLike] = useState(likeActive);
-  const [countLike, setCountLike] = useState(like);
+  let avatar = props.avatar;
+  const [showLike, setShowLike] = useState(isLiked);
+  const [countLike, setCountLike] = useState(totalLikes);
   const [show, setShow] = useState(false);
 
   // 開啟跟關閉modal
@@ -155,27 +158,36 @@ function ReplyMenu(props) {
     }
   }
 
+// const replyMenu = menu.map((item) => {
+  //   if(item.id === Number(TweetId.TweetId)){
+  //     return{...item, }
+  //   }
+  //   return item;
+  // });
+
   return (
     <CardStyle>
       <div className="card-content">
-        <NoImage className="avatar" />
+        <NavLink className="avatar">
+          {avatar === "" ? <NoImage /> : <img src={avatar} alt="avatar" />}
+        </NavLink>
         <div className="card-header">
           <h3 className="name mb-0">{username}</h3>
-          <p className="account mb-0">@{userAccount}</p>
+          <p className="account mb-0">@{account}</p>
         </div>
       </div>
-      <p className="text">{tweet}</p>
-      <div className="time">{time}</div>
+      <p className="text">{description}</p>
+      <div className="time">{creatTime(updatedAt)}</div>
       <div className="card-footer">
         <div className="wrap">
-          <span className="en-font-family">{reply}</span>回覆
+          <span className="en-font-family">{totalReplies}</span>回覆
         </div>
         <div className="wrap">
           <span className="en-font-family">{countLike}</span>喜歡次數
         </div>
       </div>
       <div className="card-icon">
-        <ReplyIcon className="reply" onClick={handleShow}/>
+        <ReplyIcon className="reply" onClick={handleShow} />
         {showLike ? (
           <LikeIcon
             className="like active"
@@ -197,12 +209,11 @@ function ReplyMenu(props) {
       <ReplyModal
         show={show}
         setShow={setShow}
-        profileImage={profileImage}
+        avatar={avatar}
         username={username}
         account={account}
-        time={time}
-        tweet={tweet}
-        selfImage={'https://i.imgur.com/buZlxFF.jpg'}
+        updatedAt={updatedAt}
+        description={description}
       />
     </CardStyle>
   );

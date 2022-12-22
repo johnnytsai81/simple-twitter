@@ -75,7 +75,7 @@ const AdminMainPage = () => {
           account={postItem.User.account}
           username={postItem.User.name}
           description={postItem.description}
-          time={postItem.updatedAt}
+          time={postItem.createdAt}
           postItem={postItem}
           onDelete={(id) => onDelete?.(id)}
         />

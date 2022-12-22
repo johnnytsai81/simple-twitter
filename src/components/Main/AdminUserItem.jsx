@@ -5,11 +5,8 @@ import backgroundImage from "../../assets/images/bg-1.png";
 
 // 每一個使用者欄位
 const UsersItem = styled.div`
-  width: 249px;
-  height: 314px;
   background-color: #f6f7f8;
   border-radius: 10px;
-  margin: 1rem;
   position: relative;
 `;
 
@@ -59,10 +56,8 @@ const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  margin-top: 1rem;
   position: relative;
-  top: 30%;
-
   color: #696974;
 `;
 
@@ -71,10 +66,9 @@ const TextContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   position: relative;
-  top: 32%;
-
+  margin-top: 1rem;
+  margin-bottom: 2rem;
   font-size: 14px;
   color: #6c757d;
 `;
@@ -96,8 +90,8 @@ const AdminUserItem = ({
           className="coverImage"
           src={coverImage}
           alt="Background"
-          style={{ width: "249px", height: "140px" }}
-        /> : <img src={ backgroundImage } alt="backgroundImage" />}
+          style={{ width: "100%", height: "140px" }}
+        /> : <img src={ backgroundImage } style={{ width: "100%", height: "140px" }} alt="backgroundImage" />}
         
         {avatar ? (
           <img
@@ -117,10 +111,10 @@ const AdminUserItem = ({
       </ImageContainer>
 
       {/* 姓名/帳號欄位 */}
-      <NameLink style={{ position: "absolute", top: "55%" }}>
+      <NameLink className="mt-10">
         {username}
       </NameLink>
-      <AccountLink style={{ position: "absolute", top: "62%" }}>
+      <AccountLink className="mt-2">
         @{account}
       </AccountLink>
 

@@ -10,7 +10,7 @@ import { ReactComponent as ReplyIcon } from "../../assets/icons/reply.svg";
 
 // 引入元件
 import ReplyModal from "./ReplyModal";
-import relativeTime from '../../utilities/relativeTime'
+import relativeTime from "../../utilities/relativeTime";
 
 const CardStyle = styled.div`
   display: flex;
@@ -30,6 +30,7 @@ const CardStyle = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
+    width: 100%;
     .card-header {
       display: flex;
     }
@@ -86,16 +87,17 @@ const LikeIconStyle = styled.div`
 function PostItem(props) {
   let description = props.description;
   let createdAt = props.createdAt;
+  let updatedAt = props.updatedAt;
   let username = props.username;
-  let like = props.like;
+  let totalLikes = props.totalLikes;
+  let totalReplies = props.totalReplies;
   let isLiked = props.isLiked;
-  let reply = props.reply;
   let account = props.account;
   let TweetId = props.TweetId;
   let avatar = props.avatar;
   let UserId = props.UserId;
   const [showLike, setShowLike] = useState(isLiked);
-  const [countLike, setCountLike] = useState(like);
+  const [countLike, setCountLike] = useState(totalLikes);
   const [show, setShow] = useState(false);
 
   // 開啟跟關閉modal
@@ -119,28 +121,38 @@ function PostItem(props) {
   return (
     <CardStyle>
       <NavLink className="avatar" to={`/user/${UserId}/tweet`}>
-        {avatar === "" ? (
-          <NoImage />
-        ) : (
-          <img src={avatar} alt="avatar" />
-        )}
+        {avatar === "" ? <NoImage /> : <img src={avatar} alt="avatar" />}
       </NavLink>
       <div className="card-content">
         <NavLink to={`/user/${UserId}/tweet`}>
           <div className="card-header">
             <h3 className="name mb-0">{username}</h3>
             <p className="account mb-0">
-              @{account}・<span className="time">{relativeTime(createdAt)}</span>
+              @{account}・
+              <span className="time">{relativeTime(createdAt)}</span>
             </p>
           </div>
         </NavLink>
-        <NavLink to={`/tweet/${TweetId}/replies`}>
+        <NavLink
+          to={{ pathname: `/tweet/${TweetId}/replies` }}
+          state={{
+            avatar,
+            description,
+            username,
+            account,
+            isLiked,
+            TweetId,
+            updatedAt,
+            totalReplies,
+            totalLikes,
+          }}
+        >
           <p className="text-start mb-0">{description}</p>
         </NavLink>
         <div className="card-footer">
           <ReplyIconStyle onClick={handleShow}>
             <ReplyIcon className="reply" />
-            <span className="en-font-family">{reply}</span>
+            <span className="en-font-family">{totalReplies}</span>
           </ReplyIconStyle>
           {showLike ? (
             <LikeIconStyle
@@ -172,8 +184,7 @@ function PostItem(props) {
         username={username}
         account={account}
         createdAt={createdAt}
-        tweet={description}
-        selfImage={'https://i.imgur.com/buZlxFF.jpg'}
+        description={description}
       />
     </CardStyle>
   );

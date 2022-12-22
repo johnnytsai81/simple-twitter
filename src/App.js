@@ -32,14 +32,14 @@ function App() {
           <Route path="admin_login" element={<AdminLoginPage />} />
           <Route path="admin_main" element={<AdminMainPage />} />
           <Route path="admin_users" element={<AdminUsersPage />} />
-          <Route path='user/self' element={<Navigate to={'tweet'} />}></Route>
-          <Route path="user/self/tweet" element={<ProfileTweets />} />
-          <Route path="user/self/replied_tweets" element={<ProfileReply />} />
-          <Route path="user/self/likes" element={<ProfileLikes />} />
+          <Route path='user/:UserId' element={<Navigate to={'tweet'} />}></Route>
+          <Route path="user/:UserId/tweet" element={<ProfileTweets />} />
+          <Route path="user/:UserId/replied_tweets" element={<ProfileReply />} />
+          <Route path="user/:UserId/likes" element={<ProfileLikes />} />
           <Route path="user/self/followers" element={<UserFollowerPage />} />
           <Route path="user/self/following" element={<UserFollowingPage />} />
           <Route path="user/setting" element={<SettingPage />} />
-          <Route path="tweet/1/replies" element={<ReplyPage />} />
+          <Route path="tweet/:TweetId/replies" element={<ReplyPage />} />
           <Route path="user/1/tweet" element={<OtherProfileTweets />} />
           <Route path="user/1/replied_tweets" element={<OtherProfileReply />} />
           <Route path="user/1/likes" element={<OtherProfileLikes />} />

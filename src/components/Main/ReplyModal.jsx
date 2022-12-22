@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useAuth } from '../../contexts/AuthContext'
 
 // 引入圖片
 import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
@@ -98,9 +99,9 @@ function ReplyModal(props) {
   let username = props.username;
   let account = props.account;
   let time = props.time;
-  let tweet = props.tweet;
-  let selfImage = props.selfImage;
-  let profileImage = props.profileImage;
+  let description = props.description;
+  let avatar = props.avatar;
+  const { currentUser } = useAuth()
   const handleClose = () => setShow(false);
 
   return (
@@ -109,10 +110,10 @@ function ReplyModal(props) {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div className="first-people">
-            {profileImage === "" ? (
+            {avatar === "" ? (
               <NoImage />
             ) : (
-              <img className="avatar" src={profileImage} alt="avatar" />
+              <img className="avatar" src={avatar} alt="avatar" />
             )}
             <div className="content">
               <div className="d-flex align-items-center">
@@ -121,17 +122,17 @@ function ReplyModal(props) {
                   @{account}・<span className="time">{time}</span>
                 </p>
               </div>
-              <div className="tweet">{tweet}</div>
+              <div className="tweet">{description}</div>
               <div className="reply">
                 回覆給<span>@{account}</span>
               </div>
             </div>
           </div>
           <div className="reply-people">
-            {profileImage === "" ? (
+            {avatar === "" ? (
               <NoImage />
             ) : (
-              <img className="avatar" src={selfImage} alt="avatar" />
+              <img className="avatar" src={currentUser?.avatar} alt="avatar" />
             )}
             <InputStyle placeholder={"推你的回覆"} />
           </div>

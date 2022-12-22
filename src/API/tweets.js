@@ -100,7 +100,7 @@ export async function deleteTweet(tweetId) {
 export async function likeTweet(tweetId) {
   try {
     const { data } = await axiosInstance.post(
-      `${baseUrl}/${basePath}/${tweetId}/like`
+      `${baseUrl}/${basePath}/${tweetId}`
     )
     return data
   } catch (err) {
@@ -114,7 +114,7 @@ export async function likeTweet(tweetId) {
 export async function dislikeTweet(tweetId) {
   try {
     const { data } = await axiosInstance.post(
-      `${baseUrl}/${basePath}/${tweetId}/unlike`
+      `${baseUrl}/${basePath}/${tweetId}`
     )
     return data
   } catch (err) {
