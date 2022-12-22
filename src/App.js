@@ -18,6 +18,7 @@ import UserFollowerPage from './pages/UserFollowerPage';
 import UserFollowingPage from './pages/UserFollowingPage';
 import SettingPage from './pages/SettingPage';
 import ReplyPage from './pages/ReplyPage';
+import HomePage from './pages/HomePage';
 import { AuthContextProvider } from './contexts/AuthContext'
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path="user/1/tweet" element={<OtherProfileTweets />} />
           <Route path="user/1/replied_tweets" element={<OtherProfileReply />} />
           <Route path="user/1/likes" element={<OtherProfileLikes />} />
+          <Route path="*" element={<HomePage />} /> 
           {/* 
           <Route path="*">
             <NoMatch404 />
