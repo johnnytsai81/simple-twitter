@@ -21,10 +21,12 @@ import ReplyPage from './pages/ReplyPage';
 import HomePage from './pages/HomePage';
 import { AuthContextProvider } from './contexts/AuthContext'
 
+const basename = process.env.PUBLIC_URL
+
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <AuthContextProvider>
           <Routes>
           <Route path="signup" element={<SignUpPage />} /> 
