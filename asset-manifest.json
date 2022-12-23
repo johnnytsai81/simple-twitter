@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/simple-twitter/static/css/main.8bcd6f21.chunk.css",
-    "main.js": "/simple-twitter/static/js/main.a797c389.chunk.js",
-    "main.js.map": "/simple-twitter/static/js/main.a797c389.chunk.js.map",
-    "runtime-main.js": "/simple-twitter/static/js/runtime-main.6071d60d.js",
-    "runtime-main.js.map": "/simple-twitter/static/js/runtime-main.6071d60d.js.map",
-    "static/js/2.aa06c17e.chunk.js": "/simple-twitter/static/js/2.aa06c17e.chunk.js",
-    "static/js/2.aa06c17e.chunk.js.map": "/simple-twitter/static/js/2.aa06c17e.chunk.js.map",
-    "static/js/3.c05e4362.chunk.js": "/simple-twitter/static/js/3.c05e4362.chunk.js",
-    "static/js/3.c05e4362.chunk.js.map": "/simple-twitter/static/js/3.c05e4362.chunk.js.map",
+    "main.js": "/simple-twitter/static/js/main.5dc01446.chunk.js",
+    "main.js.map": "/simple-twitter/static/js/main.5dc01446.chunk.js.map",
+    "runtime-main.js": "/simple-twitter/static/js/runtime-main.3543312c.js",
+    "runtime-main.js.map": "/simple-twitter/static/js/runtime-main.3543312c.js.map",
+    "static/js/2.2bedd8b6.chunk.js": "/simple-twitter/static/js/2.2bedd8b6.chunk.js",
+    "static/js/2.2bedd8b6.chunk.js.map": "/simple-twitter/static/js/2.2bedd8b6.chunk.js.map",
+    "static/js/3.60924911.chunk.js": "/simple-twitter/static/js/3.60924911.chunk.js",
+    "static/js/3.60924911.chunk.js.map": "/simple-twitter/static/js/3.60924911.chunk.js.map",
     "index.html": "/simple-twitter/index.html",
     "static/css/main.8bcd6f21.chunk.css.map": "/simple-twitter/static/css/main.8bcd6f21.chunk.css.map",
-    "static/js/2.aa06c17e.chunk.js.LICENSE.txt": "/simple-twitter/static/js/2.aa06c17e.chunk.js.LICENSE.txt",
+    "static/js/2.2bedd8b6.chunk.js.LICENSE.txt": "/simple-twitter/static/js/2.2bedd8b6.chunk.js.LICENSE.txt",
     "static/media/back.0b3361fa.svg": "/simple-twitter/static/media/back.0b3361fa.svg",
     "static/media/bell-hollow.3f85fefc.svg": "/simple-twitter/static/media/bell-hollow.3f85fefc.svg",
     "static/media/bell-solid.7e351a41.svg": "/simple-twitter/static/media/bell-solid.7e351a41.svg",
@@ -32,9 +32,9 @@
     "static/media/setting-solid.a141a13c.svg": "/simple-twitter/static/media/setting-solid.a141a13c.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.6071d60d.js",
-    "static/js/2.aa06c17e.chunk.js",
+    "static/js/runtime-main.3543312c.js",
+    "static/js/2.2bedd8b6.chunk.js",
     "static/css/main.8bcd6f21.chunk.css",
-    "static/js/main.a797c389.chunk.js"
+    "static/js/main.5dc01446.chunk.js"
   ]
 }
