@@ -4,6 +4,7 @@ import TextArea from "../components/Main/TweetTextArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import { useAuth } from "../contexts/AuthContext";
+import { useTweetStatus } from "../contexts/TweetStatusContext";
 import { getAllTweets } from "../API/tweets";
 
 // 引入方法
@@ -46,6 +47,7 @@ const RightContainer = styled.div`
 function Main() {
   const [tweets, setTweets] = useState([]);
   const { currentUser } = useAuth();
+  const { isGlobalTweetUpdate, setIsGlobalTweetUpdate } = useTweetStatus();
 
   // 等做好再加
   // const navigate = useNavigate()
@@ -63,14 +65,15 @@ function Main() {
       if (success) {
         // update data
         setTweets(data);
+        setIsGlobalTweetUpdate(true)
       } else {
         // handle error
         console.error(message);
       }
     }
     getData();
-    // refresh when add new tweet or reply
-  }, []);
+    // eslint-disable-next-line
+  }, [isGlobalTweetUpdate]);
   
   const tweetList = tweets.map((tweet) => {
     return (
@@ -101,7 +104,6 @@ function Main() {
           {/* back為返回記號 number為推文數 */}
           <Breadcrumb title={"首頁"} number={""} back={false} />
           <TextArea
-            currentUserId={currentUser?.id}
             avatar={currentUser?.avatar}
           />
           {tweetList}

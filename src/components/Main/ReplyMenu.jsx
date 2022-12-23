@@ -171,7 +171,7 @@ function ReplyMenu(props) {
     <CardStyle>
       <div className="card-content">
         <NavLink className="avatar" to={`/user/${UserId}/tweet`}>
-          {avatar === "" ? <NoImage /> : <img src={avatar} alt="avatar" />}
+          {avatar === null ? <NoImage /> : <img src={avatar} alt="avatar" />}
         </NavLink>
         <div className="card-header">
           <h3 className="name mb-0">{username}</h3>

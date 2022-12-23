@@ -89,7 +89,7 @@ function SideBar(props) {
 
   // 開啟跟關閉modal
   const handleShow = () => setShow(true);
-  
+
   return (
     <>
       <Logo className="d-block check-icon ms-4 mb-4" />
@@ -129,11 +129,11 @@ function SideBar(props) {
       <button onClick={handleClick} style={{ background: "none" }}>
         <PageLink text={"登出"} name={"logout"} />
       </button>
-      <SideBarModal
-        show={show}
-        setShow={setShow}
-        selfImage={"https://i.imgur.com/buZlxFF.jpg"}
-      />
+      {currentUser === null ? (
+        ""
+      ) : (
+        <SideBarModal show={show} setShow={setShow} avatar={currentUser.avatar} />
+      )}
     </>
   );
 }

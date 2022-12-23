@@ -110,7 +110,7 @@ function ReplyModal(props) {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div className="first-people">
-            {avatar === "" ? (
+            {avatar === null ? (
               <NoImage />
             ) : (
               <img className="avatar" src={avatar} alt="avatar" />
@@ -129,7 +129,7 @@ function ReplyModal(props) {
             </div>
           </div>
           <div className="reply-people">
-            {avatar === "" ? (
+            {avatar === null ? (
               <NoImage />
             ) : (
               <img className="avatar" src={currentUser?.avatar} alt="avatar" />

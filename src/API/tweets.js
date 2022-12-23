@@ -86,6 +86,18 @@ export async function addTweet(description) {
   }
 }
 
+// 回覆推文
+export const postReply = async (tweet_id, comment) => {
+  try {
+    const res = await axiosInstance.post(`${baseUrl}/${basePath}/replies`, {
+      comment,
+    });
+    return res;
+  } catch (error) {
+    console.error("[Post Reply Failed]: ", error);
+  }
+};
+
 export async function deleteTweet(tweetId) {
   try {
     const { data } = await axiosInstance.delete(

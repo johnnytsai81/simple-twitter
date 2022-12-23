@@ -1,6 +1,8 @@
 // 引入方法
 import styled from "styled-components";
 import PopularUserItem from "./PopularUserItem";
+import { getTop10Users } from "../../API/user";
+import { useState, useEffect } from "react";
 
 // 引入圖片
 
@@ -27,44 +29,42 @@ const CardStyle = styled.div`
 `;
 
 function PopularUserList() {
+  const [tweets, setTweets] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      const { success, data, message } = await getTop10Users();
+      if (success) {
+        // update data
+        setTweets(data.data.topUsers);
+      } else {
+        // handle error
+        console.error(message);
+      }
+    }
+    getData();
+    // eslint-disable-next-line
+  }, []);
+
+  const tweetList = tweets.map((tweet) => {
+    return (
+      <PopularUserItem
+        key={tweet.id}
+        username={tweet.name}
+        account={tweet.account}
+        UserId={tweet.id}
+        avatar={tweet.avatar}
+        isFollowed={tweet.isFollowed}
+        updatedAt={tweet.updatedAt}
+        createdAt={tweet.createdAt}
+      />
+    );
+  });
+
   return (
     <CardStyle>
       <h3>推薦跟隨</h3>
-      <PopularUserItem
-        name={"PizzaHut"}
-        account={"pizzahut"}
-        UserId={1}
-        profileImage={"https://i.imgur.com/w0BeCel.jpg"}
-        isFollowed={false}
-      />
-      <PopularUserItem
-        name={"Mac"}
-        account={"mac"}
-        UserId={1}
-        profileImage={""}
-        isFollowed={false}
-      />
-      <PopularUserItem
-        name={"Pizza Hut"}
-        account={"pizzahut"}
-        UserId={1}
-        profileImage={"https://imgur.com/8R1V7JG.jpg"}
-        isFollowed={false}
-      />
-      <PopularUserItem
-        name={"Pizza Hut xxx xxxx"}
-        account={"pizzahut"}
-        UserId={1}
-        profileImage={""}
-        isFollowed={false}
-      />
-      <PopularUserItem
-        name={"Pizza Hut xxx xxxx"}
-        account={"pizzahut"}
-        UserId={1}
-        profileImage={""}
-        isFollowed={false}
-      />
+      {tweetList}
     </CardStyle>
   );
 }

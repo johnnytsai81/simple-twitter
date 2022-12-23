@@ -48,6 +48,14 @@ const CardStyle = styled.div`
   }
   .card-footer {
     padding: 0 1rem 1rem 1rem;
+    .intro{
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      line-height: 1.5em;
+      -webkit-line-clamp: 5;
+    }
     .text-wrap {
       display: flex;
       gap: 2rem;
@@ -173,7 +181,7 @@ function UserInfoArea(props) {
         <p className="account mb-0">@{account}</p>
       </div>
       <div className="card-footer">
-        <div className="mb-2">{selfIntro}</div>
+        <div className="mb-2 intro">{selfIntro}</div>
         <div className="text-wrap">
           <div className="text">
             <NavLink to={`/user/${UserId.UserId}/following`}>

@@ -39,6 +39,14 @@ const CardStyle = styled.div`
       font-weight: 600;
       margin-right: 0.5rem;
     }
+    p{
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      line-height: 1.5em;
+      -webkit-line-clamp: 3;
+    }
     .account {
       font-size: 0.875rem;
       color: var(--secondary-color);
@@ -121,7 +129,7 @@ function PostItem(props) {
   return (
     <CardStyle>
       <NavLink className="avatar" to={`/user/${UserId}/tweet`}>
-        {avatar === "" ? <NoImage /> : <img src={avatar} alt="avatar" />}
+        {avatar === null ? <NoImage /> : <img src={avatar} alt="avatar" />}
       </NavLink>
       <div className="card-content">
         <NavLink to={`/user/${UserId}/tweet`}>

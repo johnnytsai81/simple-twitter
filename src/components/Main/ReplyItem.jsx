@@ -49,6 +49,14 @@ const CardStyle = styled.div`
         stroke: var(--error-color);
       }
     }
+    p{
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      line-height: 1.5em;
+      -webkit-line-clamp: 3;
+    }
     .reply {
       width: 1rem;
       height: 1rem;
@@ -84,7 +92,7 @@ function ReplyItem(props) {
   return (
     <CardStyle>
       <NavLink className="avatar" to={`/user/${UserId}/tweet`}>
-        {avatar === "" ? <NoImage /> : <img src={avatar} alt="avatar" />}
+        {avatar === null ? <NoImage /> : <img src={avatar} alt="avatar" />}
       </NavLink>
       <div className="card-content">
         <NavLink to={`/user/${UserId}/tweet`}>

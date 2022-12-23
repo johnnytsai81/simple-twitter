@@ -43,19 +43,20 @@ export const getAllUsers2 = async () => {
   }
 };
 
-// export async function getTop10Users() {
-//   try {
-//     const { data } = await axiosInstance.get(`${baseUrl}/${basePath}/top`);
-//     // if fetch success: [], else {success: false, message: '...'}
-//     if (data.success === false) return { ...data };
-//     return { success: true, data };
-//   } catch (err) {
-//     return {
-//       success: false,
-//       message: `[Get top10 users failed]: ${err}`,
-//     };
-//   }
-// }
+// 取得前10名追蹤者
+export async function getTop10Users() {
+  try {
+    const { data } = await axiosInstance.get(`${baseUrl}/${basePath}/top`);
+    // if fetch success: [], else {success: false, message: '...'}
+    if (data.success === false) return { ...data };
+    return { success: true, data };
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get top10 users failed]: ${err}`,
+    };
+  }
+}
 
 // 取得該使用者的個人資料
 export async function getUser(userId) {

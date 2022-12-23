@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 // 引入圖片
 import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
@@ -48,11 +49,13 @@ const CardStyle = styled.div`
 
 function PopularUserItem(props) {
   let isFollowed = props.isFollowed;
-  let name = props.name;
+  let username = props.username;
   let UserId = props.UserId;
   let account = props.account;
-  let profileImage = props.profileImage;
+  let avatar = props.avatar;
+  const { currentUser } = useAuth();
   const [followState, setFollowState] = useState(isFollowed);
+  // eslint-disable-next-line
 
   // 切換follow狀態
   function handleFollow(e) {
@@ -60,20 +63,25 @@ function PopularUserItem(props) {
     e.preventDefault();
     setFollowState(!followState);
   }
+
   return (
     <NavLink to={`/user/${UserId}/tweet`}>
       <CardStyle>
-        {profileImage === "" ? (
+        {avatar === null ? (
           <NoImage className="avatar" />
         ) : (
-          <img className="avatar" src={profileImage} alt="avatar" />
+          <img className="avatar" src={avatar} alt="avatar" />
         )}
         <div className="card-content">
           <div className="card-header">
-            <h3 className="name mb-0">{name}</h3>
+            <h3 className="name mb-0">{username}</h3>
             <p className="account mb-0">@{account}</p>
           </div>
-          {followState === true ? (
+          {currentUser === null ? (
+            ""
+          ) : UserId === currentUser.id ? (
+            ""
+          ) : followState === true ? (
             <Button variant="primary" size="sm" onClick={handleFollow}>
               正在跟隨
             </Button>
