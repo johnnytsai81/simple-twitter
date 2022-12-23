@@ -4,7 +4,6 @@ import UserInfoArea from "../components/Main/UserInfoArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import UserMenuTab from "../components/Main/UserMenuTab";
-import { useAuth } from "../contexts/AuthContext";
 import { getUser, getUserReplied } from "../API/user";
 
 // 載入方法
@@ -46,7 +45,6 @@ const RightContainer = styled.div`
 function ProfileReply() {
   const [replied, setReplied] = useState([]);
   const [info, setInfo] = useState([]);
-  const { currentUser } = useAuth();
   const UserId = useParams();
   useEffect(() => {
     async function getData() {
