@@ -4,10 +4,14 @@ import UserInfoArea from "../components/Main/UserInfoArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import UserMenuTab from "../components/Main/UserMenuTab";
+import { useAuth } from "../contexts/AuthContext";
+import { getUser, getUserReplied } from "../API/user";
 
 // 載入方法
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
+import { useParams } from "react-router-dom";
+import { useState , useEffect } from "react";
 
 // main區塊
 const MainStyle = styled.div`
@@ -40,6 +44,56 @@ const RightContainer = styled.div`
 `;
 
 function ProfileReply() {
+  const [replied, setReplied] = useState([]);
+  const [info, setInfo] = useState([]);
+  const { currentUser } = useAuth();
+  const UserId = useParams();
+  useEffect(() => {
+    async function getData() {
+      const { success, data, message } = await getUserReplied(UserId.UserId);
+      if (success) {
+        // update data
+        setReplied(data);
+      } else {
+        // handle error
+        console.error(message);
+      }
+    }
+    async function getInfo() {
+      const { success, data, message } = await getUser(UserId.UserId);
+      if (success) {
+        // update data
+        setInfo(data);
+      } else {
+        // handle error
+        console.error(message);
+      }
+    }
+    async function startOrder() {
+      await getInfo();
+      getData();
+    }
+    startOrder();
+    // eslint-disable-next-line
+  }, []);
+  const replyList = replied.map((reply) => {
+    return (
+      <ReplyItem
+        userAccount={info.account}
+        name={info.name}
+        UserId={reply.UserId}
+        TweetId={reply.TweetId}
+        replyAccount={reply.User.account}
+        replyName={reply.User.name}
+        ReplyId={1}
+        // time={"10分鐘"}
+        avatar={reply.User.avatar}
+        comment={reply.comment}
+        createdAt={reply.createdAt}
+        // }
+      />
+    );
+  });
   return (
     <Container>
       <MainStyle>
@@ -48,100 +102,22 @@ function ProfileReply() {
         </LeftContainer>
         <CenterContainer>
           {/* back為返回記號 number為推文數 */}
-          <Breadcrumb title={"John Doe"} number={"25"} back={true} />
+          <Breadcrumb title={info.name} number={info.Tweets} back={true} />
           <UserInfoArea
-            username={"John Doe"}
-            account={"heyjohn"}
-            UserId={"self"}
-            ReplyId={1}
-            follower={24}
-            followed={11}
-            selfIntro={"Hi I'm Kobe"}
-            coverImage={"https://i.imgur.com/Uongp79.jpg"}
-            avatar={"https://i.imgur.com/buZlxFF.jpeg"}
+            username={info.name}
+            account={info.account}
+            UserId={info.UserId}
+            totalFollowers={info.totalFollowers}
+            totalFollowings={info.totalFollowings}
+            selfIntro={info.introduction}
+            coverImage={info.coverImage}
+            avatar={info.avatar}
           ></UserInfoArea>
-          <UserMenuTab UserId={"self"} />
-          <ReplyItem
-            userAccount={"apple"}
-            UserId={"self"}
-            ReplyId={1}
-            TweetId={1}
-            replyAccount={"heyjohn"}
-            replyName={"John Doe"}
-            profileImage={"https://i.imgur.com/buZlxFF.jpg"}
-            time={"3小時"}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <ReplyItem
-            userAccount={"apple2"}
-            UserId={"self"}
-            ReplyId={1}
-            TweetId={1}
-            replyAccount={"heyjohn"}
-            replyName={"John Doe"}
-            profileImage={"https://i.imgur.com/buZlxFF.jpg"}
-            time={"2小時"}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <ReplyItem
-            userAccount={"apple3"}
-            UserId={"self"}
-            ReplyId={1}
-            TweetId={1}
-            replyAccount={"heyjohn"}
-            replyName={"John Doe"}
-            profileImage={"https://i.imgur.com/buZlxFF.jpg"}
-            time={"7小時"}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <ReplyItem
-            userAccount={"apple4"}
-            UserId={"self"}
-            ReplyId={1}
-            TweetId={1}
-            replyAccount={"heyjohn"}
-            replyName={"John Doe"}
-            profileImage={"https://i.imgur.com/buZlxFF.jpg"}
-            time={"4天"}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <ReplyItem
-            userAccount={"apple56"}
-            UserId={"self"}
-            ReplyId={1}
-            TweetId={1}
-            replyAccount={"heyjohn"}
-            replyName={"John Doe"}
-            profileImage={"https://i.imgur.com/buZlxFF.jpg"}
-            time={"1分鐘"}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <ReplyItem
-            userAccount={"apple7789"}
-            UserId={"self"}
-            ReplyId={1}
-            TweetId={1}
-            replyAccount={"heyjohn"}
-            replyName={"John Doe"}
-            profileImage={"https://i.imgur.com/buZlxFF.jpg"}
-            time={"10分鐘"}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
+          <UserMenuTab UserId={UserId.UserId} />
+          {replyList}
         </CenterContainer>
         <RightContainer>
-          <PopularUserList/>
+          <PopularUserList />
         </RightContainer>
       </MainStyle>
     </Container>

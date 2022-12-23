@@ -4,10 +4,14 @@ import UserInfoArea from "../components/Main/UserInfoArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import UserMenuTab from "../components/Main/UserMenuTab";
+import { useAuth } from "../contexts/AuthContext";
+import { getUser,getUserTweets } from "../API/user";
 
 // 載入方法
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
+import { useParams } from "react-router-dom";
+import { useState , useEffect } from "react";
 
 // main區塊
 const MainStyle = styled.div`
@@ -40,110 +44,81 @@ const RightContainer = styled.div`
 `;
 
 function ProfileTweets() {
+  const [tweets, setTweets] = useState([]);
+  const [info, setInfo] = useState([]);
+  const { logout, currentUser } = useAuth();
+  const UserId = useParams();
+  useEffect(() => {
+    async function getData() {
+      const { success, data, message } = await getUserTweets(UserId.UserId);
+      if (success) {
+        // update data
+        setTweets(data);
+      } else {
+        // handle error
+        console.error(message);
+      }
+    }
+    async function getInfo() {
+      const { success, data, message } = await getUser(UserId.UserId);
+      if (success) {
+        // update data
+        setInfo(data);
+      } else {
+        // handle error
+        console.error(message);
+      }
+    }
+    async function startOrder(){
+      await getInfo();
+      getData();
+    }
+    startOrder();
+    // eslint-disable-next-line
+  }, []);
+
+  const tweetList = tweets.map((tweet) => {
+    return (
+      <PostItem
+        key={tweet.id}
+        TweetId={tweet.id}
+        UserId={tweet.UserId}
+        username={info.name}
+        avatar={info.avatar}
+        account={info.account}
+        description={tweet.description}
+        isLiked={tweet.isLiked}
+        updatedAt={tweet.updatedAt}
+        createdAt={tweet.createdAt}
+        // totalLikes={tweet.Likes.totalLikes}
+      />
+    );
+  });
+
+
   return (
     <Container>
       <MainStyle>
         <LeftContainer>
-          <SideBar />
+          <SideBar logout={logout}/>
         </LeftContainer>
         <CenterContainer>
           {/* back為返回記號 number為推文數 */}
-          <Breadcrumb title={"John Doe"} number={"25"} back={true} />
+          <Breadcrumb title={info.name} number={info.Tweets} back={true} />
+
           <UserInfoArea
-            username={"John Doe"}
-            account={"heyjohn"}
-            UserId={"self"}
-            follower={24}
-            followed={11}
-            selfIntro={"Hi I'm Kobe"}
-            coverImage={"https://i.imgur.com/Uongp79.jpg"}
-            avatar={"https://i.imgur.com/buZlxFF.jpeg"}
+            username={info.name}
+            account={info.account}
+            UserId={info.UserId}
+            currentUserId={currentUser?.id}
+            totalFollowers={info.totalFollowers}
+            totalFollowings={info.totalFollowings}
+            selfIntro={info.introduction}
+            coverImage={info.coverImage}
+            avatar={info.avatar}
           ></UserInfoArea>
-          <UserMenuTab UserId={"self"} />
-          <PostItem
-            account={"apple"}
-            TweetId={1}
-            UserId={1}
-            profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
-            username={"kkk"}
-            time={"3小時"}
-            reply={12}
-            like={7}
-            likeActive={true}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <PostItem
-            account={"apple2"}
-            TweetId={1}
-            UserId={1}
-            profileImage={"https://i.imgur.com/w0BeCel.jpg"}
-            username={"dfdfdfd"}
-            time={"2小時"}
-            reply={2}
-            like={7}
-            likeActive={false}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <PostItem
-            account={"appl2"}
-            TweetId={1}
-            UserId={1}
-            profileImage={"https://imgur.com/8R1V7JG.jpg"}
-            username={"apple"}
-            time={"7小時"}
-            reply={12}
-            like={37}
-            likeActive={true}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <PostItem
-            account={"apple222"}
-            TweetId={1}
-            UserId={1}
-            profileImage={""}
-            username={"apple"}
-            time={"4天"}
-            reply={1}
-            like={7}
-            likeActive={false}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <PostItem
-            account={"apple"}
-            TweetId={1}
-            UserId={1}
-            profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
-            username={"apple"}
-            time={"1分鐘"}
-            reply={12}
-            like={0}
-            likeActive={false}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <PostItem
-            account={"apple"}
-            TweetId={1}
-            UserId={1}
-            profileImage={"https://imgur.com/8R1V7JG.jpg"}
-            username={"apple"}
-            time={"10分鐘"}
-            reply={33}
-            like={7}
-            likeActive={false}
-            tweet={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
+          <UserMenuTab UserId={UserId.UserId} />
+          {tweetList}
         </CenterContainer>
         <RightContainer>
           <PopularUserList/>

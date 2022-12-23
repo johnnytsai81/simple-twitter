@@ -87,7 +87,7 @@ const LikeIconStyle = styled.div`
 function PostItem(props) {
   let description = props.description;
   let createdAt = props.createdAt;
-  let updatedAt = props.updatedAt;
+  // let updatedAt = props.updatedAt;
   let username = props.username;
   let totalLikes = props.totalLikes;
   let totalReplies = props.totalReplies;
@@ -133,20 +133,7 @@ function PostItem(props) {
             </p>
           </div>
         </NavLink>
-        <NavLink
-          to={{ pathname: `/tweet/${TweetId}/replies` }}
-          state={{
-            avatar,
-            description,
-            username,
-            account,
-            isLiked,
-            TweetId,
-            updatedAt,
-            totalReplies,
-            totalLikes,
-          }}
-        >
+        <NavLink to={{ pathname: `/tweet/${TweetId}/replies` }}>
           <p className="text-start mb-0">{description}</p>
         </NavLink>
         <div className="card-footer">

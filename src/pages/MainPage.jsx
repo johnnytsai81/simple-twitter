@@ -71,7 +71,7 @@ function Main() {
     getData();
     // refresh when add new tweet or reply
   }, []);
-
+  
   const tweetList = tweets.map((tweet) => {
     return (
       <PostItem

@@ -91,10 +91,12 @@ function UserInfoArea(props) {
   let username = props.username;
   let account = props.account;
   let isFollowed = props.isFollowed;
-  let follower = props.follower;
-  let followed = props.followed;
+  let totalFollowers = props.totalFollowers;
+  let totalFollowings = props.totalFollowings;
   let selfIntro = props.selfIntro;
   let UserId = props.UserId;
+  let currentUserId = props.currentUserId
+
   const [showNotice, setShowNotice] = useState(false);
   const [followState, setFollowState] = useState(isFollowed);
   const [show, setShow] = useState(false);
@@ -114,12 +116,13 @@ function UserInfoArea(props) {
     setFollowState(!followState);
   }
 
+
   return (
     <CardStyle>
       <img className="background" src={coverImage} alt="background" />
       <img className="avatar" src={avatar} alt="avatar" />
       <div className="card-header">
-        {UserId === "self" ? (
+        {UserId === currentUserId ? (
           <Button
             variant="outline-primary ms-auto mt-4 me-4"
             onClick={() => {
@@ -168,11 +171,11 @@ function UserInfoArea(props) {
         <div className="mb-2">{selfIntro}</div>
         <div className="text-wrap">
           <div className="text">
-            <NavLink to={`/user/${UserId}/following`}>{followed}個</NavLink>
+            <NavLink to={`/user/${UserId}/following`}>{totalFollowings}個</NavLink>
             跟隨中
           </div>
           <div className="text">
-            <NavLink to={`/user/${UserId}/followers`}>{follower}位</NavLink>
+            <NavLink to={`/user/${UserId}/followers`}>{totalFollowers}位</NavLink>
             跟隨者
           </div>
         </div>
