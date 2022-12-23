@@ -54,6 +54,7 @@ export const deleteTweet2 = async (id) => {
   }
 };
 
+// 取得指定推文
 export async function getTweet(tweetId) {
   try {
     const { data } = await axiosInstance.get(
@@ -70,6 +71,7 @@ export async function getTweet(tweetId) {
   }
 }
 
+// 上傳推文
 export async function addTweet(description) {
   try {
     const { data } = await axiosInstance.post(`${baseUrl}/${basePath}`, {
@@ -98,33 +100,33 @@ export async function deleteTweet(tweetId) {
   }
 }
 
-export async function likeTweet(tweetId) {
-  try {
-    const { data } = await axiosInstance.post(
-      `${baseUrl}/${basePath}/${tweetId}`
-    );
-    return data;
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Like tweet failed]: ${err}`,
-    };
-  }
-}
+// export async function likeTweet(tweetId) {
+//   try {
+//     const { data } = await axiosInstance.post(
+//       `${baseUrl}/${basePath}/${tweetId}`
+//     );
+//     return data;
+//   } catch (err) {
+//     return {
+//       success: false,
+//       message: `[Like tweet failed]: ${err}`,
+//     };
+//   }
+// }
 
-export async function dislikeTweet(tweetId) {
-  try {
-    const { data } = await axiosInstance.post(
-      `${baseUrl}/${basePath}/${tweetId}`
-    );
-    return data;
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Dislike tweet failed]: ${err}`,
-    };
-  }
-}
+// export async function dislikeTweet(tweetId) {
+//   try {
+//     const { data } = await axiosInstance.post(
+//       `${baseUrl}/${basePath}/${tweetId}`
+//     );
+//     return data;
+//   } catch (err) {
+//     return {
+//       success: false,
+//       message: `[Dislike tweet failed]: ${err}`,
+//     };
+//   }
+// }
 
 export async function getAllReplies(tweetId) {
   try {

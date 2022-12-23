@@ -10,7 +10,7 @@ import { getUser, getUserReplied } from "../API/user";
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
 import { useParams } from "react-router-dom";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // main區塊
 const MainStyle = styled.div`
@@ -44,9 +44,11 @@ const RightContainer = styled.div`
 
 function ProfileReply() {
   const [replied, setReplied] = useState([]);
-  const [info, setInfo] = useState([]);
+  const [info, setInfo] = useState("");
+  const [loading, setLoading] = useState(false);
   const UserId = useParams();
   useEffect(() => {
+    setLoading(true);
     async function getData() {
       const { success, data, message } = await getUserReplied(UserId.UserId);
       if (success) {
@@ -70,6 +72,7 @@ function ProfileReply() {
     async function startOrder() {
       await getInfo();
       getData();
+      setLoading(false);
     }
     startOrder();
     // eslint-disable-next-line
@@ -77,47 +80,57 @@ function ProfileReply() {
   const replyList = replied.map((reply) => {
     return (
       <ReplyItem
-        userAccount={info.account}
+        userAccount={reply.Tweet.User.ownerAccount}
         name={info.name}
         UserId={reply.UserId}
         TweetId={reply.TweetId}
         replyAccount={reply.User.account}
         replyName={reply.User.name}
-        ReplyId={1}
-        // time={"10分鐘"}
+        ReplyId={reply.Tweet.User.id}
         avatar={reply.User.avatar}
         comment={reply.comment}
         createdAt={reply.createdAt}
-        // }
       />
     );
   });
   return (
     <Container>
-      <MainStyle>
-        <LeftContainer>
-          <SideBar />
-        </LeftContainer>
-        <CenterContainer>
-          {/* back為返回記號 number為推文數 */}
-          <Breadcrumb title={info.name} number={info.Tweets} back={true} />
-          <UserInfoArea
-            username={info.name}
-            account={info.account}
-            UserId={info.UserId}
-            totalFollowers={info.totalFollowers}
-            totalFollowings={info.totalFollowings}
-            selfIntro={info.introduction}
-            coverImage={info.coverImage}
-            avatar={info.avatar}
-          ></UserInfoArea>
-          <UserMenuTab UserId={UserId.UserId} />
-          {replyList}
-        </CenterContainer>
-        <RightContainer>
-          <PopularUserList />
-        </RightContainer>
-      </MainStyle>
+      {loading ? (
+        ""
+      ) : (
+        <MainStyle>
+          <LeftContainer>
+            <SideBar />
+          </LeftContainer>
+          <CenterContainer>
+            {/* back為返回記號 number為推文數 */}
+            {info === "" ? (
+              ""
+            ) : (
+              <Breadcrumb
+                title={info.name}
+                number={info.Tweets.totalTweets}
+                back={true}
+              />
+            )}
+            <UserInfoArea
+              username={info.name}
+              account={info.account}
+              UserId={info.UserId}
+              totalFollowers={info.totalFollowers}
+              totalFollowings={info.totalFollowings}
+              selfIntro={info.introduction}
+              coverImage={info.coverImage}
+              avatar={info.avatar}
+            ></UserInfoArea>
+            <UserMenuTab UserId={UserId.UserId} />
+            {replyList}
+          </CenterContainer>
+          <RightContainer>
+            <PopularUserList />
+          </RightContainer>
+        </MainStyle>
+      )}
     </Container>
   );
 }

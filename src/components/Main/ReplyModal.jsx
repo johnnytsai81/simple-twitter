@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useAuth } from '../../contexts/AuthContext'
+import relativeTime from "../../utilities/relativeTime";
 
 // 引入圖片
 import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
@@ -98,12 +99,11 @@ function ReplyModal(props) {
   let setShow = props.setShow;
   let username = props.username;
   let account = props.account;
-  let time = props.time;
+  let createdAt = props.createdAt;
   let description = props.description;
   let avatar = props.avatar;
   const { currentUser } = useAuth()
   const handleClose = () => setShow(false);
-
   return (
     <Modal show={show} onHide={handleClose} size="lg">
       <ModalStyle>
@@ -119,7 +119,7 @@ function ReplyModal(props) {
               <div className="d-flex align-items-center">
                 <h3 className="name mb-0">{username}</h3>
                 <p className="account mb-0">
-                  @{account}・<span className="time">{time}</span>
+                  @{account}・<span className="time">{relativeTime(createdAt)}</span>
                 </p>
               </div>
               <div className="tweet">{description}</div>

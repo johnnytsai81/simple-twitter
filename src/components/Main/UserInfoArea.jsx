@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { useParams } from "react-router-dom";
 
 // 假資料
 import { mockUser } from "../../mock/user";
@@ -86,6 +88,7 @@ const ButtonStyle = styled.div`
 
 function UserInfoArea(props) {
   const [user, setUser] = useState(null);
+  const { currentUser } = useAuth();
   let coverImage = props.coverImage;
   let avatar = props.avatar;
   let username = props.username;
@@ -94,12 +97,13 @@ function UserInfoArea(props) {
   let totalFollowers = props.totalFollowers;
   let totalFollowings = props.totalFollowings;
   let selfIntro = props.selfIntro;
-  let UserId = props.UserId;
-  let currentUserId = props.currentUserId
 
+  const UserId = useParams();
   const [showNotice, setShowNotice] = useState(false);
   const [followState, setFollowState] = useState(isFollowed);
   const [show, setShow] = useState(false);
+  // eslint-disable-next-line
+  const [loadingCurrentUser, setLoadingCurrentUser] = useState(currentUser);
 
   // 開啟跟關閉modal
   const handleShow = () => setShow(true);
@@ -116,13 +120,14 @@ function UserInfoArea(props) {
     setFollowState(!followState);
   }
 
-
   return (
     <CardStyle>
       <img className="background" src={coverImage} alt="background" />
       <img className="avatar" src={avatar} alt="avatar" />
       <div className="card-header">
-        {UserId === currentUserId ? (
+        {loadingCurrentUser === null ? (
+          ""
+        ) : currentUser.id === Number(UserId.UserId) ? (
           <Button
             variant="outline-primary ms-auto mt-4 me-4"
             onClick={() => {
@@ -171,11 +176,15 @@ function UserInfoArea(props) {
         <div className="mb-2">{selfIntro}</div>
         <div className="text-wrap">
           <div className="text">
-            <NavLink to={`/user/${UserId}/following`}>{totalFollowings}個</NavLink>
+            <NavLink to={`/user/${UserId.UserId}/following`}>
+              {totalFollowings}個
+            </NavLink>
             跟隨中
           </div>
           <div className="text">
-            <NavLink to={`/user/${UserId}/followers`}>{totalFollowers}位</NavLink>
+            <NavLink to={`/user/${UserId.UserId}/followers`}>
+              {totalFollowers}位
+            </NavLink>
             跟隨者
           </div>
         </div>

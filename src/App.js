@@ -11,9 +11,6 @@ import AdminUsersPage from './pages/AdminUsersPage';
 import ProfileTweets from './pages/ProfileTweets';
 import ProfileReply from './pages/ProfileReply';
 import ProfileLikes from './pages/ProfileLikes';
-import OtherProfileTweets from './pages/OtherProfileTweets';
-import OtherProfileReply from './pages/OtherProfileReply';
-import OtherProfileLikes from './pages/OtherProfileLikes';
 import UserFollowerPage from './pages/UserFollowerPage';
 import UserFollowingPage from './pages/UserFollowingPage';
 import SettingPage from './pages/SettingPage';
@@ -39,13 +36,10 @@ function App() {
           <Route path="user/:UserId/tweet" element={<ProfileTweets />} />
           <Route path="user/:UserId/replied_tweets" element={<ProfileReply />} />
           <Route path="user/:UserId/likes" element={<ProfileLikes />} />
-          <Route path="user/self/followers" element={<UserFollowerPage />} />
-          <Route path="user/self/following" element={<UserFollowingPage />} />
+          <Route path="user/:UserId/followers" element={<UserFollowerPage />} />
+          <Route path="user/:UserId/following" element={<UserFollowingPage />} />
           <Route path="user/setting" element={<SettingPage />} />
           <Route path="tweet/:TweetId/replies" element={<ReplyPage />} />
-          <Route path="user/1/tweet" element={<OtherProfileTweets />} />
-          <Route path="user/1/replied_tweets" element={<OtherProfileReply />} />
-          <Route path="user/1/likes" element={<OtherProfileLikes />} />
           <Route path="*" element={<HomePage />} /> 
           {/* 
           <Route path="*">

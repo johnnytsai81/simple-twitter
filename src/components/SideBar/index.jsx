@@ -13,6 +13,7 @@ import Button from "react-bootstrap/Button";
 
 // 引入元件
 import SideBarModal from "./SideBarModal";
+import { useAuth } from "../../contexts/AuthContext";
 
 const PageListStyle = styled.div`
   display: flex;
@@ -80,9 +81,10 @@ function PageLink(props) {
 function SideBar(props) {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
   const handleClick = () => {
     localStorage.removeItem("authToken");
-    navigate("/admin_login");
+    navigate("/login");
   };
 
   // 開啟跟關閉modal
@@ -102,7 +104,7 @@ function SideBar(props) {
             )
           }
         </NavLink>
-        <NavLink to={`/user/self/`}>
+        <NavLink to={`/user/${currentUser?.id}/`}>
           {({ isActive }) =>
             isActive ? (
               <PageLink active={true} text={"個人資料"} name={"person"} />

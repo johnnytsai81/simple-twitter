@@ -45,7 +45,7 @@ const RightContainer = styled.div`
 
 function Main() {
   const [tweets, setTweets] = useState([]);
-  const { logout, currentUser } = useAuth();
+  const { currentUser } = useAuth();
 
   // 等做好再加
   // const navigate = useNavigate()
@@ -95,7 +95,7 @@ function Main() {
     <Container>
       <MainStyle>
         <LeftContainer>
-          <SideBar logout={logout} />
+          <SideBar/>
         </LeftContainer>
         <CenterContainer>
           {/* back為返回記號 number為推文數 */}

@@ -4,14 +4,13 @@ import UserInfoArea from "../components/Main/UserInfoArea";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import UserMenuTab from "../components/Main/UserMenuTab";
-import { useAuth } from "../contexts/AuthContext";
-import { getUser,getUserTweets } from "../API/user";
+import { getUser, getUserTweets } from "../API/user";
 
 // 載入方法
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
 import { useParams } from "react-router-dom";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // main區塊
 const MainStyle = styled.div`
@@ -45,10 +44,11 @@ const RightContainer = styled.div`
 
 function ProfileTweets() {
   const [tweets, setTweets] = useState([]);
-  const [info, setInfo] = useState([]);
-  const { logout, currentUser } = useAuth();
+  const [info, setInfo] = useState("");
+  const [loading, setLoading] = useState(false);
   const UserId = useParams();
   useEffect(() => {
+    setLoading(true);
     async function getData() {
       const { success, data, message } = await getUserTweets(UserId.UserId);
       if (success) {
@@ -69,9 +69,10 @@ function ProfileTweets() {
         console.error(message);
       }
     }
-    async function startOrder(){
+    async function startOrder() {
       await getInfo();
       getData();
+      setLoading(false);
     }
     startOrder();
     // eslint-disable-next-line
@@ -90,40 +91,48 @@ function ProfileTweets() {
         isLiked={tweet.isLiked}
         updatedAt={tweet.updatedAt}
         createdAt={tweet.createdAt}
-        // totalLikes={tweet.Likes.totalLikes}
+        totalLikes={tweet.Likes.totalLikes}
+        totalReplies={tweet.Replies.totalReplies}
       />
     );
   });
-
-
   return (
     <Container>
-      <MainStyle>
-        <LeftContainer>
-          <SideBar logout={logout}/>
-        </LeftContainer>
-        <CenterContainer>
-          {/* back為返回記號 number為推文數 */}
-          <Breadcrumb title={info.name} number={info.Tweets} back={true} />
-
-          <UserInfoArea
-            username={info.name}
-            account={info.account}
-            UserId={info.UserId}
-            currentUserId={currentUser?.id}
-            totalFollowers={info.totalFollowers}
-            totalFollowings={info.totalFollowings}
-            selfIntro={info.introduction}
-            coverImage={info.coverImage}
-            avatar={info.avatar}
-          ></UserInfoArea>
-          <UserMenuTab UserId={UserId.UserId} />
-          {tweetList}
-        </CenterContainer>
-        <RightContainer>
-          <PopularUserList/>
-        </RightContainer>
-      </MainStyle>
+      {loading ? (
+        ""
+      ) : (
+        <MainStyle>
+          <LeftContainer>
+            <SideBar />
+          </LeftContainer>
+          <CenterContainer>
+            {info === "" ? (
+              ""
+            ) : (
+              <Breadcrumb
+                title={info.name}
+                number={info.Tweets.totalTweets}
+                back={true}
+              />
+            )}
+            <UserInfoArea
+              username={info.name}
+              account={info.account}
+              UserId={info.UserId}
+              totalFollowers={info.totalFollowers}
+              totalFollowings={info.totalFollowings}
+              selfIntro={info.introduction}
+              coverImage={info.coverImage}
+              avatar={info.avatar}
+            ></UserInfoArea>
+            <UserMenuTab UserId={UserId.UserId} />
+            {tweetList}
+          </CenterContainer>
+          <RightContainer>
+            <PopularUserList />
+          </RightContainer>
+        </MainStyle>
+      )}
     </Container>
   );
 }

@@ -101,9 +101,13 @@ function ReplyItem(props) {
             回覆<span>@{userAccount}</span>
           </p>
         </NavLink>
-        <NavLink to={`/tweet/${TweetId}/replies`}>
+        {TweetId !== undefined ? (
+          <NavLink to={`/tweet/${TweetId}/replies`}>
+            <p className="text-start mb-0">{comment}</p>
+          </NavLink>
+        ) : (
           <p className="text-start mb-0">{comment}</p>
-        </NavLink>
+        )}
       </div>
     </CardStyle>
   );

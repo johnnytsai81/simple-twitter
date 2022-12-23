@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseUrl = "https://ck-mami-2022-twitter.herokuapp.com/api";
 const basePath = "users";
-const baseFollowPath = "followships";
+// const baseFollowPath = "followships";
 
 const axiosInstance = axios.create({
   baseURL: `${baseUrl}`,
@@ -121,6 +121,38 @@ export async function getUserLiked(userId) {
   }
 }
 
+// 取得該使用者的追隨者
+export async function getUserFollowers(userId) {
+  try {
+    const { data } = await axiosInstance.get(
+      `${baseUrl}/${basePath}/${userId}/followers`
+    );
+    if (data.success === false) return { ...data };
+    return { success: true, data };
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get User failed]: ${err}`,
+    };
+  }
+}
+
+// 取得該使用者跟隨中的人
+export async function getUserFollowing(userId) {
+  try {
+    const { data } = await axiosInstance.get(
+      `${baseUrl}/${basePath}/${userId}/followings`
+    );
+    if (data.success === false) return { ...data };
+    return { success: true, data };
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get User failed]: ${err}`,
+    };
+  }
+}
+
 export async function EditUser(userId, userData) {
   console.log("send", userData);
   try {
@@ -144,45 +176,45 @@ export async function EditUser(userId, userData) {
   }
 }
 
-export async function followUser(userId) {
-  try {
-    const { data } = await axiosInstance.post(`${baseUrl}/${baseFollowPath}`, {
-      id: userId,
-    });
-    return data;
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Follow user failed]: ${err}`,
-    };
-  }
-}
+// export async function followUser(userId) {
+//   try {
+//     const { data } = await axiosInstance.post(`${baseUrl}/${baseFollowPath}`, {
+//       id: userId,
+//     });
+//     return data;
+//   } catch (err) {
+//     return {
+//       success: false,
+//       message: `[Follow user failed]: ${err}`,
+//     };
+//   }
+// }
 
-export async function unfollowUser(userId) {
-  try {
-    const { data } = await axiosInstance.delete(
-      `${baseUrl}/${baseFollowPath}/${userId}`
-    );
-    return data;
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Unfollow user failed]: ${err}`,
-    };
-  }
-}
+// export async function unfollowUser(userId) {
+//   try {
+//     const { data } = await axiosInstance.delete(
+//       `${baseUrl}/${baseFollowPath}/${userId}`
+//     );
+//     return data;
+//   } catch (err) {
+//     return {
+//       success: false,
+//       message: `[Unfollow user failed]: ${err}`,
+//     };
+//   }
+// }
 // dataName: tweets, replied_tweets, likes, followings, followers
-export async function getUserInfoData(dataName, userId) {
-  try {
-    const { data } = await axiosInstance.get(
-      `${baseUrl}/${basePath}/${userId}/${dataName}`
-    );
-    if (data.success === false) return { ...data };
-    return { success: true, data };
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Get user's ${dataName} failed]: ${err}`,
-    };
-  }
-}
+// export async function getUserInfoData(dataName, userId) {
+//   try {
+//     const { data } = await axiosInstance.get(
+//       `${baseUrl}/${basePath}/${userId}/${dataName}`
+//     );
+//     if (data.success === false) return { ...data };
+//     return { success: true, data };
+//   } catch (err) {
+//     return {
+//       success: false,
+//       message: `[Get user's ${dataName} failed]: ${err}`,
+//     };
+//   }
+// }

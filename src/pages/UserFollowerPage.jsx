@@ -3,10 +3,13 @@ import FollowItem from "../components/Main/FollowItem";
 import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import FollowTab from "../components/Main/FollowTab";
+import { getUser, getUserFollowers } from "../API/user";
 
 // 載入方法
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 // main區塊
 const MainStyle = styled.div`
@@ -39,61 +42,70 @@ const RightContainer = styled.div`
 `;
 
 function ProfileFollowers() {
+  const [followers, setFollowers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [info, setInfo] = useState("");
+  const UserId = useParams();
+  useEffect(() => {
+    setLoading(true);
+    async function getData() {
+      const { success, data, message } = await getUserFollowers(UserId.UserId);
+      if (success) {
+        // update data
+        setFollowers(data);
+      } else {
+        // handle error
+        console.error(message);
+      }
+    }
+    async function getInfo() {
+      const { success, data, message } = await getUser(UserId.UserId);
+      if (success) {
+        // update data
+        setInfo(data);
+      } else {
+        // handle error
+        console.error(message);
+      }
+    }
+    async function startOrder() {
+      await getInfo();
+      getData();
+      setLoading(false);
+    }
+    startOrder();
+    // eslint-disable-next-line
+  }, []);
+  const followersList = followers.map((follower) => {
+    return (
+      <FollowItem
+        isFollowed={follower.isFollowed}
+      />
+    );
+  });
   return (
     <Container>
+      {loading ? (
+        ""
+      ) : (
       <MainStyle>
         <LeftContainer>
           <SideBar />
         </LeftContainer>
         <CenterContainer>
           {/* back為返回記號 number為推文數 */}
-          <Breadcrumb title={"John Doe"} number={"25"} back={true} />
-          <FollowTab UserId={"self"} />
-          <FollowItem
-            username={"apple"}
-            UserId={1}
-            isFollowed={true}
-            profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
-            selfIntro={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <FollowItem
-            username={"apple2"}
-            UserId={1}
-            isFollowed={true}
-            profileImage={"https://i.imgur.com/w0BeCel.jpg"}
-            selfIntro={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <FollowItem
-            username={"appl2"}
-            UserId={1}
-            isFollowed={true}
-            profileImage={""}
-            selfIntro={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <FollowItem
-            username={"apple222"}
-            UserId={1}
-            isFollowed={true}
-            profileImage={""}
-            selfIntro={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
-          <FollowItem
-            username={"apple"}
-            UserId={1}
-            isFollowed={true}
-            profileImage={"https://imgur.com/8R1V7JG.jpg"}
-            selfIntro={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
+          {info === "" ? (
+              ""
+            ) : (
+              <Breadcrumb
+                title={info.name}
+                number={info.Tweets.totalTweets}
+                back={true}
+                link={true}
+              />
+            )}
+          <FollowTab UserId={UserId.UserId} />
+          {followersList}
           <FollowItem
             username={"apple"}
             UserId={1}
@@ -105,9 +117,10 @@ function ProfileFollowers() {
           />
         </CenterContainer>
         <RightContainer>
-          <PopularUserList/>
+          <PopularUserList />
         </RightContainer>
       </MainStyle>
+      )}
     </Container>
   );
 }

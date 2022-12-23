@@ -10,7 +10,7 @@ import { getUser, getUserLiked } from "../API/user";
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
 import { useParams } from "react-router-dom";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // main區塊
 const MainStyle = styled.div`
@@ -44,9 +44,11 @@ const RightContainer = styled.div`
 
 function ProfileLikes() {
   const [tweets, setTweets] = useState([]);
-  const [info, setInfo] = useState([]);
+  const [info, setInfo] = useState("");
+  const [loading, setLoading] = useState(false);
   const UserId = useParams();
   useEffect(() => {
+    setLoading(true);
     async function getData() {
       const { success, data, message } = await getUserLiked(UserId.UserId);
       if (success) {
@@ -67,9 +69,10 @@ function ProfileLikes() {
         console.error(message);
       }
     }
-    async function startOrder(){
+    async function startOrder() {
       await getInfo();
       getData();
+      setLoading(false);
     }
     startOrder();
     // eslint-disable-next-line
@@ -95,30 +98,42 @@ function ProfileLikes() {
 
   return (
     <Container>
-      <MainStyle>
-        <LeftContainer>
-          <SideBar />
-        </LeftContainer>
-        <CenterContainer>
-          {/* back為返回記號 number為推文數 */}
-          <Breadcrumb title={info.name} number={info.Tweets} back={true} />
-          <UserInfoArea
-            username={info.name}
-            account={info.account}
-            UserId={info.UserId}
-            totalFollowers={info.totalFollowers}
-            totalFollowings={info.totalFollowings}
-            selfIntro={info.introduction}
-            coverImage={info.coverImage}
-            avatar={info.avatar}
-          ></UserInfoArea>
-          <UserMenuTab UserId={UserId.UserId} />
-          {tweetList}
-        </CenterContainer>
-        <RightContainer>
-          <PopularUserList/>
-        </RightContainer>
-      </MainStyle>
+      {loading ? (
+        ""
+      ) : (
+        <MainStyle>
+          <LeftContainer>
+            <SideBar />
+          </LeftContainer>
+          <CenterContainer>
+            {/* back為返回記號 number為推文數 */}
+            {info === "" ? (
+              ""
+            ) : (
+              <Breadcrumb
+                title={info.name}
+                number={info.Tweets.totalTweets}
+                back={true}
+              />
+            )}
+            <UserInfoArea
+              username={info.name}
+              account={info.account}
+              UserId={info.UserId}
+              totalFollowers={info.totalFollowers}
+              totalFollowings={info.totalFollowings}
+              selfIntro={info.introduction}
+              coverImage={info.coverImage}
+              avatar={info.avatar}
+            ></UserInfoArea>
+            <UserMenuTab UserId={UserId.UserId} />
+            {tweetList}
+          </CenterContainer>
+          <RightContainer>
+            <PopularUserList />
+          </RightContainer>
+        </MainStyle>
+      )}
     </Container>
   );
 }

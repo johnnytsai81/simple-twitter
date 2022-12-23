@@ -82,9 +82,10 @@ function ReplyPage() {
         key={reply.id}
         avatar={reply.User.avatar}
         name={reply.User.name}
+        UserId={reply.UserId}
         replyAccount={reply.User.account}
         userAccount={filter[0].User.account}
-        replyId={reply.UserId}
+        ReplyId={filter[0].User.id}
         comment={reply.comment}
         updatedAt={reply.updatedAt}
         createdAt={reply.createdAt}
@@ -100,13 +101,14 @@ function ReplyPage() {
       <ReplyMenu
         key={filter[0].id}
         username={filter[0].User.name}
+        UserId={filter[0].User.id}
         account={filter[0].User.account}
         avatar={filter[0].User.avatar}
         totalReplies={filter[0].Replies.totalReplies}
         totalLikes={filter[0].Likes.totalLikes}
         isLiked={filter[0].isLiked}
         description={filter[0].description}
-        updatedAt={filter[0].updatedAt}
+        createdAt={filter[0].createdAt}
         TweetId={TweetId.TweetId}
       />
     );

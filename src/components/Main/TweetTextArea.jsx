@@ -40,15 +40,28 @@ const StyledInput = styled.textarea`
 `;
 
 function TextArea(props) {
+  let value = props.value;
+  let onChange = props.onChange;
   let avatar = props.avatar;
   return (
     <CardStyle>
-      {avatar === "" ? <NoImage className="avatar" /> : <img className="avatar" src={avatar} alt="avatar" />}
+      {avatar === "" ? (
+        <NoImage className="avatar" />
+      ) : (
+        <img className="avatar" src={avatar} alt="avatar" />
+      )}
       <div className="card-content">
-        <StyledInput placeholder={"有什麼新鮮事？"} />
-        <Button variant="primary" size="sm">
+        <StyledInput
+          value={value || ""}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={"有什麼新鮮事？"}
+        />
+        <Button
+          variant="primary"
+          size="sm"
+        >
           推文
-        </Button>{" "}
+        </Button>
       </div>
     </CardStyle>
   );

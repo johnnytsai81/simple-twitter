@@ -114,6 +114,7 @@ const CardStyle = styled.div`
       fill: var(--white-color);
       stroke: var(--secondary-color);
       stroke-width: 2px;
+      cursor: pointer;
       &.active {
         fill: var(--error-color);
         stroke: var(--error-color);
@@ -129,9 +130,10 @@ const CardStyle = styled.div`
 
 function ReplyMenu(props) {
   let description = props.description;
-  let updatedAt = props.updatedAt;
+  let createdAt = props.createdAt;
   let totalLikes = props.totalLikes;
   let isLiked = props.isLiked;
+  let UserId = props.UserId;
   let totalReplies = props.totalReplies;
   let account = props.account;
   let username = props.username;
@@ -168,7 +170,7 @@ function ReplyMenu(props) {
   return (
     <CardStyle>
       <div className="card-content">
-        <NavLink className="avatar">
+        <NavLink className="avatar" to={`/user/${UserId}/tweet`}>
           {avatar === "" ? <NoImage /> : <img src={avatar} alt="avatar" />}
         </NavLink>
         <div className="card-header">
@@ -177,7 +179,7 @@ function ReplyMenu(props) {
         </div>
       </div>
       <p className="text">{description}</p>
-      <div className="time">{creatTime(updatedAt)}</div>
+      <div className="time">{creatTime(createdAt)}</div>
       <div className="card-footer">
         <div className="wrap">
           <span className="en-font-family">{totalReplies}</span>回覆
@@ -212,7 +214,7 @@ function ReplyMenu(props) {
         avatar={avatar}
         username={username}
         account={account}
-        updatedAt={updatedAt}
+        createdAt={createdAt}
         description={description}
       />
     </CardStyle>
