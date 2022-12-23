@@ -33,7 +33,6 @@ const LoginPage = () => {
     const token = data.data.token;
 
     if (data.success) {
-      localStorage.setItem("authToken", token);
       // 登入成功訊息
       localStorage.setItem("authToken", token);
       Swal.fire({
