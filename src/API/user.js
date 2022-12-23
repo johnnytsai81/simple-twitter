@@ -176,6 +176,37 @@ export async function EditUser(userId, userData) {
   }
 }
 
+// 取得該使用者的帳戶設定
+// export async function getUserSetting(id) {
+//   try {
+//     const { data } = await axiosInstance.put(
+//       `${baseUrl}/users/${id}/setting`
+//     );
+//     return data.updatedUser
+//   } catch (error) {
+//       console.error("[Get UserSetting failed]:", error);
+//     };
+// }
+
+export const getUserSetting = async (payload) => {
+    const { id, account, name, email, password, checkPassword } = payload;
+  try {
+    const res = await axiosInstance.put(
+      `${baseUrl}/users/${id}/setting`,
+    {
+      account,
+      name,
+      email,
+      password,
+      checkPassword,
+    })
+    return res.data.updatedUser
+
+  } catch (error) {
+    console.log('[Get UserSetting Failed]:', error.response.data)
+  }
+}
+
 // export async function followUser(userId) {
 //   try {
 //     const { data } = await axiosInstance.post(`${baseUrl}/${baseFollowPath}`, {

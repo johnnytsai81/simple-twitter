@@ -1,16 +1,20 @@
-import styled from 'styled-components';
-import Container from 'react-bootstrap/Container';
-import SideBar from '../components/SideBar';
-import AuthInput from '../components/AccountForm/AuthInput';
-import { AuthInputContainer } from '../components/common/auth.styled';
-import { Button } from 'react-bootstrap';
+import styled from "styled-components";
+import Container from "react-bootstrap/Container";
+import SideBar from "../components/SideBar";
+import AuthInput from "../components/AccountForm/AuthInput";
+import { AuthInputContainer } from "../components/common/auth.styled";
+import { Button } from "react-bootstrap";
+import { useState } from "react";
+import { getUserSetting } from "../API/user";
+import Swal from "sweetalert2";
+
 
 
 // main區塊
 const MainStyle = styled.div`
   display: flex;
   gap: 1rem;
-`
+`;
 
 // sidebar區塊
 const LeftContainer = styled.div`
@@ -19,7 +23,7 @@ const LeftContainer = styled.div`
   min-height: 100vh;
   display: flex;
   flex-flow: column;
-`
+`;
 
 // 帳戶設定區塊
 const CenterContainer = styled.div`
@@ -29,18 +33,18 @@ const CenterContainer = styled.div`
   height: 1200px;
   display: flex;
   flex-direction: column;
-`
+`;
 
 // 空的區塊
 const RightContainer = styled.div`
   flex: 7 1 0;
-`
+`;
 
 // 帳戶設定下方的border-line
 const BorderLine = styled.div`
   width: 100%;
-  border-top: 1px solid #E6ECF0;
-`
+  border-top: 1px solid #e6ecf0;
+`;
 
 // 包住authInput的區塊
 const InputContainer = styled.div`
@@ -50,87 +54,230 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
+const TextLine = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const SettingPage = () => {
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [account, setAccount] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
+
+
+  const handleSave = async () => {
+    if (account.trim().length === 0) {
+      Swal.fire({
+        position: "top",
+        title: "請輸入帳號",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (name.trim().length === 0) {
+      Swal.fire({
+        position: "top",
+        title: "請輸入名稱",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (name.length > 50) {
+      return;
+    }
+    if (email.trim().length === 0) {
+      Swal.fire({
+        position: "top",
+        title: "請輸入Email",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (password.trim().length === 0) {
+      Swal.fire({
+        position: "top",
+        title: "請輸入密碼",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (checkPassword.trim().length === 0) {
+      Swal.fire({
+        position: "top",
+        title: "請輸入密碼",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
+      return;
+    }
+      try {
+        await getUserSetting({
+        account,
+        name,
+        email,
+        password,
+        checkPassword,
+      });
+      } catch (error) {
+      console.error(error);
+    }
+
+    //   if (res.success) {
+    //   // 成功訊息
+    //   Swal.fire({
+    //     position: "top",
+    //     title: "修改成功",
+    //     timer: 1000,
+    //     icon: "success",
+    //     showConfirmButton: false,
+    //   });
+    //   return;
+      
+    // } else {
+    //    console.log(res.status);
+    // }
+  }
+
+
+  // const handleSave = async (e) => {
+  //   const res = await getUserSetting({
+  //     account: setAccount(e.target.value),
+  //     name: setName(e.target.value),
+  //     email: setEmail(e.target.value),
+  //     password: setPassword(e.target.value),
+  //     checkPassword: setCheckPassword(e.target.value),
+  //   });
+
+  //   if (res.success) {
+  //     // 成功訊息
+  //     Swal.fire({
+  //       position: "top",
+  //       title: "修改成功",
+  //       timer: 1000,
+  //       icon: "success",
+  //       showConfirmButton: false,
+  //     });
+  //     return;
+  //   } else {
+  //     console.log(res.message);
+  //   }
+  // };
 
   return (
     <Container>
       <MainStyle>
-        
         {/* 左邊區塊 */}
         <LeftContainer>
-          <SideBar location={'home'}/>
+          <SideBar location={"home"} />
         </LeftContainer>
 
         {/* 中間-右邊區塊 */}
         <CenterContainer>
-          <h3 style={{ margin: '20px' }}>帳戶設定</h3>
-          <BorderLine/>
+          <h3 style={{ margin: "20px" }}>帳戶設定</h3>
+          <BorderLine />
 
           {/* 控制表格欄位內的置中 */}
           <InputContainer>
-
-            <AuthInputContainer style={{ width:'90%' }}>
+            <AuthInputContainer style={{ width: "90%" }}>
               <AuthInput
                 label="帳號"
                 placeholder="請輸入帳號"
-                // value=''
+                value={account}
+                onChange={(accountInputValue) => setAccount(accountInputValue)}
               />
             </AuthInputContainer>
 
-
-            <AuthInputContainer style={{ width:'90%' }}>
+            <AuthInputContainer style={{ width: "90%" }}>
               <AuthInput
                 label="名稱"
                 placeholder="請輸入名稱"
-                // value=''
+                value={name}
+                onChange={(nameInputValue) => setName(nameInputValue)}
               />
+              <TextLine>
+                <label
+                  style={{
+                    color: "red",
+                    fontSize: "12px",
+                    visibility: name.length < 51 && "hidden",
+                  }}
+                >
+                  🛈字數超過上限!
+                </label>
+                <label
+                  style={{
+                    color: "#696974",
+                    fontSize: "12px",
+                    textAlign: "right",
+                  }}
+                >
+                  {name.length}/50
+                </label>
+              </TextLine>
             </AuthInputContainer>
-          
 
-            <AuthInputContainer style={{ width:'90%' }}>
+            <AuthInputContainer style={{ width: "90%" }}>
               <AuthInput
                 label="Email"
                 placeholder="請輸入Email"
-                // value=''
+                value={email}
+                onChange={(emailInputValue) => setEmail(emailInputValue)}
               />
             </AuthInputContainer>
 
-            <AuthInputContainer style={{ width:'90%' }}>
+            <AuthInputContainer style={{ width: "90%" }}>
               <AuthInput
                 type="password"
                 label="密碼"
                 placeholder="請輸入密碼"
-                // value=''
+                value={password}
+                onChange={(passwordInputValue) =>
+                  setPassword(passwordInputValue)
+                }
               />
             </AuthInputContainer>
 
-
-            <AuthInputContainer style={{ width:'90%' 
-          }}>
+            <AuthInputContainer style={{ width: "90%" }}>
               <AuthInput
                 type="password"
                 label="密碼再確認"
                 placeholder="請再次輸入密碼"
-                // value=''
+                value={checkPassword}
+                onChange={(checkPasswordInputValue) =>
+                  setCheckPassword(checkPasswordInputValue)
+                }
               />
             </AuthInputContainer>
           </InputContainer>
 
           {/* 按鈕 */}
-          <div style={{ display:'flex',justifyContent:'flex-end'}}>
-          <Button variant="primary" style={{margin:'3rem 2.5rem 0 0'}}>儲存</Button>{' '}
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              variant="primary"
+              style={{ margin: "3rem 2.5rem 0 0" }}
+              onClick={handleSave}
+            >
+              儲存
+            </Button>
           </div>
         </CenterContainer>
-        <RightContainer>
-
-        </RightContainer>
-
+        <RightContainer></RightContainer>
       </MainStyle>
     </Container>
-  )
-}
+  );
+};
 
-export default SettingPage
+export default SettingPage;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import clsx from "clsx";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -7,7 +8,6 @@ const StyledContainer = styled.div`
   background-color: #f5f8fa;
   width: 100%;
   height: 147px;
-  border-bottom: 2px solid black;
 `;
 const StyledLabel = styled.label`
   font-size: 14px;
@@ -23,6 +23,16 @@ const StyledInput = styled.textarea`
   background-color: unset;
   border-radius: 0px;
   resize: none;
+  border-bottom: 2px solid #657786;
+  &:focus {
+    border-bottom: 2px solid #50b5ff;
+  }
+  &:hover {
+    border-bottom: 2px solid #50b5ff;
+  }
+  &.active {
+    border-bottom: 2px solid #fc5a5a;
+  }
 `;
 
 const IntroductionInput = ({ type, label, value, placeholder, onChange}) => {
@@ -30,7 +40,8 @@ const IntroductionInput = ({ type, label, value, placeholder, onChange}) => {
     <StyledContainer>
       <StyledLabel>{label}</StyledLabel>
       <StyledInput
-        type={type || 'text'}
+        className={clsx("", { active: value.length > 160 })}
+        type={type || "text"}
         placeholder={placeholder}
         value={value}
         onChange={(event) => onChange?.(event.target.value)}

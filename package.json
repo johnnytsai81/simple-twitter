@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
+    "clsx": "^1.2.1",
     "gh-pages": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",

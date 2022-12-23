@@ -128,9 +128,7 @@ const InputContainer = styled.div`
       color: var(--secondary-color);
       text-align: end;
     }
-    &.active div:first-child {
-      border-bottom: 2px solid var(--error-color);
-    }
+
     &.active .caption {
       color: var(--error-color);
     }
@@ -314,68 +312,48 @@ const ProfileEditModal = (props) => {
           </div>
 
           <InputContainer>
-            {nameCount > 50 ? (
-              <AuthInputContainer className="input active">
-                <AuthInput
-                  label="名稱"
-                  placeholder="請輸入名稱"
-                  value={name || ""}
-                  onChange={(e) => {
-                    setName(e);
-                    setNameCount(e.length || "");
-                  }}
-                />
+            <AuthInputContainer style={{ width: "100%" }}>
+              <AuthInput
+                label="名稱"
+                placeholder="請輸入名稱"
+                value={name || ""}
+                onChange={(e) => {
+                  setName(e);
+                  setNameCount(e.length || "");
+                }}
+              />
 
-                <div className="d-flex justify-content-between align-items-center mt-2">
-                  <p className="alert-text">暱稱不能多於 50 個字</p>
-                  <div className="caption">{nameCount}/50</div>
-                </div>
-              </AuthInputContainer>
-            ) : (
-              <AuthInputContainer className="input">
-                <AuthInput
-                  label="名稱"
-                  placeholder="請輸入名稱"
-                  value={name || ""}
-                  onChange={(e) => {
-                    setName(e);
-                    setNameCount(e.length || "");
-                  }}
-                />
-                <div className="caption mt-2">{nameCount}/50</div>
-              </AuthInputContainer>
-            )}
+              <div className="d-flex justify-content-between align-items-center mt-2">
+                <p
+                  className="alert-text"
+                  style={{ visibility: name.length < 51 && "hidden" }}
+                >
+                  暱稱不能多於 50 個字
+                </p>
+                <div className="caption">{name.length}/50</div>
+              </div>
+            </AuthInputContainer>
 
-            {introductionCount > 160 ? (
-              <AuthInputContainer className="input active">
-                <IntroductionInput
-                  label="自我介紹"
-                  placeholder="請輸入自我介紹"
-                  value={introduction || ""}
-                  onChange={(e) => {
-                    setIntroduction(e);
-                    setIntroductionCount(e.length || "");
-                  }}
-                />
-                <div className="d-flex justify-content-between align-items-center mt-2">
-                  <p className="alert-text">自我介紹不能多於 160 個字</p>
-                  <div className="caption">{introductionCount}/160</div>
-                </div>
-              </AuthInputContainer>
-            ) : (
-              <AuthInputContainer className="input">
-                <IntroductionInput
-                  label="自我介紹"
-                  placeholder="請輸入自我介紹"
-                  value={introduction || ""}
-                  onChange={(e) => {
-                    setIntroduction(e);
-                    setIntroductionCount(e.length || "");
-                  }}
-                />
-                <div className="caption">{introductionCount}/160</div>
-              </AuthInputContainer>
-            )}
+            <AuthInputContainer style={{ width: "100%" }}>
+              <IntroductionInput
+                label="自我介紹"
+                placeholder="請輸入自我介紹"
+                value={introduction || ""}
+                onChange={(e) => {
+                  setIntroduction(e);
+                  setIntroductionCount(e.length || "");
+                }}
+              />
+              <div className="d-flex justify-content-between align-items-center mt-2">
+                <p
+                  className="alert-text"
+                  style={{ visibility: introduction.length < 161 && "hidden" }}
+                >
+                  自我介紹不能多於 160 個字
+                </p>
+                <div className="caption">{introduction.length}/160</div>
+              </div>
+            </AuthInputContainer>
           </InputContainer>
         </Modal.Body>
       </ModalStyle>

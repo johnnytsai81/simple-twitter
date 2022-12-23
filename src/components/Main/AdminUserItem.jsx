@@ -81,18 +81,28 @@ const AdminUserItem = ({
   account,
   totalTweets,
   totalLikes,
+  followings,
+  followers,
 }) => {
   return (
     <UsersItem>
       {/* 個人背景圖/大頭照欄位 */}
       <ImageContainer>
-        {coverImage ? <img
-          className="coverImage"
-          src={coverImage}
-          alt="Background"
-          style={{ width: "100%", height: "140px" }}
-        /> : <img src={ backgroundImage } style={{ width: "100%", height: "140px" }} alt="backgroundImage" />}
-        
+        {coverImage ? (
+          <img
+            className="coverImage"
+            src={coverImage}
+            alt="Background"
+            style={{ width: "100%", height: "140px" }}
+          />
+        ) : (
+          <img
+            src={backgroundImage}
+            style={{ width: "100%", height: "140px" }}
+            alt="backgroundImage"
+          />
+        )}
+
         {avatar ? (
           <img
             className="avatar"
@@ -111,12 +121,8 @@ const AdminUserItem = ({
       </ImageContainer>
 
       {/* 姓名/帳號欄位 */}
-      <NameLink className="mt-10">
-        {username}
-      </NameLink>
-      <AccountLink className="mt-2">
-        @{account}
-      </AccountLink>
+      <NameLink className="mt-10">{username}</NameLink>
+      <AccountLink className="mt-2">@{account}</AccountLink>
 
       {/* 推文/喜歡欄位 */}
       <IconContainer>
@@ -126,7 +132,7 @@ const AdminUserItem = ({
           style={{
             width: "20.1px",
             height: "18.9px",
-            margin: "0 0 0 10px",
+            marginLeft: "10px",
           }}
         />
         {totalLikes}
@@ -134,8 +140,10 @@ const AdminUserItem = ({
 
       {/* 跟隨中/跟隨者欄位 */}
       <TextContainer>
-        <label style={{ color: "#171725" }}>34個</label>跟隨中
-        <label style={{ color: "#171725", margin: "0 0 0 10px" }}>59位</label>
+        <label style={{ color: "#171725" }}>{followings}個</label>跟隨中
+        <label style={{ color: "#171725", marginLeft: "10px" }}>
+          {followers}位
+        </label>
         跟隨者
       </TextContainer>
     </UsersItem>

@@ -5,6 +5,7 @@ import {
   AuthLinkText,
 } from "../components/common/auth.styled";
 import AuthInput from "../components/AccountForm/AuthInput";
+// import AuthInputAlert from "../components/AccountForm/AuthInputAlert";
 import { ACLogoIcon } from "../assets/icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -12,6 +13,13 @@ import { Container } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { register } from "../API/auth";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+
+const TextLine = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 
 const SignUpPage = () => {
@@ -23,19 +31,57 @@ const SignUpPage = () => {
   const navigate = useNavigate();
 
   const handleClick = async () => {
-    if (account.length === 0) {
+    if (account.trim().length === 0 ) {
+      Swal.fire({
+        position: "top",
+        title: "請輸入帳號",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
       return;
     }
-    if (name.length === 0 || name.length > 50) {
+    if (name.trim().length === 0) {
+      Swal.fire({
+        position: "top",
+        title: "請輸入名稱",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
       return;
     }
-    if (email.length === 0) {
+    if (name.length > 50) {
       return;
     }
-    if (password.length === 0) {
+    if (email.trim().length === 0) {
+      Swal.fire({
+        position: "top",
+        title: "請輸入Email",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
       return;
     }
-    if (checkPassword.length === 0) {
+    if (password.trim().length === 0) {
+      Swal.fire({
+        position: "top",
+        title: "請輸入密碼",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (checkPassword.trim().length === 0) {
+      Swal.fire({
+        position: "top",
+        title: "請輸入密碼",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
       return;
     }
 
@@ -84,21 +130,47 @@ const SignUpPage = () => {
           <ACLogoIcon />
         </div>
         <h2 style={{ margin: "20px 0 10px 0" }}>建立你的帳號</h2>
-        <AuthInputContainer>
-          <AuthInput
-            label="帳號"
-            placeholder="請輸入帳號"
-            value={account}
-            onChange={(accountInputValue) => setAccount(accountInputValue)}
-          />
-        </AuthInputContainer>
-        <AuthInputContainer>
+
+
+          <AuthInputContainer>
+              <AuthInput
+                label="帳號"
+                placeholder="請輸入帳號"
+                value={account}
+                onChange={(accountInputValue) => {
+                  setAccount(accountInputValue);
+                }}
+              />
+          </AuthInputContainer>
+       
+
+        <AuthInputContainer >
           <AuthInput
             label="名稱"
             placeholder="請輸入使用者名稱"
             value={name}
             onChange={(nameInputValue) => setName(nameInputValue)}
           />
+          <TextLine>
+            <label
+              style={{
+                color: "red",
+                fontSize: "12px",
+                visibility: name.length < 51 && "hidden",
+              }}
+            >
+              🛈字數超過上限!
+            </label>
+            <label
+              style={{
+                color: "#696974",
+                fontSize: "12px",
+                textAlign: "right",
+              }}
+            >
+              {name.length}/50
+            </label>
+          </TextLine>
         </AuthInputContainer>
         <AuthInputContainer>
           <AuthInput
