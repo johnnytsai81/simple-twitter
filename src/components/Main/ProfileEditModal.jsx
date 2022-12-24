@@ -2,6 +2,7 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import styled from "styled-components";
+import { useAuth } from "../../contexts/AuthContext";
 import { useState, useRef, useEffect, useMemo } from "react";
 
 // 引入圖片
@@ -159,28 +160,29 @@ const InputContainer = styled.div`
 const ProfileEditModal = (props) => {
   let show = props.show;
   let setShow = props.setShow;
-  let user = props.user;
-  // eslint-disable-next-line 
-  let setUser = props.setUser;
   const coverRef = useRef();
+  const { currentUser } = useAuth();
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [introduction, setIntroduction] = useState("");
+  // eslint-disable-next-line
   const [nameCount, setNameCount] = useState("");
+  // eslint-disable-next-line
   const [introductionCount, setIntroductionCount] = useState("");
   const [coverImage, setCoverImage] = useState(null);
   const [avatar, setAvatar] = useState(null);
-
   const { isUpdating, updateUser } = useUpdateUser();
 
   const handleSubmit = async () => {
-    await updateUser({
-      coverImage,
-      avatar,
-      name,
-      introduction,
+    await updateUser(
+      {
+        coverImage,
+        avatar,
+        name,
+        introduction,
+      },
       id
-    });
+    );
     handleClose();
   };
 
@@ -199,15 +201,15 @@ const ProfileEditModal = (props) => {
 
   // 匯入user資料
   useEffect(() => {
-    if (!user) return;
-    setId(user?.id);
-    setCoverImage(user?.coverImage);
-    setAvatar(user?.avatar);
-    setName(user?.name);
-    setIntroduction(user?.introduction);
-    setNameCount(user?.name.length);
-    setIntroductionCount(user?.name.length);
-  }, [user]);
+    if (!currentUser) return;
+    setId(currentUser?.id);
+    setCoverImage(currentUser?.coverImage);
+    setAvatar(currentUser?.avatar);
+    setName(currentUser?.name);
+    setIntroduction(currentUser?.introduction);
+    setNameCount(currentUser?.name.length);
+    setIntroductionCount(currentUser?.name.length);
+  }, [currentUser]);
 
   // 換圖片
   const handleImgChange = (e, type) => {
@@ -226,7 +228,6 @@ const ProfileEditModal = (props) => {
     }
   };
 
-
   // 關閉彈跳視窗時執行清空資料
   const clearForm = () => {
     setCoverImage(null);
@@ -237,7 +238,7 @@ const ProfileEditModal = (props) => {
 
   const handleClose = () => {
     setShow(false);
-    // clearForm();
+    // =clearForm();
   };
 
   // 清空資料

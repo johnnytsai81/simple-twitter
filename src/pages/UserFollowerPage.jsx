@@ -43,11 +43,9 @@ const RightContainer = styled.div`
 
 function ProfileFollowers() {
   const [followers, setFollowers] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState("");
   const UserId = useParams();
   useEffect(() => {
-    setLoading(true);
     async function getData() {
       const { success, data, message } = await getUserFollowers(UserId.UserId);
       if (success) {
@@ -71,7 +69,6 @@ function ProfileFollowers() {
     async function startOrder() {
       await getInfo();
       getData();
-      setLoading(false);
     }
     startOrder();
     // eslint-disable-next-line
@@ -80,14 +77,16 @@ function ProfileFollowers() {
     return (
       <FollowItem
         isFollowed={follower.isFollowed}
+        introduction={follower.introduction}
+        avatar={follower.avatar}
+        name={follower.name}
+        UserId={follower.id}
+        key={follower.id}
       />
     );
   });
   return (
     <Container>
-      {loading ? (
-        ""
-      ) : (
       <MainStyle>
         <LeftContainer>
           <SideBar />
@@ -106,21 +105,11 @@ function ProfileFollowers() {
             )}
           <FollowTab UserId={UserId.UserId} />
           {followersList}
-          <FollowItem
-            username={"apple"}
-            UserId={1}
-            isFollowed={true}
-            profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
-            selfIntro={
-              "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-            }
-          />
         </CenterContainer>
         <RightContainer>
           <PopularUserList />
         </RightContainer>
       </MainStyle>
-      )}
     </Container>
   );
 }

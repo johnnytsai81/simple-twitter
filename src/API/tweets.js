@@ -18,6 +18,7 @@ axiosInstance.interceptors.request.use(
   (err) => console.error(err)
 );
 
+// 取得所有的推文
 export async function getAllTweets() {
   try {
     const { data } = await axiosInstance.get(`${baseUrl}/${basePath}`);
@@ -87,9 +88,9 @@ export async function addTweet(description) {
 }
 
 // 回覆推文
-export const postReply = async (tweet_id, comment) => {
+export const replyTweet = async (tweet_id, comment) => {
   try {
-    const res = await axiosInstance.post(`${baseUrl}/${basePath}/replies`, {
+    const res = await axiosInstance.post(`${baseUrl}/${basePath}/${tweet_id}/replies`, {
       comment,
     });
     return res;
@@ -98,19 +99,51 @@ export const postReply = async (tweet_id, comment) => {
   }
 };
 
-export async function deleteTweet(tweetId) {
+// 對推文按讚
+export async function likeTweet(TweetId) {
   try {
-    const { data } = await axiosInstance.delete(
-      `${baseUrl}/admin/${basePath}/${tweetId}`
-    );
-    return data;
+    const { data } = await axiosInstance.post(
+      `${baseUrl}/${basePath}/${TweetId}/like`
+    )
+    return data
   } catch (err) {
     return {
       success: false,
-      message: `[Detele tweet failed]: ${err}`,
-    };
+      message: `[Like tweet failed]: ${err}`,
+    }
   }
 }
+
+// 對推文取消按讚
+export async function dislikeTweet(tweetId) {
+  try {
+    const { data } = await axiosInstance.post(
+      `${baseUrl}/${basePath}/${tweetId}/unlike`
+    )
+    return data
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Dislike tweet failed]: ${err}`,
+    }
+  }
+}
+
+// export async function deleteTweet(tweetId) {
+//   try {
+//     const { data } = await axiosInstance.delete(
+//       `${baseUrl}/admin/${basePath}/${tweetId}`
+//     );
+//     return data;
+//   } catch (err) {
+//     return {
+//       success: false,
+//       message: `[Detele tweet failed]: ${err}`,
+//     };
+//   }
+// }
+
+// 
 
 // export async function likeTweet(tweetId) {
 //   try {
@@ -140,6 +173,7 @@ export async function deleteTweet(tweetId) {
 //   }
 // }
 
+// 取得該貼文所有的回覆
 export async function getAllReplies(tweetId) {
   try {
     const { data } = await axiosInstance.get(
@@ -156,18 +190,19 @@ export async function getAllReplies(tweetId) {
   }
 }
 
-export async function addReply(data) {
-  const { tweetId, comment } = data;
-  try {
-    const { data } = await axiosInstance.post(
-      `${baseUrl}/${basePath}/${tweetId}/replies`,
-      { comment }
-    );
-    return { success: true, data };
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Add Reply failed]: ${err}`,
-    };
-  }
-}
+// 
+// export async function addReply(data) {
+//   const { tweetId, comment } = data;
+//   try {
+//     const { data } = await axiosInstance.post(
+//       `${baseUrl}/${basePath}/${tweetId}/replies`,
+//       { comment }
+//     );
+//     return { success: true, data };
+//   } catch (err) {
+//     return {
+//       success: false,
+//       message: `[Add Reply failed]: ${err}`,
+//     };
+//   }
+// }

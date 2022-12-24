@@ -2,8 +2,12 @@
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useAuth } from '../../contexts/AuthContext'
+import { useState, useMemo } from "react";
+import Swal from "sweetalert2";
+import { replyTweet } from "../../API/tweets";
+import { useAuth } from "../../contexts/AuthContext";
 import relativeTime from "../../utilities/relativeTime";
+import { useTweetStatus } from "../../contexts/TweetStatusContext";
 
 // 引入圖片
 import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
@@ -102,8 +106,66 @@ function ReplyModal(props) {
   let createdAt = props.createdAt;
   let description = props.description;
   let avatar = props.avatar;
-  const { currentUser } = useAuth()
+  let TweetId = props.TweetId;
+  const [tweet, setTweet] = useState("");
+  const [tweetCount, setTweetCount] = useState(0);
+  const { setIsReplyTweetUpdate } = useTweetStatus();
+  const { currentUser } = useAuth();
   const handleClose = () => setShow(false);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    if (tweet.length === 0) {
+      return;
+    }
+
+    try {
+      const postStatus = await replyTweet(TweetId, tweet.trim());
+      if (postStatus.data) {
+        setTweet("");
+        setIsReplyTweetUpdate(false);
+        setShow(false);
+        Swal.fire({
+          position: "top",
+          title: "發送成功",
+          timer: 1000,
+          icon: "success",
+          showConfirmButton: false,
+        });
+      } else {
+        setTweet("");
+        setShow(false);
+        Swal.fire({
+          position: "top",
+          title: "發送失敗",
+          timer: 1000,
+          icon: "error",
+          showConfirmButton: false,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        position: "top",
+        title: "發送錯誤",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
+      setTweet("");
+      setShow(false);
+    }
+  };
+
+  // 表單限制
+  const isValid = useMemo(() => {
+    if (!tweet || tweet.length > 140) {
+      return false;
+    }
+
+    return true;
+  }, [tweet]);
+
   return (
     <Modal show={show} onHide={handleClose} size="lg">
       <ModalStyle>
@@ -119,7 +181,8 @@ function ReplyModal(props) {
               <div className="d-flex align-items-center">
                 <h3 className="name mb-0">{username}</h3>
                 <p className="account mb-0">
-                  @{account}・<span className="time">{relativeTime(createdAt)}</span>
+                  @{account}・
+                  <span className="time">{relativeTime(createdAt)}</span>
                 </p>
               </div>
               <div className="tweet">{description}</div>
@@ -134,13 +197,39 @@ function ReplyModal(props) {
             ) : (
               <img className="avatar" src={currentUser?.avatar} alt="avatar" />
             )}
-            <InputStyle placeholder={"推你的回覆"} />
+            <InputStyle
+              placeholder={"推你的回覆"}
+              value={tweet}
+              onChange={(e) => {
+                setTweet(e.target.value);
+                setTweetCount(e.target.value.length || "");
+              }}
+            />
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" size="sm" onClick={handleClose}>
-            回覆
-          </Button>
+        {tweetCount > 140 ? (
+            <div className="d-flex w-100 justify-content-between align-items-center">
+              <p className="alert-text">字數不可超過140字</p>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={handleClick}
+                disabled={!isValid}
+              >
+                回覆
+              </Button>
+            </div>
+          ) : (
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={handleClick}
+              disabled={!isValid}
+            >
+              回覆
+            </Button>
+          )}
         </Modal.Footer>
       </ModalStyle>
     </Modal>

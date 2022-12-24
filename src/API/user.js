@@ -2,7 +2,6 @@ import axios from "axios";
 
 const baseUrl = "https://ck-mami-2022-twitter.herokuapp.com/api";
 const basePath = "users";
-// const baseFollowPath = "followships";
 
 const axiosInstance = axios.create({
   baseURL: `${baseUrl}`,
@@ -189,52 +188,72 @@ export async function EditUser(userId, userData) {
 //     };
 // }
 
-export const getUserSetting = async (payload) => {
-    const { id, account, name, email, password, checkPassword } = payload;
+// 設定個人帳密
+export const getUserSetting = async (payload, id) => {
+  const { account, name, email, password, checkPassword } = payload;
   try {
-    const res = await axiosInstance.put(
-      `${baseUrl}/users/${id}/setting`,
-    {
+    const res = await axiosInstance.put(`${baseUrl}/users/${id}/setting`, {
       account,
       name,
       email,
       password,
       checkPassword,
-    })
-    return res.data.updatedUser
-
+    });
+    return res.data;
   } catch (error) {
-    console.log('[Get UserSetting Failed]:', error.response.data)
+    console.log("[Get UserSetting Failed]:", error.response.data);
+  }
+};
+
+// 設定個人資料
+export const getUserInfo = async (payload, id) => {
+  const { coverImage, avatar, name, introduction } = payload;
+  console.log('send', payload)
+  try {
+    const res = await axiosInstance.put(`${baseUrl}/users/${id}/setting`, {
+      coverImage,
+      avatar,
+      name,
+      introduction,
+    });
+    return res.data;
+  } catch (error) {
+    console.log("[Get UserSetting Failed]:", error.response.data);
+  }
+};
+
+// 追蹤對方
+export async function followUser(userId) {
+  try {
+    const { data } = await axiosInstance.post(`${baseUrl}/followships`, {
+      id: userId,
+    });
+    return data;
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Follow user failed]: ${err}`,
+    };
   }
 }
 
-// export async function followUser(userId) {
-//   try {
-//     const { data } = await axiosInstance.post(`${baseUrl}/${baseFollowPath}`, {
-//       id: userId,
-//     });
-//     return data;
-//   } catch (err) {
-//     return {
-//       success: false,
-//       message: `[Follow user failed]: ${err}`,
-//     };
-//   }
-// }
+// 取消追蹤對方
+export async function unfollowUser(userId) {
+  try {
+    const { data } = await axiosInstance.delete(
+      `${baseUrl}/followships/${userId}`
+    );
+    return data;
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Unfollow user failed]: ${err}`,
+    };
+  }
+}
 
-// export async function unfollowUser(userId) {
-//   try {
-//     const { data } = await axiosInstance.delete(
-//       `${baseUrl}/${baseFollowPath}/${userId}`
-//     );
-//     return data;
-//   } catch (err) {
-//     return {
-//       success: false,
-//       message: `[Unfollow user failed]: ${err}`,
-//     };
-//   }
-// }
+
+
 // dataName: tweets, replied_tweets, likes, followings, followers
 // export async function getUserInfoData(dataName, userId) {
 //   try {

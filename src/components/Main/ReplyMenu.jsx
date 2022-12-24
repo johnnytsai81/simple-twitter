@@ -11,6 +11,7 @@ import { ReactComponent as ReplyIcon } from "../../assets/icons/reply.svg";
 // 引入元件
 import ReplyModal from "./ReplyModal";
 import creatTime from "../../utilities/creatTime";
+import { likeTweet , dislikeTweet } from "../../API/tweets";
 
 const CardStyle = styled.div`
   display: flex;
@@ -134,6 +135,7 @@ function ReplyMenu(props) {
   let totalLikes = props.totalLikes;
   let isLiked = props.isLiked;
   let UserId = props.UserId;
+  let TweetId = props.TweetId;
   let totalReplies = props.totalReplies;
   let account = props.account;
   let username = props.username;
@@ -145,27 +147,29 @@ function ReplyMenu(props) {
   // 開啟跟關閉modal
   const handleShow = () => setShow(true);
 
+  // 上傳愛心狀態
+  async function handleLikeClick(type) {
+    if (type === "increment") {
+      setCountLike(countLike + 1);
+      try {
+        await likeTweet(TweetId);
+      } catch (error) {
+        console.error(error);
+      }
+    }else if (type === "decrement"){
+      setCountLike(countLike - 1);
+      try {
+        await dislikeTweet(TweetId);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   // 愛心狀態
   function handleShowLike() {
     setShowLike(!showLike);
   }
-
-  // 愛心數量
-  function handleCountLike(type) {
-    if (type === "increment") {
-      setCountLike(countLike + 1);
-    }
-    if (type === "decrement") {
-      setCountLike(countLike - 1);
-    }
-  }
-
-// const replyMenu = menu.map((item) => {
-  //   if(item.id === Number(TweetId.TweetId)){
-  //     return{...item, }
-  //   }
-  //   return item;
-  // });
 
   return (
     <CardStyle>
@@ -195,7 +199,7 @@ function ReplyMenu(props) {
             className="like active"
             onClick={() => {
               handleShowLike();
-              handleCountLike("decrement");
+              handleLikeClick("decrement");
             }}
           />
         ) : (
@@ -203,7 +207,7 @@ function ReplyMenu(props) {
             className="like"
             onClick={() => {
               handleShowLike();
-              handleCountLike("increment");
+              handleLikeClick("increment");
             }}
           />
         )}
@@ -216,6 +220,7 @@ function ReplyMenu(props) {
         account={account}
         createdAt={createdAt}
         description={description}
+        TweetId={TweetId}
       />
     </CardStyle>
   );

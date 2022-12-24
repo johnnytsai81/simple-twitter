@@ -77,7 +77,16 @@ function UserFollowingPage() {
     // eslint-disable-next-line
   }, []);
   const followersList = followers.map((follower) => {
-    return <FollowItem isFollowed={follower.isFollowed} />;
+    return (
+      <FollowItem
+        isFollowed={follower.isFollowed}
+        introduction={follower.introduction}
+        avatar={follower.avatar}
+        name={follower.name}
+        UserId={follower.id}
+        key={follower.id}
+      />
+    );
   });
   return (
     <Container>
@@ -102,15 +111,6 @@ function UserFollowingPage() {
             )}
             <FollowTab UserId={UserId.UserId} />
             {followersList}
-            <FollowItem
-              username={"apple"}
-              UserId={1}
-              isFollowed={true}
-              profileImage={"https://i.imgur.com/Nnf5Vc6.jpg"}
-              selfIntro={
-                "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ull amco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum."
-              }
-            />
           </CenterContainer>
           <RightContainer>
             <PopularUserList />

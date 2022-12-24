@@ -6,16 +6,16 @@ import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useParams } from "react-router-dom";
 
-// 假資料
-import { mockUser } from "../../mock/user";
-
 // 引入圖片
 import { ReactComponent as MailIcon } from "../../assets/icons/mail-hollow.svg";
 import { ReactComponent as BellHollowIcon } from "../../assets/icons/bell-hollow.svg";
 import { ReactComponent as BellSolidIcon } from "../../assets/icons/bell-solid.svg";
+import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
+import noBg from "../../assets/images/no-bg.jpg";
 
 // 引入元件
 import ProfileEditModal from "./ProfileEditModal";
+import { followUser, unfollowUser } from "../../API/user";
 
 const CardStyle = styled.div`
   position: relative;
@@ -95,7 +95,6 @@ const ButtonStyle = styled.div`
 `;
 
 function UserInfoArea(props) {
-  const [user, setUser] = useState(null);
   const { currentUser } = useAuth();
   let coverImage = props.coverImage;
   let avatar = props.avatar;
@@ -110,9 +109,6 @@ function UserInfoArea(props) {
   const [showNotice, setShowNotice] = useState(false);
   const [followState, setFollowState] = useState(isFollowed);
   const [show, setShow] = useState(false);
-  // eslint-disable-next-line
-  const [loadingCurrentUser, setLoadingCurrentUser] = useState(currentUser);
-
   // 開啟跟關閉modal
   const handleShow = () => setShow(true);
 
@@ -122,25 +118,43 @@ function UserInfoArea(props) {
   }
 
   // 切換follow狀態
-  function handleFollow(e) {
+  async function handleFollow(e) {
     e.stopPropagation();
     e.preventDefault();
-    setFollowState(!followState);
+    if (followState === false) {
+      setFollowState(!followState);
+      try {
+        await followUser(UserId.UserId);
+      } catch (error) {
+        console.error(error);
+      }
+    } else if (followState === true) {
+      setFollowState(!followState);
+      try {
+        await unfollowUser(UserId.UserId);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 
   return (
     <CardStyle>
-      <img className="background" src={coverImage} alt="background" />
-      <img className="avatar" src={avatar} alt="avatar" />
+      {coverImage === null ? (
+      <img className="background" src={noBg} alt="background" />):(<img className="background" src={coverImage} alt="background" />)}
+      {avatar === null ? (
+          <NoImage className="avatar" />
+        ) : (
+          <img className="avatar" src={avatar} alt="avatar" />
+        )}
       <div className="card-header">
-        {loadingCurrentUser === null ? (
+        {currentUser === null ? (
           ""
         ) : currentUser.id === Number(UserId.UserId) ? (
           <Button
             variant="outline-primary ms-auto mt-4 me-4"
             onClick={() => {
-              handleShow(mockUser);
-              setUser(mockUser);
+              handleShow();
             }}
           >
             編輯個人資料
@@ -200,8 +214,6 @@ function UserInfoArea(props) {
       <ProfileEditModal
         show={show}
         setShow={setShow}
-        user={user}
-        setUser={setUser}
       />
     </CardStyle>
   );

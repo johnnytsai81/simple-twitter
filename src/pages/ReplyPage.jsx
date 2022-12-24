@@ -4,6 +4,7 @@ import Breadcrumb from "../components/Main/Breadcrumb";
 import PopularUserList from "../components/Main/PopularUserList";
 import ReplyMenu from "../components/Main/ReplyMenu";
 import { getAllReplies, getAllTweets } from "../API/tweets";
+import { useTweetStatus } from "../contexts/TweetStatusContext";
 
 // 引入方法
 import styled from "styled-components";
@@ -45,12 +46,14 @@ function ReplyPage() {
   const [replies, setReplies] = useState([]);
   const [menu, setMenu] = useState([]);
   const TweetId = useParams();
+  const { isReplyTweetUpdate, setIsReplyTweetUpdate } = useTweetStatus();
   useEffect(() => {
     async function getData() {
       const { success, data, message } = await getAllReplies(TweetId.TweetId);
       if (success) {
         // update data
         setReplies(data);
+        setIsReplyTweetUpdate(true)
       } else {
         // handle error
         console.error(message);
@@ -72,7 +75,7 @@ function ReplyPage() {
     }
     startOrder()
     // eslint-disable-next-line
-  }, []);
+  }, [isReplyTweetUpdate]);
 
 
   const replyList = replies.map((reply) => {

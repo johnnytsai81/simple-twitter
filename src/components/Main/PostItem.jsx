@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { likeTweet , dislikeTweet } from "../../API/tweets";
 
 // 引入圖片
 import { ReactComponent as LikeIcon } from "../../assets/icons/like-solid.svg";
@@ -111,19 +112,28 @@ function PostItem(props) {
   // 開啟跟關閉modal
   const handleShow = () => setShow(true);
 
+  // 上傳愛心狀態
+  async function handleLikeClick(type) {
+    if (type === "increment") {
+      setCountLike(countLike + 1);
+      try {
+        await likeTweet(TweetId);
+      } catch (error) {
+        console.error(error);
+      }
+    }else if (type === "decrement"){
+      setCountLike(countLike - 1);
+      try {
+        await dislikeTweet(TweetId);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+  
   // 愛心狀態
   function handleShowLike() {
     setShowLike(!showLike);
-  }
-
-  // 愛心數量
-  function handleCountLike(type) {
-    if (type === "increment") {
-      setCountLike(countLike + 1);
-    }
-    if (type === "decrement") {
-      setCountLike(countLike - 1);
-    }
   }
 
   return (
@@ -153,7 +163,7 @@ function PostItem(props) {
             <LikeIconStyle
               onClick={() => {
                 handleShowLike();
-                handleCountLike("decrement");
+                handleLikeClick("decrement");
               }}
             >
               <LikeIcon className="like active" />
@@ -163,7 +173,7 @@ function PostItem(props) {
             <LikeIconStyle
               onClick={() => {
                 handleShowLike();
-                handleCountLike("increment");
+                handleLikeClick("increment");
               }}
             >
               <LikeIcon className="like" />

@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { followUser, unfollowUser } from "../../API/user";
 
 // 引入圖片
 import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
@@ -58,10 +59,24 @@ function PopularUserItem(props) {
   // eslint-disable-next-line
 
   // 切換follow狀態
-  function handleFollow(e) {
+  async function handleFollow(e) {
     e.stopPropagation();
     e.preventDefault();
-    setFollowState(!followState);
+    if (followState === false) {
+      setFollowState(!followState);
+      try {
+        await followUser(UserId);
+      } catch (error) {
+        console.error(error);
+      }
+    } else if (followState === true) {
+      setFollowState(!followState);
+      try {
+        await unfollowUser(UserId);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 
   return (

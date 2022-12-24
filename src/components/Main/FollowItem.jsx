@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { followUser, unfollowUser } from "../../API/user";
 
 // 引入圖片
 import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
@@ -23,6 +24,7 @@ const CardStyle = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
+    width: 100%;
     .card-header {
       display: flex;
       justify-content: space-between;
@@ -33,50 +35,80 @@ const CardStyle = styled.div`
       font-weight: 600;
       margin-right: 0.5rem;
     }
+    p {
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      line-height: 1.5em;
+      -webkit-line-clamp: 3;
+    }
   }
 `;
 
 function FollowItem(props) {
-  let selfIntro = props.selfIntro;
-  let username = props.username;
+  let introduction = props.introduction;
+  let name = props.name;
   let isFollowed = props.isFollowed;
-  let profileImage = props.profileImage;
+  let avatar = props.avatar;
   let UserId = props.UserId;
   const [followState, setFollowState] = useState(isFollowed);
 
   // 切換follow狀態
-  function handleFollow(e) {
+  async function handleFollow(e) {
     e.stopPropagation();
     e.preventDefault();
-    setFollowState(!followState);
+    if (followState === false) {
+      setFollowState(!followState);
+      try {
+        await followUser(UserId);
+      } catch (error) {
+        console.error(error);
+      }
+    } else if (followState === true) {
+      setFollowState(!followState);
+      try {
+        await unfollowUser(UserId);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 
   return (
     <NavLink to={`/user/${UserId}/tweet`}>
       <CardStyle>
-        {profileImage === "" ? (
-          <NoImage className="avatar"/>
+        {avatar === "" ? (
+          <NoImage className="avatar" />
         ) : (
-          <img className="avatar" src={profileImage} alt="avatar" />
+          <img className="avatar" src={avatar} alt="avatar" />
         )}
         <div className="card-content">
           <div className="card-header">
-            <h3 className="name mb-0">{username}</h3>
+            <h3 className="name mb-0">{name}</h3>
             {followState === true ? (
-              <Button variant="primary" size="sm" onClick={(e) => {
-                handleFollow(e);
-              }}>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={(e) => {
+                  handleFollow(e);
+                }}
+              >
                 正在跟隨
               </Button>
             ) : (
-              <Button variant="outline-primary" size="sm" onClick={(e) => {
-                handleFollow(e);
-              }}>
+              <Button
+                variant="outline-primary"
+                size="sm"
+                onClick={(e) => {
+                  handleFollow(e);
+                }}
+              >
                 跟隨
               </Button>
             )}
           </div>
-          <p className="text-start mb-0">{selfIntro}</p>
+          <p className="text-start mb-0">{introduction}</p>
         </div>
       </CardStyle>
     </NavLink>

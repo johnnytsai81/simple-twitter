@@ -6,9 +6,8 @@ import { AuthInputContainer } from "../components/common/auth.styled";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { getUserSetting } from "../API/user";
+import { useAuth } from "../contexts/AuthContext";
 import Swal from "sweetalert2";
-
-
 
 // main區塊
 const MainStyle = styled.div`
@@ -67,90 +66,129 @@ const SettingPage = () => {
   const [email, setEmail] = useState("");
   const [account, setAccount] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
+  const { currentUser } = useAuth();
+  const handleSave = async (e) => {
+    e.preventDefault();
 
-
-  const handleSave = async () => {
+    let id = currentUser.id;
     if (account.trim().length === 0) {
-      Swal.fire({
-        position: "top",
-        title: "請輸入帳號",
-        timer: 1000,
-        icon: "error",
-        showConfirmButton: false,
-      });
       return;
     }
-    if (name.trim().length === 0) {
-      Swal.fire({
-        position: "top",
-        title: "請輸入名稱",
-        timer: 1000,
-        icon: "error",
-        showConfirmButton: false,
-      });
-      return;
-    }
-    if (name.length > 50) {
+    if (name.length > 50 || account.trim().length === 0) {
       return;
     }
     if (email.trim().length === 0) {
-      Swal.fire({
-        position: "top",
-        title: "請輸入Email",
-        timer: 1000,
-        icon: "error",
-        showConfirmButton: false,
-      });
       return;
     }
     if (password.trim().length === 0) {
-      Swal.fire({
-        position: "top",
-        title: "請輸入密碼",
-        timer: 1000,
-        icon: "error",
-        showConfirmButton: false,
-      });
       return;
     }
-    if (checkPassword.trim().length === 0) {
-      Swal.fire({
-        position: "top",
-        title: "請輸入密碼",
-        timer: 1000,
-        icon: "error",
-        showConfirmButton: false,
-      });
-      return;
-    }
-      try {
-        await getUserSetting({
-        account,
-        name,
-        email,
-        password,
-        checkPassword,
-      });
-      } catch (error) {
+    try {
+      const postStatus = await getUserSetting(
+        {
+          account,
+          name,
+          email,
+          password,
+          checkPassword,
+        },
+        id
+      );
+      if (postStatus.status === "success") {
+        console.log(postStatus);
+        Swal.fire({
+          position: "top",
+          title: "發送成功",
+          timer: 1000,
+          icon: "success",
+          showConfirmButton: false,
+        });
+      } else {
+        Swal.fire({
+          position: "top",
+          title: "發送失敗",
+          timer: 1000,
+          icon: "error",
+          showConfirmButton: false,
+        });
+      }
+    } catch (error) {
       console.error(error);
+      Swal.fire({
+        position: "top",
+        title: "發送錯誤",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
     }
+  };
+  // if (account.trim().length === 0) {
+  //   Swal.fire({
+  //     position: "top",
+  //     title: "請輸入帳號",
+  //     timer: 1000,
+  //     icon: "error",
+  //     showConfirmButton: false,
+  //   });
+  //   return;
+  // }
+  // if (name.trim().length === 0) {
+  //   Swal.fire({
+  //     position: "top",
+  //     title: "請輸入名稱",
+  //     timer: 1000,
+  //     icon: "error",
+  //     showConfirmButton: false,
+  //   });
+  //   return;
+  // }
 
-    //   if (res.success) {
-    //   // 成功訊息
-    //   Swal.fire({
-    //     position: "top",
-    //     title: "修改成功",
-    //     timer: 1000,
-    //     icon: "success",
-    //     showConfirmButton: false,
-    //   });
-    //   return;
-      
-    // } else {
-    //    console.log(res.status);
-    // }
-  }
+  // if (email.trim().length === 0) {
+  //   Swal.fire({
+  //     position: "top",
+  //     title: "請輸入Email",
+  //     timer: 1000,
+  //     icon: "error",
+  //     showConfirmButton: false,
+  //   });
+  //   return;
+  // }
+  // if (password.trim().length === 0) {
+  //   Swal.fire({
+  //     position: "top",
+  //     title: "請輸入密碼",
+  //     timer: 1000,
+  //     icon: "error",
+  //     showConfirmButton: false,
+  //   });
+  //   return;
+  // }
+  // if (checkPassword.trim().length === 0) {
+  //   Swal.fire({
+  //     position: "top",
+  //     title: "請輸入密碼",
+  //     timer: 1000,
+  //     icon: "error",
+  //     showConfirmButton: false,
+  //   });
+  //   return;
+  // }
 
+  //   if (res.success) {
+  //   // 成功訊息
+  //   Swal.fire({
+  //     position: "top",
+  //     title: "修改成功",
+  //     timer: 1000,
+  //     icon: "success",
+  //     showConfirmButton: false,
+  //   });
+  //   return;
+
+  // } else {
+  //    console.log(res.status);
+  // }
 
   // const handleSave = async (e) => {
   //   const res = await getUserSetting({

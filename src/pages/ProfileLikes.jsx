@@ -125,6 +125,7 @@ function ProfileLikes() {
               selfIntro={info.introduction}
               coverImage={info.coverImage}
               avatar={info.avatar}
+              isFollowed={info.isFollowed}
             ></UserInfoArea>
             <UserMenuTab UserId={UserId.UserId} />
             {tweetList}

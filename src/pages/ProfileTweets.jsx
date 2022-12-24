@@ -76,7 +76,7 @@ function ProfileTweets() {
     }
     startOrder();
     // eslint-disable-next-line
-  }, []);
+  }, [UserId.UserId]);
 
   const tweetList = tweets.map((tweet) => {
     return (
@@ -124,6 +124,7 @@ function ProfileTweets() {
               selfIntro={info.introduction}
               coverImage={info.coverImage}
               avatar={info.avatar}
+              isFollowed={info.isFollowed}
             ></UserInfoArea>
             <UserMenuTab UserId={UserId.UserId} />
             {tweetList}

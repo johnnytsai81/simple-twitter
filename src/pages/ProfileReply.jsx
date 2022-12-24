@@ -122,6 +122,7 @@ function ProfileReply() {
               selfIntro={info.introduction}
               coverImage={info.coverImage}
               avatar={info.avatar}
+              isFollowed={info.isFollowed}
             ></UserInfoArea>
             <UserMenuTab UserId={UserId.UserId} />
             {replyList}
