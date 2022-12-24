@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import AdminSideBar from "../components/SideBar/AdminSideBar";
-// import { UserContainer, UserItem, AvatarIcon,NameLink,AccountLink,PostLink,LinkGroup,UserItemContainer } from '../components/Main/AdminPostItem';
 import Container from "react-bootstrap/Container";
 import AdminPostItem from "../components/Main/AdminPostItem";
 import { useEffect, useState } from "react";

@@ -84,6 +84,8 @@ const AdminUsersPage = () => {
             account={userItem.account}
             totalTweets={userItem.Tweets.totalTweets}
             totalLikes={userItem.Tweets.Likes.totalLikes}
+            followings={userItem.Followings.followingCount}
+            followers={userItem.Followers.followerCount}
           />
         );
       })

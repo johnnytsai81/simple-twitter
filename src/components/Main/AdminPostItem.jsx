@@ -90,7 +90,6 @@ const AdminPostItem = ({
             position: "absolute",
             top: "15px",
             right: "10px",
-            cursor: "pointer",
           }}
         />
       </button>

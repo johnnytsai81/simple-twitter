@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import clsx from "clsx";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -16,29 +15,20 @@ const StyledLabel = styled.label`
   text-align: start;
 `;
 
-const StyledInput = styled.input`
+const StyledInputAlert = styled.input`
   outline: none;
   border: none;
   background-color: #f5f8fa;
   border-radius: 0px;
-  border-bottom: 2px solid #657786;
-  &:focus {
-    border-bottom: 2px solid #50b5ff;
-  }
-  &:hover {
-    border-bottom: 2px solid #50b5ff;
-  }
-  &.active {
-    border-bottom: 2px solid #fc5a5a;
-  }
+  border-bottom: 2px solid #fc5a5a;
 `;
 
-const AuthInput = ({ type, label, value, placeholder, onChange }) => {
+
+const AuthInputAlert = ({ type, label, value, placeholder, onChange }) => {
   return (
     <StyledContainer>
       <StyledLabel>{label}</StyledLabel>
-      <StyledInput
-        className={clsx("", { active: value.length > 50 })}
+      <StyledInputAlert
         type={type || "text"}
         placeholder={placeholder}
         value={value}
@@ -48,4 +38,4 @@ const AuthInput = ({ type, label, value, placeholder, onChange }) => {
   );
 };
 
-export default AuthInput;
+export default AuthInputAlert;
