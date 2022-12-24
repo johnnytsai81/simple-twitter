@@ -22,6 +22,7 @@ const CardStyle = styled.div`
     width: 50px;
     height: 50px;
     flex: 0 0 50px;
+    object-fit: cover;
     img {
       border-radius: 50px;
     }

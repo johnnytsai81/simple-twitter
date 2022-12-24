@@ -208,14 +208,22 @@ export const getUserSetting = async (payload, id) => {
 // 設定個人資料
 export const getUserInfo = async (payload, id) => {
   const { coverImage, avatar, name, introduction } = payload;
-  console.log('send', payload)
+  console.log("send", payload);
   try {
-    const res = await axiosInstance.put(`${baseUrl}/users/${id}/setting`, {
-      coverImage,
-      avatar,
-      name,
-      introduction,
-    });
+    const res = await axiosInstance.put(
+      `${baseUrl}/users/${id}`,
+      {
+        coverImage,
+        avatar,
+        name,
+        introduction,
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     return res.data;
   } catch (error) {
     console.log("[Get UserSetting Failed]:", error.response.data);
@@ -251,8 +259,6 @@ export async function unfollowUser(userId) {
     };
   }
 }
-
-
 
 // dataName: tweets, replied_tweets, likes, followings, followers
 // export async function getUserInfoData(dataName, userId) {

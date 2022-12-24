@@ -17,6 +17,7 @@ const CardStyle = styled.div`
     height: 50px;
     flex: 0 0 50px;
     border-radius: 50px;
+    object-fit: cover;
   }
   .card-content {
     display: flex;

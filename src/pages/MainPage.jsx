@@ -9,7 +9,7 @@ import { getAllTweets } from "../API/tweets";
 
 // 引入方法
 import { useState, useEffect } from "react";
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
@@ -46,18 +46,17 @@ const RightContainer = styled.div`
 
 function Main() {
   const [tweets, setTweets] = useState([]);
-  const { currentUser } = useAuth();
+  const { currentUser,isAuthenticated } = useAuth();
   const { isGlobalTweetUpdate, setIsGlobalTweetUpdate } = useTweetStatus();
 
   // 等做好再加
-  // const navigate = useNavigate()
-  // const { logout, currentUser, isAuthenticated } = useAuth()
+  const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     navigate('/login')
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login')
+    }
+  }, [])
 
   useEffect(() => {
     async function getData() {

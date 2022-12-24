@@ -21,11 +21,13 @@ const CardStyle = styled.div`
   position: relative;
   .background {
     width: 100%;
+    object-fit: cover;
     height: 200px;
   }
   .avatar {
     position: absolute;
     top: 130px;
+    object-fit: cover;
     left: 1rem;
     height: 140px;
     width: 140px;
@@ -198,13 +200,13 @@ function UserInfoArea(props) {
         <div className="mb-2 intro">{selfIntro}</div>
         <div className="text-wrap">
           <div className="text">
-            <NavLink to={`/user/${UserId.UserId}/following`}>
+            <NavLink to={`/user/${UserId.UserId}/followers`}>
               {totalFollowings}個
             </NavLink>
             跟隨中
           </div>
           <div className="text">
-            <NavLink to={`/user/${UserId.UserId}/followers`}>
+            <NavLink to={`/user/${UserId.UserId}/following`}>
               {totalFollowers}位
             </NavLink>
             跟隨者

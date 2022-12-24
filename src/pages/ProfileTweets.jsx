@@ -11,6 +11,7 @@ import styled from "styled-components";
 import Container from "react-bootstrap/Container";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useTweetStatus } from "../contexts/TweetStatusContext";
 
 // main區塊
 const MainStyle = styled.div`
@@ -47,6 +48,7 @@ function ProfileTweets() {
   const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(false);
   const UserId = useParams();
+  const { isUserInfoUpdate, setIsUserInfoUpdate } = useTweetStatus();
   useEffect(() => {
     setLoading(true);
     async function getData() {
@@ -64,6 +66,7 @@ function ProfileTweets() {
       if (success) {
         // update data
         setInfo(data);
+        setIsUserInfoUpdate(true)
       } else {
         // handle error
         console.error(message);
@@ -76,7 +79,7 @@ function ProfileTweets() {
     }
     startOrder();
     // eslint-disable-next-line
-  }, [UserId.UserId]);
+  }, [UserId.UserId, isUserInfoUpdate]);
 
   const tweetList = tweets.map((tweet) => {
     return (

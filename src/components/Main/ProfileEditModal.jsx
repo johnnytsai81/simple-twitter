@@ -16,6 +16,7 @@ import AuthInput from "../AccountForm/AuthInput";
 import { AuthInputContainer } from "../common/auth.styled";
 import IntroductionInput from "../common/IntroductionInput";
 import useUpdateUser from "../../hooks/useUpdateUser";
+import { useTweetStatus } from "../../contexts/TweetStatusContext";
 
 const ModalStyle = styled.div`
   .modal-header {
@@ -45,6 +46,7 @@ const ModalStyle = styled.div`
       align-items: center;
       justify-content: center;
       gap: 3rem;
+      pointer-event: none;
       height: 200px;
       width: 100%;
       top: 0;
@@ -59,6 +61,7 @@ const ModalStyle = styled.div`
       position: absolute;
       top: 130px;
       left: 1rem;
+      pointer-event: none;
       &::before {
         content: "";
         position: absolute;
@@ -169,6 +172,7 @@ const ProfileEditModal = (props) => {
   const [nameCount, setNameCount] = useState("");
   // eslint-disable-next-line
   const [introductionCount, setIntroductionCount] = useState("");
+  const { setIsUserInfoUpdate } = useTweetStatus();
   const [coverImage, setCoverImage] = useState(null);
   const [avatar, setAvatar] = useState(null);
   const { isUpdating, updateUser } = useUpdateUser();
@@ -183,6 +187,7 @@ const ProfileEditModal = (props) => {
       },
       id
     );
+    setIsUserInfoUpdate(false);
     handleClose();
   };
 
@@ -209,7 +214,7 @@ const ProfileEditModal = (props) => {
     setIntroduction(currentUser?.introduction);
     setNameCount(currentUser?.name.length);
     setIntroductionCount(currentUser?.name.length);
-  }, [currentUser]);
+  }, [currentUser, show]);
 
   // 換圖片
   const handleImgChange = (e, type) => {
@@ -238,7 +243,7 @@ const ProfileEditModal = (props) => {
 
   const handleClose = () => {
     setShow(false);
-    // =clearForm();
+    clearForm();
   };
 
   // 清空資料
@@ -272,7 +277,7 @@ const ProfileEditModal = (props) => {
         </Modal.Header>
         <Modal.Body>
           <div className="user-edit-area">
-            <label htmlFor={isUpdating ? "" : "cover"}>
+            <label className="w-100" htmlFor={isUpdating ? "" : "cover"}>
               <img className="background" src={coverImage} alt="background" />
               <input
                 ref={coverRef}
