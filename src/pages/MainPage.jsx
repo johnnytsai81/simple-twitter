@@ -56,6 +56,7 @@ function Main() {
     if (!isAuthenticated) {
       navigate('/login')
     }
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
