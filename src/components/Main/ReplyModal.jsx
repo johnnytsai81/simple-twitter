@@ -208,9 +208,18 @@ function ReplyModal(props) {
           </div>
         </Modal.Body>
         <Modal.Footer>
-        {tweetCount > 140 ? (
-            <div className="d-flex w-100 justify-content-between align-items-center">
-              <p className="alert-text">字數不可超過140字</p>
+          {tweetCount > 140 ? (
+            <div className="d-flex w-100 justify-content-end align-items-center">
+              <label
+                className="alert-text"
+                style={{
+                  color: "red",
+                  fontSize: "0.75rem",
+                  marginRight: "1rem",
+                }}
+              >
+                字數不可超過140字
+              </label>
               <Button
                 variant="primary"
                 size="sm"
@@ -221,14 +230,27 @@ function ReplyModal(props) {
               </Button>
             </div>
           ) : (
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={handleClick}
-              disabled={!isValid}
-            >
-              回覆
-            </Button>
+            <div className="d-flex w-100 justify-content-end align-items-center">
+              <label
+                className="alert-text"
+                style={{
+                  color: "red",
+                  fontSize: "0.75rem",
+                  marginRight: "1rem",
+                  visibility: tweetCount > 0 && "hidden",
+                }}
+              >
+                內容不可空白
+              </label>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={handleClick}
+                disabled={!isValid}
+              >
+                回覆
+              </Button>
+            </div>
           )}
         </Modal.Footer>
       </ModalStyle>

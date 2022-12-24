@@ -51,10 +51,12 @@ const ModalStyle = styled.div`
       width: 100%;
       top: 0;
       pointer-events: none;
+    
       .background-icon {
         width: 25px;
         height: 25px;
         color: var(--white-color);
+        cursor: pointer;
       }
     }
     .avatar-wrap {
@@ -88,6 +90,7 @@ const ModalStyle = styled.div`
         width: 25px;
         height: 25px;
         color: var(--white-color);
+        cursor: pointer;
       }
     }
     .account {
@@ -291,9 +294,14 @@ const ProfileEditModal = (props) => {
             </label>
             <div className="background-icon-wrap">
               {/* 相機icon */}
-              <MdOutlineCameraEnhance className="background-icon" />
+                <MdOutlineCameraEnhance className="background-icon" />
+       
+
               {/* 叉叉icon */}
-              <IoMdClose className="background-icon" />
+              <IoMdClose
+                className="background-icon"
+                style={{ cursor: "pointer" }}
+              />
             </div>
             <div className="avatar-wrap">
               {coverImage === "" ? (

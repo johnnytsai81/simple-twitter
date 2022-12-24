@@ -52,6 +52,13 @@ const SignUpPage = () => {
       return;
     }
     if (name.length > 50) {
+      Swal.fire({
+        position: "top",
+        title: "名稱字數超過上限",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
       return;
     }
     if (email.trim().length === 0) {
@@ -77,7 +84,17 @@ const SignUpPage = () => {
     if (checkPassword.trim().length === 0) {
       Swal.fire({
         position: "top",
-        title: "請輸入密碼",
+        title: "請輸入確認密碼",
+        timer: 1000,
+        icon: "error",
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (password !== checkPassword) {
+      Swal.fire({
+        position: "top",
+        title: "密碼和確認密碼不相同!",
         timer: 1000,
         icon: "error",
         showConfirmButton: false,

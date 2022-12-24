@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { CloseIcon } from "../../assets/icons";
+import { CloseIcon, NoImageSmall } from "../../assets/icons";
 import relativeTime from "../../utilities/relativeTime";
 
 // 每一欄使用者
 const UserItem = styled.div`
   width: 100%;
   height: 120px;
-  border-top: 1px solid #e6ecf0;
+  border-bottom: 1px solid #e6ecf0;
   padding: 1.5rem;
   position: relative;
 
@@ -22,7 +22,7 @@ const UserItemContainer = styled.div`
   margin: 0 0 0 10px;
 `;
 
-// 假頭像
+// 頭像底色
 const AvatarIcon = styled.div`
   width: 50px;
   height: 50px;
@@ -95,7 +95,8 @@ const AdminPostItem = ({
       </button>
 
       <AvatarIcon>
-        <img src={avatar} alt="avatar" />
+        { avatar ? <img src={avatar} alt="avatar" /> : <NoImageSmall/>}
+        
       </AvatarIcon>
       <UserItemContainer>
         <LinkGroup>
@@ -104,7 +105,7 @@ const AdminPostItem = ({
             @{account}・{relativeTime(time)}
           </AccountLink>
         </LinkGroup>
-        <PostLink>{description}</PostLink>
+        <PostLink>{description.length > 50 ? (description.slice(0,50)+'...') : (description)}</PostLink>
       </UserItemContainer>
     </UserItem>
   );

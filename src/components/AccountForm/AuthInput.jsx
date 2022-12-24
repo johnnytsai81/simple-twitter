@@ -33,7 +33,7 @@ const StyledInput = styled.input`
   }
 `;
 
-const AuthInput = ({ type, label, value, placeholder, onChange }) => {
+const AuthInput = ({ type, label, value, placeholder, onChange, defaultValue }) => {
   return (
     <StyledContainer>
       <StyledLabel>{label}</StyledLabel>
@@ -43,6 +43,7 @@ const AuthInput = ({ type, label, value, placeholder, onChange }) => {
         placeholder={placeholder}
         value={value}
         onChange={(event) => onChange?.(event.target.value)}
+        defaultValue={defaultValue}
       />
     </StyledContainer>
   );
