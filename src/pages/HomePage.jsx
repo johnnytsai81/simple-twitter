@@ -9,9 +9,9 @@ const HomePage = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/main");
-    } else {
       navigate("/login");
+    } else {
+      console.log(5)
     }
   }, [navigate, isAuthenticated]);
 
