@@ -70,10 +70,10 @@ const SettingPage = () => {
   const [checkPassword, setCheckPassword] = useState("");
   const { currentUser } = useAuth();
 
+  let id = currentUser?.id;
   const handleSave = async (e) => {
     e.preventDefault();
 
-    let id = currentUser.id;
     
     // 欄位驗證
     if (account.trim().length === 0) {
@@ -127,9 +127,8 @@ const SettingPage = () => {
           email,
           password,
           checkPassword,
-          id,
         },
-        
+        id
       );
       if (postStatus.status === "success") {
         console.log(postStatus);
