@@ -10,6 +10,7 @@ import { CloseOrangeIcon } from "../../assets/icons";
 import { MdOutlineCameraEnhance } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { ReactComponent as NoImage } from "../../assets/icons/no-image.svg";
+import noBg from "../../assets/images/no-bg.jpg";
 
 // 引入元件
 import AuthInput from "../AccountForm/AuthInput";
@@ -39,6 +40,7 @@ const ModalStyle = styled.div`
       height: 200px;
       filter: opacity(80%);
       object-fit: cover;
+      cursor: pointer;
     }
     .background-icon-wrap {
       position: absolute;
@@ -51,7 +53,7 @@ const ModalStyle = styled.div`
       width: 100%;
       top: 0;
       pointer-events: none;
-    
+
       .background-icon {
         width: 25px;
         height: 25px;
@@ -79,7 +81,7 @@ const ModalStyle = styled.div`
         width: 140px;
         border-radius: 100px;
         object-fit: cover;
-
+        cursor: pointer;
         filter: brightness(70%);
       }
       .avatar-icon {
@@ -91,6 +93,7 @@ const ModalStyle = styled.div`
         height: 25px;
         color: var(--white-color);
         cursor: pointer;
+        pointer-events: none;
       }
     }
     .account {
@@ -166,6 +169,8 @@ const InputContainer = styled.div`
 const ProfileEditModal = (props) => {
   let show = props.show;
   let setShow = props.setShow;
+  let avatarOri = props.avatarOri;
+  let coverImageOri = props.coverImageOri;
   const coverRef = useRef();
   const { currentUser } = useAuth();
   const [id, setId] = useState("");
@@ -176,8 +181,10 @@ const ProfileEditModal = (props) => {
   // eslint-disable-next-line
   const [introductionCount, setIntroductionCount] = useState("");
   const { setIsUserInfoUpdate } = useTweetStatus();
-  const [coverImage, setCoverImage] = useState(null);
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState(avatarOri);
+  const [coverImage, setCoverImage] = useState(coverImageOri);
+  const [avatarAddress, setAvatarAddress] = useState(avatar);
+  const [coverAddress, setCoverAddress] = useState(coverImage);
   const { isUpdating, updateUser } = useUpdateUser();
 
   const handleSubmit = async () => {
@@ -211,12 +218,10 @@ const ProfileEditModal = (props) => {
   useEffect(() => {
     if (!currentUser) return;
     setId(currentUser?.id);
-    setCoverImage(currentUser?.coverImage);
-    setAvatar(currentUser?.avatar);
     setName(currentUser?.name);
     setIntroduction(currentUser?.introduction);
-    setNameCount(currentUser?.name.length);
-    setIntroductionCount(currentUser?.name.length);
+    setNameCount(!currentUser.name ? 0 :  currentUser.name.length);
+    setIntroductionCount(!currentUser.introduction ? 0 : currentUser.introduction.length);
   }, [currentUser, show]);
 
   // 換圖片
@@ -227,34 +232,20 @@ const ProfileEditModal = (props) => {
 
     const selectedFile = e.target.files[0];
     const objectUrl = URL.createObjectURL(selectedFile);
-
     console.log(objectUrl);
+    // console.log(e.target.files[0]);
     if (type === "cover") {
-      setCoverImage(objectUrl);
+      setCoverImage(selectedFile);
+      setCoverAddress(objectUrl);
     } else if (type === "avatar") {
-      setAvatar(objectUrl);
+      setAvatar(selectedFile);
+      setAvatarAddress(objectUrl);
     }
-  };
-
-  // 關閉彈跳視窗時執行清空資料
-  const clearForm = () => {
-    setCoverImage(null);
-    setAvatar(null);
-    setName("");
-    setIntroduction("");
   };
 
   const handleClose = () => {
     setShow(false);
-    clearForm();
   };
-
-  // 清空資料
-  useEffect(() => {
-    return () => {
-      clearForm();
-    };
-  }, []);
 
   return (
     <Modal size="lg" show={show} onHide={handleClose}>
@@ -280,23 +271,41 @@ const ProfileEditModal = (props) => {
         </Modal.Header>
         <Modal.Body>
           <div className="user-edit-area">
-            <label className="w-100" htmlFor={isUpdating ? "" : "cover"}>
-              <img className="background" src={coverImage} alt="background" />
-              <input
-                ref={coverRef}
-                type="file"
-                id="cover"
-                onChange={(e) => handleImgChange(e, "cover")}
-                style={{
-                  display: "none",
-                }}
-              />
-            </label>
+            {coverAddress === null ? (
+              <label className="w-100" htmlFor={isUpdating ? "" : "cover"}>
+                <img className="background" src={noBg} alt="background" />
+                <input
+                  ref={coverRef}
+                  type="file"
+                  id="cover"
+                  onChange={(e) => handleImgChange(e, "cover")}
+                  style={{
+                    display: "none",
+                  }}
+                />
+              </label>
+            ) : (
+              <label className="w-100" htmlFor={isUpdating ? "" : "cover"}>
+                <img
+                  className="background"
+                  src={coverAddress}
+                  alt="background"
+                />
+                <input
+                  ref={coverRef}
+                  type="file"
+                  id="cover"
+                  onChange={(e) => handleImgChange(e, "cover")}
+                  style={{
+                    display: "none",
+                  }}
+                />
+              </label>
+            )}
+
             <div className="background-icon-wrap">
               {/* 相機icon */}
-                <MdOutlineCameraEnhance className="background-icon" />
-       
-
+              <MdOutlineCameraEnhance className="background-icon" />
               {/* 叉叉icon */}
               <IoMdClose
                 className="background-icon"
@@ -304,11 +313,22 @@ const ProfileEditModal = (props) => {
               />
             </div>
             <div className="avatar-wrap">
-              {coverImage === "" ? (
-                <NoImage />
+              {avatarAddress === null ? (
+                <label htmlFor={isUpdating ? "" : "avatar"}>
+                  <NoImage className="avatar" />
+                  <input
+                    ref={coverRef}
+                    type="file"
+                    id="avatar"
+                    onChange={(e) => handleImgChange(e, "avatar")}
+                    style={{
+                      display: "none",
+                    }}
+                  />
+                </label>
               ) : (
                 <label htmlFor={isUpdating ? "" : "avatar"}>
-                  <img className="avatar" src={avatar} alt="" />
+                  <img className="avatar" src={avatarAddress} alt="" />
                   <input
                     ref={coverRef}
                     type="file"
@@ -326,48 +346,77 @@ const ProfileEditModal = (props) => {
           </div>
 
           <InputContainer>
-            <AuthInputContainer style={{ width: "100%" }}>
-              <AuthInput
-                label="名稱"
-                placeholder="請輸入名稱"
-                value={name || ""}
-                onChange={(e) => {
-                  setName(e);
-                  setNameCount(e.length || "");
-                }}
-              />
-
-              <div className="d-flex justify-content-between align-items-center mt-2">
-                <p
-                  className="alert-text"
-                  style={{ visibility: name.length < 51 && "hidden" }}
-                >
-                  暱稱不能多於 50 個字
-                </p>
-                <div className="caption">{name.length}/50</div>
-              </div>
-            </AuthInputContainer>
-
-            <AuthInputContainer style={{ width: "100%" }}>
-              <IntroductionInput
-                label="自我介紹"
-                placeholder="請輸入自我介紹"
-                value={introduction || ""}
-                onChange={(e) => {
-                  setIntroduction(e);
-                  setIntroductionCount(e.length || "");
-                }}
-              />
-              <div className="d-flex justify-content-between align-items-center mt-2">
-                <p
-                  className="alert-text"
-                  style={{ visibility: introduction.length < 161 && "hidden" }}
-                >
-                  自我介紹不能多於 160 個字
-                </p>
-                <div className="caption">{introduction.length}/160</div>
-              </div>
-            </AuthInputContainer>
+            {nameCount > 50 ? (
+              <AuthInputContainer
+                className="input active"
+                style={{ borderBottom: "unset" }}
+              >
+                <AuthInput
+                  label="名稱"
+                  placeholder="請輸入名稱"
+                  value={name || ""}
+                  onChange={(e) => {
+                    setName(e);
+                    setNameCount(e.length || "");
+                  }}
+                />
+                <div className="d-flex justify-content-between align-items-center mt-2">
+                  <p className="alert-text">暱稱不能多於 50 個字</p>
+                  <div className="caption">{nameCount}/50</div>
+                </div>
+              </AuthInputContainer>
+            ) : (
+              <AuthInputContainer
+                className="input"
+                style={{ borderBottom: "unset" }}
+              >
+                <AuthInput
+                  label="名稱"
+                  placeholder="請輸入名稱"
+                  value={name || ""}
+                  onChange={(e) => {
+                    setName(e);
+                    setNameCount(e.length || "");
+                  }}
+                />
+                <div className="caption mt-2">{nameCount}/50</div>
+              </AuthInputContainer>
+            )}
+          </InputContainer>
+          <InputContainer style={{ marginTop: "0" }}>
+            {introductionCount > 160 ? (
+              <AuthInputContainer
+                className="input active"
+                style={{ marginTop: "0", borderBottom: "unset" }}
+              >
+                <IntroductionInput
+                  label="自我介紹"
+                  placeholder="請輸入自我介紹"
+                  value={introduction || ""}
+                  onChange={(e) => {
+                    setIntroduction(e);
+                    setIntroductionCount(e.length || "");
+                  }}
+                />
+                <div className="d-flex justify-content-between align-items-center mt-2">
+                  <p className="alert-text">自我介紹不能多於 160 個字</p>
+                  <div className="caption">{introductionCount}/160</div>
+                </div>
+              </AuthInputContainer>
+            ) : (
+              <AuthInputContainer className="input" style={{ marginTop: "0" }}>
+                <IntroductionInput
+                  label="自我介紹"
+                  placeholder="請輸入自我介紹"
+                  value={introduction || ""}
+                  onChange={(e) => {
+                    setIntroduction(e);
+                    setIntroductionCount(e.length || "");
+                  }}
+                />
+                <div className="caption">{introductionCount}/160</div>
+              </AuthInputContainer>
+            )}
           </InputContainer>
         </Modal.Body>
       </ModalStyle>

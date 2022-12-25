@@ -50,7 +50,7 @@ const CardStyle = styled.div`
   }
   .card-footer {
     padding: 0 1rem 1rem 1rem;
-    .intro{
+    .intro {
       display: -webkit-box;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -143,12 +143,15 @@ function UserInfoArea(props) {
   return (
     <CardStyle>
       {coverImage === null ? (
-      <img className="background" src={noBg} alt="background" />):(<img className="background" src={coverImage} alt="background" />)}
+        <img className="background" src={noBg} alt="background" />
+      ) : (
+        <img className="background" src={coverImage} alt="background" />
+      )}
       {avatar === null ? (
-          <NoImage className="avatar" />
-        ) : (
-          <img className="avatar" src={avatar} alt="avatar" />
-        )}
+        <NoImage className="avatar" />
+      ) : (
+        <img className="avatar" src={avatar} alt="avatar" />
+      )}
       <div className="card-header">
         {currentUser === null ? (
           ""
@@ -201,22 +204,19 @@ function UserInfoArea(props) {
         <div className="text-wrap">
           <div className="text">
             <NavLink to={`/user/${UserId.UserId}/followers`}>
-              {totalFollowings}個
+              {totalFollowers}個
             </NavLink>
             跟隨中
           </div>
           <div className="text">
             <NavLink to={`/user/${UserId.UserId}/following`}>
-              {totalFollowers}位
+              {totalFollowings}位
             </NavLink>
             跟隨者
           </div>
         </div>
       </div>
-      <ProfileEditModal
-        show={show}
-        setShow={setShow}
-      />
+      <ProfileEditModal show={show} setShow={setShow} avatarOri={avatar} coverImageOri={coverImage}/>
     </CardStyle>
   );
 }

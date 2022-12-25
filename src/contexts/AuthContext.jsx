@@ -27,14 +27,12 @@ function AuthContextProvider({ children }) {
 
   // check authToken when route switched
   useEffect(() => {
-    console.log({ isAuthenticated })
     async function checkPermission() {
       // get token
       const authToken = localStorage.getItem('authToken')
       if (!authToken) {
         setIsAuthenticated(false)
         setPayload(null)
-        console.log(1)
         return
       }
       // decode token, and get currentUser data
@@ -42,19 +40,16 @@ function AuthContextProvider({ children }) {
       if (!temPayload) {
         setIsAuthenticated(false)
         setPayload(null)
-        console.log(2)
         return
       }
       const { success, data, message } = await getUser(temPayload.id)
       if (success) {
         setIsAuthenticated(true)
         setPayload(data)
-        console.log(3)
       } else {
         console.error(message)
         setIsAuthenticated(false)
         setPayload(null)
-        console.log(4)
       }
     }
     checkPermission()

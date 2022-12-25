@@ -154,7 +154,6 @@ export async function getUserFollowing(userId) {
 }
 
 export async function EditUser(userId, userData) {
-  console.log("send", userData);
   try {
     const { data } = await axiosInstance.put(
       `${baseUrl}/${basePath}/${userId}`,

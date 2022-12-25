@@ -20,7 +20,6 @@ const useUpdateUser = () => {
         id
       );
       if (postStatus.status === "success") {
-        console.log(postStatus)
         Swal.fire({
           position: "top",
           title: "個人資料更新成功",
@@ -29,7 +28,6 @@ const useUpdateUser = () => {
           showConfirmButton: false,
         });
       } else {
-        console.log(postStatus)
         Swal.fire({
           position: "top",
           title: "個人資料更新失敗",
