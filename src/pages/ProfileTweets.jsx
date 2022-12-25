@@ -49,6 +49,7 @@ function ProfileTweets() {
   const [loading, setLoading] = useState(false);
   const UserId = useParams();
   const { isUserInfoUpdate, setIsUserInfoUpdate } = useTweetStatus();
+  const { isGlobalTweetUpdate, setIsGlobalTweetUpdate } = useTweetStatus();
   useEffect(() => {
     setLoading(true);
     async function getData() {
@@ -66,6 +67,7 @@ function ProfileTweets() {
       if (success) {
         // update data
         setInfo(data);
+        setIsGlobalTweetUpdate(true)
         setIsUserInfoUpdate(true)
       } else {
         // handle error
@@ -79,7 +81,7 @@ function ProfileTweets() {
     }
     startOrder();
     // eslint-disable-next-line
-  }, [UserId.UserId, isUserInfoUpdate]);
+  }, [UserId.UserId, isGlobalTweetUpdate, isUserInfoUpdate]);
 
   const tweetList = tweets.map((tweet) => {
     return (

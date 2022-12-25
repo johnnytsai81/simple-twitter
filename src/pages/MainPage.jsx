@@ -47,6 +47,7 @@ const RightContainer = styled.div`
 function Main() {
   const [tweets, setTweets] = useState([]);
   const { currentUser } = useAuth();
+  const { isReplyTweetUpdate, setIsReplyTweetUpdate } = useTweetStatus();
   const { isGlobalTweetUpdate, setIsGlobalTweetUpdate } = useTweetStatus();
 
   // 等做好再加
@@ -66,6 +67,7 @@ function Main() {
         // update data
         setTweets(data);
         setIsGlobalTweetUpdate(true)
+        setIsReplyTweetUpdate(true)
       } else {
         // handle error
         console.error(message);
@@ -73,7 +75,7 @@ function Main() {
     }
     getData();
     // eslint-disable-next-line
-  }, [isGlobalTweetUpdate]);
+  }, [isGlobalTweetUpdate, isReplyTweetUpdate]);
   
   const tweetList = tweets.map((tweet) => {
     return (

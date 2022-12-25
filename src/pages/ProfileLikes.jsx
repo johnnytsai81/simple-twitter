@@ -10,7 +10,9 @@ import { getUser, getUserLiked } from "../API/user";
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import { useState, useEffect } from "react";
+import { useTweetStatus } from "../contexts/TweetStatusContext";
 
 // main區塊
 const MainStyle = styled.div`
@@ -43,9 +45,11 @@ const RightContainer = styled.div`
 `;
 
 function ProfileLikes() {
+  const { currentUser } = useAuth();
   const [tweets, setTweets] = useState([]);
   const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(false);
+  const { isUserInfoUpdate, setIsUserInfoUpdate } = useTweetStatus();
   const UserId = useParams();
   useEffect(() => {
     setLoading(true);
@@ -64,6 +68,7 @@ function ProfileLikes() {
       if (success) {
         // update data
         setInfo(data);
+        setIsUserInfoUpdate(true);
       } else {
         // handle error
         console.error(message);
@@ -76,7 +81,7 @@ function ProfileLikes() {
     }
     startOrder();
     // eslint-disable-next-line
-  }, []);
+  }, [UserId.UserId, isUserInfoUpdate]);
   const tweetList = tweets.map((tweet) => {
     return (
       <PostItem
@@ -103,7 +108,13 @@ function ProfileLikes() {
       ) : (
         <MainStyle>
           <LeftContainer>
-            <SideBar />
+            {currentUser === null ? (
+              ""
+            ) : currentUser.id === Number(UserId.UserId) ? (
+              <SideBar lightUp={true}/>
+            ) : (
+              <SideBar />
+            )}
           </LeftContainer>
           <CenterContainer>
             {/* back為返回記號 number為推文數 */}

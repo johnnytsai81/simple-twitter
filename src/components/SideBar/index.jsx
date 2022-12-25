@@ -79,6 +79,7 @@ function PageLink(props) {
 }
 
 function SideBar(props) {
+  let lightUp = props.lightUp;
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const { currentUser } = useAuth();
@@ -104,9 +105,9 @@ function SideBar(props) {
             )
           }
         </NavLink>
-        <NavLink to={`/user/${currentUser?.id}/`}>
+        <NavLink to={`/user/${currentUser?.id}/tweet`}>
           {({ isActive }) =>
-            isActive ? (
+            isActive || lightUp === true ? (
               <PageLink active={true} text={"個人資料"} name={"person"} />
             ) : (
               <PageLink active={false} text={"個人資料"} name={"person"} />

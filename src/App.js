@@ -1,6 +1,6 @@
 import "./App.css";
 import "./assets/all.scss";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
@@ -33,10 +33,6 @@ function App() {
               <Route path="admin_login" element={<AdminLoginPage />} />
               <Route path="admin_main" element={<AdminMainPage />} />
               <Route path="admin_users" element={<AdminUsersPage />} />
-              <Route
-                path="user/:UserId"
-                element={<Navigate to={"tweet"} />}
-              ></Route>
               <Route path="user/:UserId/tweet" element={<ProfileTweets />} />
               <Route
                 path="user/:UserId/replied_tweets"

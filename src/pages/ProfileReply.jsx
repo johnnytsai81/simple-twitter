@@ -11,6 +11,8 @@ import styled from "styled-components";
 import Container from "react-bootstrap/Container";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { useTweetStatus } from "../contexts/TweetStatusContext";
 
 // main區塊
 const MainStyle = styled.div`
@@ -44,9 +46,11 @@ const RightContainer = styled.div`
 
 function ProfileReply() {
   const [replied, setReplied] = useState([]);
+  const { currentUser } = useAuth();
   const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(false);
   const UserId = useParams();
+  const { isUserInfoUpdate, setIsUserInfoUpdate } = useTweetStatus();
   useEffect(() => {
     setLoading(true);
     async function getData() {
@@ -64,6 +68,7 @@ function ProfileReply() {
       if (success) {
         // update data
         setInfo(data);
+        setIsUserInfoUpdate(true);
       } else {
         // handle error
         console.error(message);
@@ -76,7 +81,7 @@ function ProfileReply() {
     }
     startOrder();
     // eslint-disable-next-line
-  }, []);
+  }, [UserId.UserId, isUserInfoUpdate]);
   const replyList = replied.map((reply) => {
     return (
       <ReplyItem
@@ -100,7 +105,13 @@ function ProfileReply() {
       ) : (
         <MainStyle>
           <LeftContainer>
-            <SideBar />
+            {currentUser === null ? (
+              ""
+            ) : currentUser.id === Number(UserId.UserId) ? (
+              <SideBar lightUp={true} />
+            ) : (
+              <SideBar />
+            )}
           </LeftContainer>
           <CenterContainer>
             {/* back為返回記號 number為推文數 */}

@@ -202,8 +202,8 @@ function SideBarModal(props) {
         </Modal.Body>
         <Modal.Footer>
           {tweetCount > 140 ? (
-            <div className="d-flex w-100 justify-content-between align-items-center">
-              <p className="alert-text">字數不可超過140字</p>
+            <div className="d-flex w-100 justify-content-end align-items-center">
+              <p className="alert-text me-4">字數不可超過140字</p>
               <Button
                 variant="primary"
                 size="sm"
@@ -214,14 +214,17 @@ function SideBarModal(props) {
               </Button>
             </div>
           ) : (
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={handleClick}
-              disabled={!isValid}
-            >
-              推文
-            </Button>
+            <div className="d-flex w-100 justify-content-end align-items-center">
+              <p className="alert-text me-4" style={{visibility: tweetCount > 0 && "hidden"}}>內容不可空白</p>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={handleClick}
+                disabled={!isValid}
+              >
+                推文
+              </Button>
+            </div>
           )}
         </Modal.Footer>
       </ModalStyle>

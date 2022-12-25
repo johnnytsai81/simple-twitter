@@ -191,6 +191,7 @@ function PostItem(props) {
         account={account}
         createdAt={createdAt}
         description={description}
+        TweetId={TweetId}
       />
     </CardStyle>
   );
