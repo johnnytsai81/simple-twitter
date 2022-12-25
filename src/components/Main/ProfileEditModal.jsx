@@ -361,7 +361,7 @@ const ProfileEditModal = (props) => {
                   }}
                 />
                 <div className="d-flex justify-content-between align-items-center mt-2">
-                  <p className="alert-text">暱稱不能多於 50 個字</p>
+                  <p className="alert-text">名稱不能多於 50 個字</p>
                   <div className="caption">{nameCount}/50</div>
                 </div>
               </AuthInputContainer>
