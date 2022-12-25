@@ -7,7 +7,7 @@ import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { getUserSetting } from "../API/user";
 import { useAuth } from "../contexts/AuthContext";
-import Swal from "sweetalert2";
+import { Toast } from "../utilities/sweetalert";
 
 // main區塊
 const MainStyle = styled.div`
@@ -103,38 +103,26 @@ const SettingPage = () => {
       );
       if (postStatus.status === "success") {
         console.log(postStatus);
-        Swal.fire({
-          position: "top",
+        Toast.fire({
           title: "發送成功",
-          timer: 1000,
           icon: "success",
-          showConfirmButton: false,
         });
         } else if (password !== checkPassword) {
-          Swal.fire({
-            position: "top",
+          Toast.fire({
             title: "密碼與確認密碼不相同!",
-            timer: 1000,
             icon: "error",
-            showConfirmButton: false,
-          })
+          });
         } else {
-          Swal.fire({
-            position: "top",
+          Toast.fire({
             title: "發送失敗",
-            timer: 1000,
             icon: "error",
-            showConfirmButton: false,
           });
         }
     } catch (error) {
       console.error(error);
-      Swal.fire({
-        position: "top",
+      Toast.fire({
         title: "發送錯誤",
-        timer: 1000,
         icon: "error",
-        showConfirmButton: false,
       });
     }
   };

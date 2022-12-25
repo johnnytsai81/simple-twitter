@@ -1,116 +1,84 @@
 import axios from "axios";
-import Swal from "sweetalert2";
+import { Toast } from "../utilities/sweetalert";
 
-
-const authURL = 'https://ck-mami-2022-twitter.herokuapp.com/api'
+const authURL = "https://ck-mami-2022-twitter.herokuapp.com/api";
 
 export const userLogin = async ({ account, password }) => {
   try {
-    const { data } = await axios.post(`${authURL}/signIn`,{
+    const { data } = await axios.post(`${authURL}/signIn`, {
       account,
       password,
-    })
+    });
 
-    const { token } = data.data
-    const { role } = data.data.user
+    const { token } = data.data;
+    const { role } = data.data.user;
 
-    if(token && role !== 'admin') {
-      return { success: true, ...data }
+    if (token && role !== "admin") {
+      return { success: true, ...data };
     }
-    return data
-    
+    return data;
   } catch (error) {
-    console.log('[Login Failed]:', error.response.data)
-        // 登入失敗訊息
-         const Toast = Swal.mixin({
-         toast: true,
-         position: 'top-end',
-         
-         showConfirmButton: false,
-         timer: 2000,
-
-  didOpen: (toast) => {
-    
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-    toast.addEventListener('mouseenter', Swal.stopTimer)
+    console.log("[Login Failed]:", error.response.data);
+    // 登入失敗訊息
+    Toast.fire({
+      title: error.response.data.message,
+      icon: "error",
+    });
   }
-})
+};
 
-Toast.fire({
-  title: error.response.data.message,
-  icon: 'error',
-  
-})
-
-      // Swal.fire({
-      //   position: "",
-      //   title: error.response.data.message,
-      //   timer: 1000,
-      //   icon: "error",
-      //   showConfirmButton: false,
-      // });
-
-  }
-}
-
-export const register = async ({ account, name, email, password, checkPassword}) => {
+export const register = async ({
+  account,
+  name,
+  email,
+  password,
+  checkPassword,
+}) => {
   try {
-    const { data } = await axios.post(`${authURL}/users`,
-    {
+    const { data } = await axios.post(`${authURL}/users`, {
       account,
       name,
       email,
       password,
       checkPassword,
-    })
+    });
 
-    const { createdUser } = data.data
+    const { createdUser } = data.data;
 
-    if(createdUser) {
-      return { success: true, ...data }
+    if (createdUser) {
+      return { success: true, ...data };
     }
-    return data
-
-    
+    return data;
   } catch (error) {
-    console.log('[Register Failed]:', error.response.data)
+    console.log("[Register Failed]:", error.response.data);
     // 註冊失敗訊息
-    Swal.fire({
-      position: "top",
+    Toast.fire({
       title: error.response.data.message,
-      timer: 1000,
       icon: "error",
-      showConfirmButton: false,
     });
   }
-}
+};
 
 export const adminLogin = async ({ account, password }) => {
   try {
-    const { data } = await axios.post(`${authURL}/signIn`,{
+    const { data } = await axios.post(`${authURL}/signIn`, {
       account,
       password,
-    })
+    });
 
-    const { token } = data.data
-    const { role } = data.data.user
+    const { token } = data.data;
+    const { role } = data.data.user;
 
-    if(token && role === 'admin') {
-      return { success: true, ...data }
+    if (token && role === "admin") {
+      return { success: true, ...data };
     }
-    return data
-    
+    return data;
   } catch (error) {
-    console.log('[Admin Login Failed]:', error.response.data)
-        // 登入失敗訊息
-      Swal.fire({
-        position: "top",
-        title: error.response.data.message,
-        timer: 1000,
-        icon: "error",
-        showConfirmButton: false,
-      });
+    console.log("[Admin Login Failed]:", error.response.data);
+    // 登入失敗訊息
+    Toast.fire({
+      title: error.response.data.message,
+      icon: "error",
+    });
   }
-}
-
-
+};

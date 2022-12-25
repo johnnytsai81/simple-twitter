@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getUserInfo } from "../API/user";
-import Swal from "sweetalert2";
+import { Toast } from "../utilities/sweetalert";
 
 const useUpdateUser = () => {
   const [isUpdating, setIsUpdating] = useState(false);
@@ -20,20 +20,14 @@ const useUpdateUser = () => {
         id
       );
       if (postStatus.status === "success") {
-        Swal.fire({
-          position: "top",
+        Toast.fire({
           title: "個人資料更新成功",
-          timer: 1000,
           icon: "success",
-          showConfirmButton: false,
         });
       } else {
-        Swal.fire({
-          position: "top",
+        Toast.fire({
           title: "個人資料更新失敗",
-          timer: 1000,
-          icon: "error",
-          showConfirmButton: false,
+          icon: "success",
         });
       }
 

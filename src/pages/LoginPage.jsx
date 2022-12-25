@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { userLogin } from "../API/auth";
-import Swal from "sweetalert2";
+import { Toast } from "../utilities/sweetalert";
 
 const LoginPage = () => {
   const [account, setAccount] = useState("");
@@ -35,42 +35,24 @@ const LoginPage = () => {
     if (data.success) {
       // 登入成功訊息
       localStorage.setItem("authToken", token);
-      Swal.fire({
-        position: "top",
+      Toast.fire({
         title: "登入成功",
-        timer: 1000,
         icon: "success",
-        showConfirmButton: false,
       });
       navigate("/main");
       return;
     } else if (data.data.user.role === "admin") {
-      Swal.fire({
-        position: "top",
-        title: "帳號不存在",
-        timer: 1000,
+      Toast.fire({
+        title: "帳號不存在!",
         icon: "error",
-        showConfirmButton: false,
       });
       // 登入失敗後欄位清空
       setAccount("");
       setPassword("");
     } else {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
       Toast.fire({
-        icon: "error",
         title: "登入失敗",
+        icon: "error",
       });
       // 登入失敗後欄位清空
       setAccount("");

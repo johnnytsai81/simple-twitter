@@ -1,31 +1,56 @@
 // 主要按鈕
-.btn-primary{
+.btn-primary {
   background-color: $main;
   border-radius: $border-l;
   color: $white;
-  &:hover{
+
+  &:hover {
     color: $white;
   }
-  &:active{
+
+  &:active {
     color: $white !important;
   }
-  &:disabled{
+
+  &:disabled {
     color: $white !important;
   }
 }
 
 // 簍空按鈕
-.btn-outline-primary{
+.btn-outline-primary {
   border-radius: $border-l;
-  &:hover{
+
+  &:hover {
     color: $white;
   }
-  &:active{
+
+  &:active {
     color: $white !important;
   }
 }
 
 // modal大小
-.modal-lg{
+.modal-lg {
   --bs-modal-width: 600px !important;
+}
+
+// 修改swal的樣式
+.swal2-container.swal2-top-end>.swal2-popup,
+.swal2-container.swal2-top-right>.swal2-popup {
+  justify-content: space-between;
+  grid-column: 3 !important;
+  grid-row: unset !important;
+}
+
+.swal2-popup.swal2-toast .swal2-icon {
+  grid-row: unset !important;
+  grid-column: unset !important;
+  order: 1;
+  grid-column: 1;
+}
+
+.swal2-popup.swal2-toast .swal2-title {
+  text-align: start;
+  width: 225px;
 }

@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { useState, useMemo } from "react";
 import Modal from "react-bootstrap/Modal";
 import { addTweet } from "../../API/tweets";
-import Swal from "sweetalert2";
+import { Toast } from "../../utilities/sweetalert";
 import { useTweetStatus } from "../../contexts/TweetStatusContext";
 
 // 引入圖片
@@ -138,32 +138,23 @@ function SideBarModal(props) {
         setTweet("");
         setIsGlobalTweetUpdate(false);
         setShow(false);
-        Swal.fire({
-          position: "top",
-          title: "發送成功",
-          timer: 1000,
+        Toast.fire({
+          title: "推文發送成功",
           icon: "success",
-          showConfirmButton: false,
         });
       } else {
         setTweet("");
         setShow(false);
-        Swal.fire({
-          position: "top",
-          title: "發送失敗",
-          timer: 1000,
+        Toast.fire({
+          title: "推文發送失敗",
           icon: "error",
-          showConfirmButton: false,
         });
       }
     } catch (error) {
       console.error(error);
-      Swal.fire({
-        position: "top",
-        title: "發送錯誤",
-        timer: 1000,
+      Toast.fire({
+        title: "推文發送錯誤",
         icon: "error",
-        showConfirmButton: false,
       });
       setTweet("");
       setShow(false);

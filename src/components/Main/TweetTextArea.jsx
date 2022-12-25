@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import { useState, useMemo } from "react";
 import { addTweet } from "../../API/tweets";
-import Swal from "sweetalert2";
+import { Toast } from "../../utilities/sweetalert";
 import { useTweetStatus } from "../../contexts/TweetStatusContext";
 
 // 引入圖片
@@ -80,31 +80,22 @@ function TextArea(props) {
       if (postStatus.postedTweet) {
         setTweet("");
         setIsGlobalTweetUpdate(false);
-        Swal.fire({
-          position: "top",
+        Toast.fire({
           title: "推文發送成功",
-          timer: 1000,
           icon: "success",
-          showConfirmButton: false,
         });
       } else {
         setTweet("");
-        Swal.fire({
-          position: "top",
+        Toast.fire({
           title: "推文發送失敗",
-          timer: 1000,
           icon: "error",
-          showConfirmButton: false,
         });
       }
     } catch (error) {
       console.error(error);
-      Swal.fire({
-        position: "top",
+      Toast.fire({
         title: "推文發送錯誤",
-        timer: 1000,
         icon: "error",
-        showConfirmButton: false,
       });
       setTweet("");
     }

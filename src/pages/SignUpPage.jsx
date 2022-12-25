@@ -10,7 +10,7 @@ import { ACLogoIcon } from "../assets/icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import Swal from "sweetalert2";
+import { Toast } from "../utilities/sweetalert";
 import { register } from "../API/auth";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -32,72 +32,51 @@ const SignUpPage = () => {
 
   const handleClick = async () => {
     if (account.trim().length === 0 ) {
-      Swal.fire({
-        position: "top",
+      Toast.fire({
         title: "請輸入帳號",
-        timer: 1000,
         icon: "error",
-        showConfirmButton: false,
       });
       return;
     }
     if (name.trim().length === 0) {
-      Swal.fire({
-        position: "top",
+      Toast.fire({
         title: "請輸入名稱",
-        timer: 1000,
         icon: "error",
-        showConfirmButton: false,
       });
       return;
     }
     if (name.length > 50) {
-      Swal.fire({
-        position: "top",
+      Toast.fire({
         title: "名稱字數超過上限",
-        timer: 1000,
         icon: "error",
-        showConfirmButton: false,
       });
       return;
     }
     if (email.trim().length === 0) {
-      Swal.fire({
-        position: "top",
+      Toast.fire({
         title: "請輸入Email",
-        timer: 1000,
         icon: "error",
-        showConfirmButton: false,
       });
       return;
     }
     if (password.trim().length === 0) {
-      Swal.fire({
-        position: "top",
+      Toast.fire({
         title: "請輸入密碼",
-        timer: 1000,
         icon: "error",
-        showConfirmButton: false,
       });
       return;
     }
     if (checkPassword.trim().length === 0) {
-      Swal.fire({
-        position: "top",
+      Toast.fire({
         title: "請輸入確認密碼",
-        timer: 1000,
         icon: "error",
-        showConfirmButton: false,
       });
       return;
     }
     if (password !== checkPassword) {
-      Swal.fire({
-        position: "top",
+      Toast.fire({
         title: "密碼和確認密碼不相同!",
-        timer: 1000,
         icon: "error",
-        showConfirmButton: false,
       });
       return;
     }
@@ -112,12 +91,9 @@ const SignUpPage = () => {
 
     if (data.success) {
       // 註冊成功訊息
-      Swal.fire({
-        position: "top",
+      Toast.fire({
         title: "註冊成功",
-        timer: 1000,
         icon: "success",
-        showConfirmButton: false,
       });
       navigate("/login");
       return;
@@ -147,8 +123,6 @@ const SignUpPage = () => {
           <ACLogoIcon />
         </div>
         <h2 style={{ margin: "20px 0 10px 0" }}>建立你的帳號</h2>
-
-
           <AuthInputContainer>
               <AuthInput
                 label="帳號"
@@ -159,8 +133,6 @@ const SignUpPage = () => {
                 }}
               />
           </AuthInputContainer>
-       
-
         <AuthInputContainer >
           <AuthInput
             label="名稱"
