@@ -1,7 +1,6 @@
 import "./App.css";
 import "./assets/all.scss";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-// import { SignUpPage, LoginPage, MainPage, ProfilePage, ReplyPage, UserFollowerPage, UserOtherPage, AdminMainPage, AdminUsersPage,AdminLoginPage } from 'pages';
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";

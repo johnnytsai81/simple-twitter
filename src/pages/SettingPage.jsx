@@ -29,7 +29,9 @@ const CenterContainer = styled.div`
   border-right: 1px solid var(--border-color);
   border-left: 1px solid var(--border-color);
   flex: 16 1 0;
-  height: 1200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 `;
@@ -67,10 +69,13 @@ const SettingPage = () => {
   const [account, setAccount] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
   const { currentUser } = useAuth();
+
   const handleSave = async (e) => {
     e.preventDefault();
 
     let id = currentUser.id;
+    
+    // 欄位驗證
     if (account.trim().length === 0) {
       return;
     }
@@ -83,6 +88,7 @@ const SettingPage = () => {
     if (password.trim().length === 0) {
       return;
     }
+
     try {
       const postStatus = await getUserSetting(
         {
@@ -91,8 +97,9 @@ const SettingPage = () => {
           email,
           password,
           checkPassword,
+          id,
         },
-        id
+        
       );
       if (postStatus.status === "success") {
         console.log(postStatus);
@@ -103,15 +110,23 @@ const SettingPage = () => {
           icon: "success",
           showConfirmButton: false,
         });
-      } else {
-        Swal.fire({
-          position: "top",
-          title: "發送失敗",
-          timer: 1000,
-          icon: "error",
-          showConfirmButton: false,
-        });
-      }
+        } else if (password !== checkPassword) {
+          Swal.fire({
+            position: "top",
+            title: "密碼與確認密碼不相同!",
+            timer: 1000,
+            icon: "error",
+            showConfirmButton: false,
+          })
+        } else {
+          Swal.fire({
+            position: "top",
+            title: "發送失敗",
+            timer: 1000,
+            icon: "error",
+            showConfirmButton: false,
+          });
+        }
     } catch (error) {
       console.error(error);
       Swal.fire({
@@ -234,6 +249,7 @@ const SettingPage = () => {
                 label="帳號"
                 placeholder="請輸入帳號"
                 value={account}
+                
                 onChange={(accountInputValue) => setAccount(accountInputValue)}
               />
             </AuthInputContainer>

@@ -56,12 +56,21 @@ const LoginPage = () => {
       setAccount("");
       setPassword("");
     } else {
-      Swal.fire({
-        position: "top",
-        title: '登入失敗',
-        timer: 1000,
-        icon: "error",
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
         showConfirmButton: false,
+        timer: 3000,
+
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: "登入失敗",
       });
       // 登入失敗後欄位清空
       setAccount("");

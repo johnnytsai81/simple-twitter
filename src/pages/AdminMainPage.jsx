@@ -33,6 +33,12 @@ const UserContainer = styled.div`
   align-items: start;
 `;
 
+// 推文清單下方的border-line
+const BorderLine = styled.div`
+  width: 100%;
+  border-top: 1px solid #e6ecf0;
+`;
+
 const AdminMainPage = () => {
   const [postItems, setPostItems] = useState([]);
 
@@ -93,6 +99,7 @@ const AdminMainPage = () => {
         {/* 中間-右側的推文清單 */}
         <UserContainer>
           <h3 style={{ margin: "20px" }}>推文清單</h3>
+          <BorderLine />
           <PostList postItems={postItems} onDelete={handleDeletePostItems} />
         </UserContainer>
       </MainStyle>

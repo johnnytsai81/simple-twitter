@@ -82,7 +82,7 @@ function TextArea(props) {
         setIsGlobalTweetUpdate(false);
         Swal.fire({
           position: "top",
-          title: "發送成功",
+          title: "推文發送成功",
           timer: 1000,
           icon: "success",
           showConfirmButton: false,
@@ -91,7 +91,7 @@ function TextArea(props) {
         setTweet("");
         Swal.fire({
           position: "top",
-          title: "發送失敗",
+          title: "推文發送失敗",
           timer: 1000,
           icon: "error",
           showConfirmButton: false,
@@ -101,7 +101,7 @@ function TextArea(props) {
       console.error(error);
       Swal.fire({
         position: "top",
-        title: "發送錯誤",
+        title: "推文發送錯誤",
         timer: 1000,
         icon: "error",
         showConfirmButton: false,

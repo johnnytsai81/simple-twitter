@@ -22,13 +22,33 @@ export const userLogin = async ({ account, password }) => {
   } catch (error) {
     console.log('[Login Failed]:', error.response.data)
         // 登入失敗訊息
-      Swal.fire({
-        position: "top",
-        title: error.response.data.message,
-        timer: 1000,
-        icon: "error",
-        showConfirmButton: false,
-      });
+         const Toast = Swal.mixin({
+         toast: true,
+         position: 'top-end',
+         
+         showConfirmButton: false,
+         timer: 2000,
+
+  didOpen: (toast) => {
+    
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+  }
+})
+
+Toast.fire({
+  title: error.response.data.message,
+  icon: 'error',
+  
+})
+
+      // Swal.fire({
+      //   position: "",
+      //   title: error.response.data.message,
+      //   timer: 1000,
+      //   icon: "error",
+      //   showConfirmButton: false,
+      // });
 
   }
 }
