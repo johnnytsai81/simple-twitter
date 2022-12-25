@@ -1,70 +1,115 @@
-# Getting Started with Create React App
+# Simple Twitter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+此專案使用React參考Twitter打造一個社交平台Alphitter，讓使用者可以使用此平台進行註冊、登入、發文、點讚、回覆以及跟隨別人等功能。
 
-## Available Scripts
+## 專案介紹
 
-In the project directory, you can run:
+- 目前主要包含四個主路徑/頁面
+  - 註冊頁 http://localhost:3000/simple-twitter/signup
+  - 登入頁 http://localhost:3000/simple-twitter/login
+  - 個人主頁(登入才可使用) http://localhost:3000/simple-twitter/main
+  - 後台登入頁 http://localhost:3000/simple-twitter/admin_login
+  
+- 線上部署後的主要頁面
+  - 註冊頁 https://johnnytsai81.github.io/simple-twitter/signup
+  - 登入頁 https://johnnytsai81.github.io/simple-twitter/login
+  - 個人主頁(登入才可使用) https://johnnytsai81.github.io/simple-twitter/main
+  - 後台登入頁 https://johnnytsai81.github.io/simple-twitter/admin_login
+  
+## 專案功能
 
-### `npm start`
+- 使用者
+  - 可以透過註冊頁註冊自己的帳號
+  - 可以從登入頁進到個人首頁
+  - 可以在首頁瀏覽其他使用者的推文和回覆
+  - 可以瀏覽自己的推文/回覆/喜歡的內容
+  - 可以對其他使用者進行跟隨/取消跟隨
+  - 可以更新個人資料，修改帳戶設定、大頭照、個人首頁封面照
+  - 點擊單一則推文可進入此推文的單一畫面
+  - 透過點擊推文下方的愛心icon可對此推文表示喜歡
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 管理者
+  - 可以從後台登入頁登入
+  - 可以在推文清單瀏覽/刪除所有使用者的推文
+  - 可以在使用者列表瀏覽所有已註冊的使用者，並可看到每位使用者的推文數、喜歡的推文數以及跟隨/被跟隨的數量
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 專案畫面
 
-### `npm test`
+### 1. 註冊頁
+![圖片](https://upload.cc/i1/2022/12/25/7FmWuP.jpg)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. 一般使用者登入頁
+![圖片](https://upload.cc/i1/2022/12/25/Cp9G0F.jpg)
 
-### `npm run build`
+### 3. 後台登入頁
+![圖片](https://upload.cc/i1/2022/12/25/fnCmFH.jpg)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 4. 個人主頁
+![圖片](https://upload.cc/i1/2022/12/25/rsagOI.jpg)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 5. 個人資料頁
+![圖片](https://upload.cc/i1/2022/12/25/4QaSxd.jpg)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 6. 帳戶設定頁
+![圖片](https://upload.cc/i1/2022/12/25/4QaSxd.jpg)
 
-### `npm run eject`
+### 7. 單一推文畫面
+![圖片](https://upload.cc/i1/2022/12/25/jJ1Osu.jpg)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 8. 後台推文清單
+![圖片](https://upload.cc/i1/2022/12/25/nIMOTJ.jpg)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 9. 後台使用者列表
+![圖片](https://upload.cc/i1/2022/12/25/Fz5MrQ.jpg)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 環境建置
 
-## Learn More
+  - Node.js: v14.18.1
+  - react: v18.2.0
+  - react-bootstrap: v2.7.0
+  - react-icons: v4.7.1
+  - react-dom: v18.2.0
+  - react-router-dom: v6.4.1
+  - react-scripts: v4.0.3
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 使用指南
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. 將專案 clone 至本地，至終端機輸入：
 
-### Code Splitting
+   ```
+   git clone https://github.com/johnnytsai81/simple-twitter.git
+   ```
+   
+2. 在終端機中輸入以下文字進入專案資料夾：
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   ```
+   cd simple-twitter
+   ```
+   
+3. 在終端機中輸入以下以安裝相關套件：
 
-### Analyzing the Bundle Size
+   ```
+   npm install
+   ```
+   
+4. 在終端機中輸入以下便可執行專案：
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+   ```
+   npm start
+   ```
+   
+3. 瀏覽器將會自動開啟 "http://localhost:3000/simple-twitter/login" ，即可瀏覽此專案。
 
-### Making a Progressive Web App
+4. 停止使用，至終端機輸入：
+   ```
+   ctrl + c
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Contributor 專案開發人員
 
-### Advanced Configuration
+- [Anthony Tsai](https://github.com/johnnytsai81)
+- [Ashley Chou](https://github.com/ChunYingChou)
+- [Mami](https://github.com/shanelin0904)
+- [CK](https://github.com/Gincoolwant)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
