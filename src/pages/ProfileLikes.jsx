@@ -92,11 +92,11 @@ function ProfileLikes() {
         avatar={tweet.Tweet.User.avatar}
         account={tweet.Tweet.User.account}
         description={tweet.Tweet.description}
-        isLiked={tweet.isLiked}
+        isLiked={tweet.Tweet.isLiked}
         updatedAt={tweet.updatedAt}
         createdAt={tweet.createdAt}
-        totalLikes={tweet.Tweet.Likes.totalLikes}
-        totalReplies={tweet.Tweet.Replies.totalReplies}
+        totalLikes={tweet.Tweet.totalLikes}
+        totalReplies={tweet.Tweet.totalReplies}
       />
     );
   });

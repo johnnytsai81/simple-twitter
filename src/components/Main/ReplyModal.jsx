@@ -183,7 +183,9 @@ function ReplyModal(props) {
             </div>
           </div>
           <div className="reply-people">
-            {avatar === null ? (
+            {currentUser === null ? (
+              ""
+            ) : currentUser.avatar === null ? (
               <NoImage />
             ) : (
               <img className="avatar" src={currentUser?.avatar} alt="avatar" />

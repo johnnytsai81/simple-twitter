@@ -70,7 +70,6 @@ const AdminUsersPage = () => {
     getAllUsersAsync()
   },[])
 
-
   const UsersList = ({ userItems }) => {
     return (
       userItems.map((userItem) => {
@@ -82,10 +81,10 @@ const AdminUsersPage = () => {
             avatar={userItem.avatar}
             username={userItem.name}
             account={userItem.account}
-            totalTweets={userItem.Tweets.totalTweets}
-            totalLikes={userItem.Tweets.Likes.totalLikes}
-            followings={userItem.Followings.followingCount}
-            followers={userItem.Followers.followerCount}
+            totalTweets={userItem.totalTweets}
+            totalLikes={userItem.totalLikes}
+            followings={userItem.followingCount}
+            followers={userItem.followerCount}
           />
         );
       })
