@@ -18,10 +18,10 @@ axiosInstance.interceptors.request.use(
   (err) => console.error(err)
 );
 
+// 取得所有使用者
 export async function getAllUsers() {
   try {
     const { data } = await axiosInstance.get(`${baseUrl}/admin/${basePath}`);
-    // if fetch success: [], else {success: false, message: '...'}
     if (data.success === false) return { ...data };
     return { success: true, data };
   } catch (err) {
@@ -153,40 +153,6 @@ export async function getUserFollowing(userId) {
   }
 }
 
-export async function EditUser(userId, userData) {
-  try {
-    const { data } = await axiosInstance.put(
-      `${baseUrl}/${basePath}/${userId}`,
-      userData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(data);
-    if (data.success === false) return { ...data };
-    return { success: true, data };
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Edit User failed]: ${err}`,
-    };
-  }
-}
-
-// 取得該使用者的帳戶設定
-// export async function getUserSetting(id) {
-//   try {
-//     const { data } = await axiosInstance.put(
-//       `${baseUrl}/users/${id}/setting`
-//     );
-//     return data.updatedUser
-//   } catch (error) {
-//       console.error("[Get UserSetting failed]:", error);
-//     };
-// }
-
 // 設定個人帳密
 export const getUserSetting = async (payload, id) => {
   const { account, name, email, password, checkPassword } = payload;
@@ -258,19 +224,3 @@ export async function unfollowUser(userId) {
     };
   }
 }
-
-// dataName: tweets, replied_tweets, likes, followings, followers
-// export async function getUserInfoData(dataName, userId) {
-//   try {
-//     const { data } = await axiosInstance.get(
-//       `${baseUrl}/${basePath}/${userId}/${dataName}`
-//     );
-//     if (data.success === false) return { ...data };
-//     return { success: true, data };
-//   } catch (err) {
-//     return {
-//       success: false,
-//       message: `[Get user's ${dataName} failed]: ${err}`,
-//     };
-//   }
-// }

@@ -176,7 +176,7 @@ function SideBarModal(props) {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div className="reply-people">
-            {avatar === "" ? (
+            {avatar === null ? (
               <NoImage />
             ) : (
               <img className="avatar" src={avatar} alt="avatar" />

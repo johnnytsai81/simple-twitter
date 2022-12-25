@@ -78,7 +78,7 @@ function FollowItem(props) {
   return (
     <NavLink to={`/user/${UserId}/tweet`}>
       <CardStyle>
-        {avatar === "" ? (
+        {avatar === null ? (
           <NoImage className="avatar" />
         ) : (
           <img className="avatar" src={avatar} alt="avatar" />

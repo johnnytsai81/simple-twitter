@@ -4,7 +4,6 @@ const defaultTweetStatusContext = {
   isReplyTweetUpdate: false,
   isUserTweetUpdate: false,
   isGlobalTweetUpdate: false,
-  // isFollowingUpdate: false,
 };
 
 //export useAuth
@@ -16,7 +15,6 @@ function TweetStatusProvider ({ children }) {
   const [isUserInfoUpdate, setIsUserInfoUpdate] = useState(true);
   const [isGlobalTweetUpdate, setIsGlobalTweetUpdate] = useState(true);
   const [isReplyTweetUpdate, setIsReplyTweetUpdate] = useState(true);
-  // const [isFollowingUpdate, setIsFollowingUpdate] = useState(true);
 
   return (
     <TweetStatusContext.Provider
@@ -27,9 +25,6 @@ function TweetStatusProvider ({ children }) {
         setIsUserInfoUpdate,
         setIsGlobalTweetUpdate,
         setIsReplyTweetUpdate,
-
-        // isFollowingUpdate,
-        // setIsFollowingUpdate,
       }}
     >
       {children}
