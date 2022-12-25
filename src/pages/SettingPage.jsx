@@ -77,18 +77,48 @@ const SettingPage = () => {
     
     // 欄位驗證
     if (account.trim().length === 0) {
+      Toast.fire({
+        title: "請輸入帳號",
+        icon: "error",
+      });
       return;
     }
-    if (name.length > 50 || account.trim().length === 0) {
+    if (name.length > 50) {
+      Toast.fire({
+        title: "名稱字數已超過上限",
+        icon: "error",
+      });
+      return;
+    }
+    if (name.trim().length === 0) {
+      Toast.fire({
+        title: "請輸入名稱",
+        icon: "error",
+      });
       return;
     }
     if (email.trim().length === 0) {
+      Toast.fire({
+        title: "請輸入email",
+        icon: "error",
+      });
       return;
     }
     if (password.trim().length === 0) {
+      Toast.fire({
+        title: "請輸入密碼",
+        icon: "error",
+      });
       return;
     }
 
+    if (checkPassword.trim().length === 0) {
+      Toast.fire({
+        title: "請輸入確認密碼",
+        icon: "error",
+      });
+      return;
+    }
     try {
       const postStatus = await getUserSetting(
         {

@@ -5,7 +5,6 @@ import {
   AuthLinkText,
 } from "../components/common/auth.styled";
 import AuthInput from "../components/AccountForm/AuthInput";
-// import AuthInputAlert from "../components/AccountForm/AuthInputAlert";
 import { ACLogoIcon } from "../assets/icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -47,7 +46,7 @@ const SignUpPage = () => {
     }
     if (name.length > 50) {
       Toast.fire({
-        title: "名稱字數超過上限",
+        title: "名稱字數已超過上限",
         icon: "error",
       });
       return;

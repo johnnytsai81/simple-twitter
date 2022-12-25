@@ -19,10 +19,18 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleClick = async () => {
-    if (account.length === 0) {
+    if (account.trim().length === 0) {
+      Toast.fire({
+        title: "請輸入帳號!",
+        icon: "error",
+      });
       return;
     }
-    if (password.length === 0) {
+    if (password.trim().length === 0) {
+      Toast.fire({
+        title: "請輸入密碼!",
+        icon: "error",
+      });
       return;
     }
 
