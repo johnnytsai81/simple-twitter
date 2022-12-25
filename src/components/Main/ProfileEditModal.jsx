@@ -379,7 +379,7 @@ const ProfileEditModal = (props) => {
                     setNameCount(e.length || "");
                   }}
                 />
-                <div className="caption mt-2">{nameCount}/50</div>
+                <div className="caption mt-2">{!nameCount ? 0 : nameCount}/50</div>
               </AuthInputContainer>
             )}
           </InputContainer>
@@ -414,7 +414,7 @@ const ProfileEditModal = (props) => {
                     setIntroductionCount(e.length || "");
                   }}
                 />
-                <div className="caption">{introductionCount}/160</div>
+                <div className="caption">{!introductionCount ? 0 :introductionCount}/160</div>
               </AuthInputContainer>
             )}
           </InputContainer>
