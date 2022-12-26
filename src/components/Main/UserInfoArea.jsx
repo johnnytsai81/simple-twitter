@@ -203,14 +203,14 @@ function UserInfoArea(props) {
         <div className="mb-2 intro">{selfIntro}</div>
         <div className="text-wrap">
           <div className="text">
-            <NavLink to={`/user/${UserId.UserId}/followers`}>
-              {totalFollowers}個
+            <NavLink to={`/user/${UserId.UserId}/following`}>
+              {totalFollowings}個
             </NavLink>
             跟隨中
           </div>
           <div className="text">
-            <NavLink to={`/user/${UserId.UserId}/following`}>
-              {totalFollowings}位
+            <NavLink to={`/user/${UserId.UserId}/followers`}>
+              {totalFollowers}位
             </NavLink>
             跟隨者
           </div>

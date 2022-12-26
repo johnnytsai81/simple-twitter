@@ -49,7 +49,7 @@ function UserMenuTab(props) {
     <>
       <PageListStyle>
         {/* active狀態會變色 */}
-        <NavLink to={`/user/${UserId}/following`}>
+        <NavLink to={`/user/${UserId}/followers`}>
           {({ isActive }) =>
             isActive ? (
               <PageLink
@@ -64,7 +64,7 @@ function UserMenuTab(props) {
             )
           }
         </NavLink>
-        <NavLink to={`/user/${UserId}/followers`}>
+        <NavLink to={`/user/${UserId}/following`}>
           {({ isActive }) =>
             isActive ? (
               <PageLink
