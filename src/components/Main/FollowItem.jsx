@@ -58,15 +58,15 @@ function FollowItem(props) {
   async function handleFollow(e) {
     e.stopPropagation();
     e.preventDefault();
-    if (followState === false) {
-      setFollowState(!followState);
+    if (followState === 0) {
+      setFollowState(1);
       try {
         await followUser(UserId);
       } catch (error) {
         console.error(error);
       }
-    } else if (followState === true) {
-      setFollowState(!followState);
+    } else if (followState === 1) {
+      setFollowState(0);
       try {
         await unfollowUser(UserId);
       } catch (error) {
@@ -86,7 +86,7 @@ function FollowItem(props) {
         <div className="card-content">
           <div className="card-header">
             <h3 className="name mb-0">{name}</h3>
-            {followState === true ? (
+            {followState === 1 ? (
               <Button
                 variant="primary"
                 size="sm"

@@ -105,7 +105,7 @@ function SideBar(props) {
             )
           }
         </NavLink>
-        <NavLink to={`/user/${currentUser?.id}/tweet`}>
+        <NavLink to={`/user/${currentUser?.user.id}/tweet`}>
           {({ isActive }) =>
             isActive || lightUp === true ? (
               <PageLink active={true} text={"個人資料"} name={"person"} />
@@ -133,7 +133,7 @@ function SideBar(props) {
       {currentUser === null ? (
         ""
       ) : (
-        <SideBarModal show={show} setShow={setShow} avatar={currentUser.avatar} />
+        <SideBarModal show={show} setShow={setShow} avatar={currentUser?.user.avatar} />
       )}
     </>
   );

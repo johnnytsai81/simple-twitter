@@ -17,8 +17,8 @@ const MainStyle = styled.div`
 
 // sidebar區塊
 const LeftContainer = styled.div`
-  flex: 5 1 0;
-  padding: 1rem;
+  flex: 0 0 200px;
+  padding: 1rem 0;
   min-height: 100vh;
   display: flex;
   flex-flow: column;
@@ -28,7 +28,7 @@ const LeftContainer = styled.div`
 const CenterContainer = styled.div`
   border-right: 1px solid var(--border-color);
   border-left: 1px solid var(--border-color);
-  flex: 16 1 0;
+  flex: 1 1 0;
   overflow-y: auto;
   overflow-x: hidden;
   height: 100vh;
@@ -38,7 +38,7 @@ const CenterContainer = styled.div`
 
 // 空的區塊
 const RightContainer = styled.div`
-  flex: 7 1 0;
+  flex: 0 0 300px;
 `;
 
 // 帳戶設定下方的border-line

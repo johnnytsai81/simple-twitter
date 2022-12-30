@@ -20,8 +20,8 @@ const MainStyle = styled.div`
 
 // sidebar區塊
 const LeftContainer = styled.div`
-  flex: 5 1 0;
-  padding: 1rem;
+  flex: 0 0 200px;
+  padding: 1rem 0;
   min-height: 100vh;
   display: flex;
   flex-flow: column;
@@ -29,7 +29,7 @@ const LeftContainer = styled.div`
 
 // twitter區塊
 const CenterContainer = styled.div`
-  flex: 16 1 0;
+  flex: 1 1 0;
   border: 1px solid var(--border-color);
   overflow-y: auto;
   overflow-x: hidden;
@@ -38,7 +38,7 @@ const CenterContainer = styled.div`
 
 // popular區塊
 const RightContainer = styled.div`
-  flex: 7 1 0;
+  flex: 0 0 300px;
   padding: 1rem 0 1rem 0;
 `;
 
@@ -63,7 +63,7 @@ function ReplyPage() {
       const { success, data, message } = await getAllTweets();
       if (success) {
         // update data
-        setMenu(data);
+        setMenu(data.tweets);
       } else {
         // handle error
         console.error(message);
@@ -76,7 +76,6 @@ function ReplyPage() {
     startOrder()
     // eslint-disable-next-line
   }, [isReplyTweetUpdate]);
-
 
   const replyList = replies.map((reply) => {
     const filter = menu.filter(item => item.id === Number(TweetId.TweetId))
@@ -107,8 +106,8 @@ function ReplyPage() {
         UserId={filter[0].User.id}
         account={filter[0].User.account}
         avatar={filter[0].User.avatar}
-        totalReplies={filter[0].Replies.totalReplies}
-        totalLikes={filter[0].Likes.totalLikes}
+        totalReplies={filter[0].totalReplies}
+        totalLikes={filter[0].totalLikes}
         isLiked={filter[0].isLiked}
         description={filter[0].description}
         createdAt={filter[0].createdAt}

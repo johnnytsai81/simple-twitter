@@ -45,7 +45,7 @@ function PopularUserList() {
     getData();
     // eslint-disable-next-line
   }, []);
-
+  
   const tweetList = tweets.map((tweet) => {
     return (
       <PopularUserItem
@@ -55,8 +55,6 @@ function PopularUserList() {
         UserId={tweet.id}
         avatar={tweet.avatar}
         isFollowed={tweet.isFollowed}
-        updatedAt={tweet.updatedAt}
-        createdAt={tweet.createdAt}
       />
     );
   });

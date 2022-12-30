@@ -63,15 +63,15 @@ function PopularUserItem(props) {
   async function handleFollow(e) {
     e.stopPropagation();
     e.preventDefault();
-    if (followState === false) {
-      setFollowState(!followState);
+    if (followState === 0) {
+      setFollowState(1);
       try {
         await followUser(UserId);
       } catch (error) {
         console.error(error);
       }
-    } else if (followState === true) {
-      setFollowState(!followState);
+    } else if (followState === 1) {
+      setFollowState(0);
       try {
         await unfollowUser(UserId);
       } catch (error) {
@@ -93,11 +93,11 @@ function PopularUserItem(props) {
             <h3 className="name mb-0">{username}</h3>
             <p className="account mb-0">@{account}</p>
           </div>
-          {currentUser === null ? (
+          {currentUser === 0 ? (
             ""
-          ) : UserId === currentUser.id ? (
+          ) : UserId === currentUser?.user.id ? (
             ""
-          ) : followState === true ? (
+          ) : followState === 1 ? (
             <Button variant="primary" size="sm" onClick={handleFollow}>
               正在跟隨
             </Button>

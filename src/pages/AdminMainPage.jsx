@@ -11,9 +11,8 @@ const MainStyle = styled.div`
 `;
 // sidebar區塊
 const LeftContainer = styled.div`
-  flex: 5 1 0;
-  width: 178px;
-  padding: 1rem;
+  flex: 0 0 200px;
+  padding: 1rem 0;
   min-height: 100vh;
   border-right: 1px solid #e6ecf0;
   display: flex;
@@ -22,7 +21,7 @@ const LeftContainer = styled.div`
 
 const UserContainer = styled.div`
   border-right: 1px solid #e6ecf0;
-  width: 80%;
+  width: calc(100% - 200px);
   overflow-y: auto;
   overflow-x: hidden;
   height: 100vh;
@@ -58,7 +57,7 @@ const AdminMainPage = () => {
       try {
         const postItems = await getAllTweets2();
         setPostItems(
-          postItems.map((postItem) => ({
+          postItems.tweets.map((postItem) => ({
             ...postItem,
           })),
 

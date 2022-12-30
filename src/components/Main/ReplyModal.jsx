@@ -185,10 +185,10 @@ function ReplyModal(props) {
           <div className="reply-people">
             {currentUser === null ? (
               ""
-            ) : currentUser.avatar === null ? (
+            ) : currentUser?.user.avatar === null ? (
               <NoImage />
             ) : (
-              <img className="avatar" src={currentUser?.avatar} alt="avatar" />
+              <img className="avatar" src={currentUser?.user.avatar} alt="avatar" />
             )}
             <InputStyle
               placeholder={"推你的回覆"}

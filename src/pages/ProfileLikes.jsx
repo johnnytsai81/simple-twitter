@@ -22,8 +22,8 @@ const MainStyle = styled.div`
 
 // sidebar區塊
 const LeftContainer = styled.div`
-  flex: 5 1 0;
-  padding: 1rem;
+  flex: 0 0 200px;
+  padding: 1rem 0;
   min-height: 100vh;
   display: flex;
   flex-flow: column;
@@ -31,7 +31,7 @@ const LeftContainer = styled.div`
 
 // twitter區塊
 const CenterContainer = styled.div`
-  flex: 16 1 0;
+  flex: 1 1 0;
   border: 1px solid var(--border-color);
   overflow-y: auto;
   overflow-x: hidden;
@@ -40,7 +40,7 @@ const CenterContainer = styled.div`
 
 // popular區塊
 const RightContainer = styled.div`
-  flex: 7 1 0;
+  flex: 0 0 300px;
   padding: 1rem 0 1rem 0;
 `;
 
@@ -67,7 +67,7 @@ function ProfileLikes() {
       const { success, data, message } = await getUser(UserId.UserId);
       if (success) {
         // update data
-        setInfo(data);
+        setInfo(data.user);
         setIsUserInfoUpdate(true);
       } else {
         // handle error
@@ -82,15 +82,16 @@ function ProfileLikes() {
     startOrder();
     // eslint-disable-next-line
   }, [UserId.UserId, isUserInfoUpdate]);
+
   const tweetList = tweets.map((tweet) => {
     return (
       <PostItem
-        key={tweet.Tweet.id}
+        key={tweet.id}
         TweetId={tweet.TweetId}
-        UserId={tweet.Tweet.UserId}
-        username={tweet.Tweet.User.name}
-        avatar={tweet.Tweet.User.avatar}
-        account={tweet.Tweet.User.account}
+        UserId={tweet.UserId}
+        username={info.name}
+        avatar={info.avatar}
+        account={info.account}
         description={tweet.Tweet.description}
         isLiked={tweet.Tweet.isLiked}
         updatedAt={tweet.updatedAt}
@@ -101,6 +102,7 @@ function ProfileLikes() {
     );
   });
 
+  console.log(info)
   return (
     <Container>
       {loading ? (
@@ -110,7 +112,7 @@ function ProfileLikes() {
           <LeftContainer>
             {currentUser === null ? (
               ""
-            ) : currentUser.id === Number(UserId.UserId) ? (
+            ) : currentUser?.user.id === Number(UserId.UserId) ? (
               <SideBar lightUp={true}/>
             ) : (
               <SideBar />
@@ -123,7 +125,7 @@ function ProfileLikes() {
             ) : (
               <Breadcrumb
                 title={info.name}
-                number={info.Tweets.totalTweets}
+                number={info.tweetsCounts}
                 back={true}
               />
             )}
@@ -131,8 +133,8 @@ function ProfileLikes() {
               username={info.name}
               account={info.account}
               UserId={info.UserId}
-              totalFollowers={info.totalFollowers}
-              totalFollowings={info.totalFollowings}
+              totalFollowers={info.followerCounts}
+              totalFollowings={info.followingCounts}
               selfIntro={info.introduction}
               coverImage={info.coverImage}
               avatar={info.avatar}

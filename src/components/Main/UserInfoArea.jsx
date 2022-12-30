@@ -123,15 +123,15 @@ function UserInfoArea(props) {
   async function handleFollow(e) {
     e.stopPropagation();
     e.preventDefault();
-    if (followState === false) {
-      setFollowState(!followState);
+    if (followState === 0) {
+      setFollowState(1);
       try {
         await followUser(UserId.UserId);
       } catch (error) {
         console.error(error);
       }
-    } else if (followState === true) {
-      setFollowState(!followState);
+    } else if (followState === 1) {
+      setFollowState(0);
       try {
         await unfollowUser(UserId.UserId);
       } catch (error) {
@@ -155,7 +155,7 @@ function UserInfoArea(props) {
       <div className="card-header">
         {currentUser === null ? (
           ""
-        ) : currentUser.id === Number(UserId.UserId) ? (
+        ) : currentUser.user.id === Number(UserId.UserId) ? (
           <Button
             variant="outline-primary ms-auto mt-4 me-4"
             onClick={() => {
@@ -169,7 +169,7 @@ function UserInfoArea(props) {
             <div className="mail-icon">
               <MailIcon />
             </div>
-            {followState === true ? (
+            {followState === 1 ? (
               showNotice === true ? (
                 <div className="bell-icon solid" onClick={handleShowNotice}>
                   <BellSolidIcon />
@@ -183,7 +183,7 @@ function UserInfoArea(props) {
               ""
             )}
 
-            {followState === true ? (
+            {followState === 1 ? (
               <Button variant="primary" onClick={handleFollow}>
                 正在跟隨
               </Button>

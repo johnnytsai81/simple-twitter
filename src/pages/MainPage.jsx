@@ -22,8 +22,8 @@ const MainStyle = styled.div`
 
 // sidebar區塊
 const LeftContainer = styled.div`
-  flex: 5 1 0;
-  padding: 1rem;
+  flex: 0 0 200px;
+  padding: 1rem 0;
   min-height: 100vh;
   display: flex;
   flex-flow: column;
@@ -31,7 +31,7 @@ const LeftContainer = styled.div`
 
 // twitter區塊
 const CenterContainer = styled.div`
-  flex: 16 1 0;
+  flex: 1 1 0;
   border: 1px solid var(--border-color);
   overflow-y: auto;
   overflow-x: hidden;
@@ -40,7 +40,7 @@ const CenterContainer = styled.div`
 
 // popular區塊
 const RightContainer = styled.div`
-  flex: 7 1 0;
+  flex: 0 0 300px;
   padding: 1rem 0 1rem 0;
 `;
 
@@ -65,7 +65,7 @@ function Main() {
       const { success, data, message } = await getAllTweets();
       if (success) {
         // update data
-        setTweets(data);
+        setTweets(data.tweets);
         setIsGlobalTweetUpdate(true)
         setIsReplyTweetUpdate(true)
       } else {
@@ -76,21 +76,20 @@ function Main() {
     getData();
     // eslint-disable-next-line
   }, [isGlobalTweetUpdate, isReplyTweetUpdate]);
-  
+
   const tweetList = tweets.map((tweet) => {
     return (
       <PostItem
         key={tweet.id}
         TweetId={tweet.id}
-        UserId={tweet.UserId}
+        UserId={tweet.User.id}
         username={tweet.User.name}
         account={tweet.User.account}
         avatar={tweet.User.avatar}
         description={tweet.description}
-        totalLikes={tweet.Likes.totalLikes}
+        totalLikes={tweet.totalLikes}
         isLiked={tweet.isLiked}
-        totalReplies={tweet.Replies.totalReplies}
-        updatedAt={tweet.updatedAt}
+        totalReplies={tweet.totalReplies}
         createdAt={tweet.createdAt}
       />
     );
@@ -106,7 +105,7 @@ function Main() {
           {/* back為返回記號 number為推文數 */}
           <Breadcrumb title={"首頁"} number={""} back={false} />
           <TextArea
-            avatar={currentUser?.avatar}
+            avatar={currentUser?.user.avatar}
           />
           {tweetList}
         </CenterContainer>

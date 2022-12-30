@@ -217,11 +217,11 @@ const ProfileEditModal = (props) => {
   // 匯入user資料
   useEffect(() => {
     if (!currentUser) return;
-    setId(currentUser?.id);
-    setName(currentUser?.name);
-    setIntroduction(currentUser?.introduction);
-    setNameCount(!currentUser.name ? 0 :  currentUser.name.length);
-    setIntroductionCount(!currentUser.introduction ? 0 : currentUser.introduction.length);
+    setId(currentUser?.user.id);
+    setName(currentUser?.user.name);
+    setIntroduction(currentUser?.user.introduction);
+    setNameCount(!currentUser.user.name ? 0 :  currentUser.user.name.length);
+    setIntroductionCount(!currentUser.user.introduction ? 0 : currentUser.user.introduction.length);
   }, [currentUser, show]);
 
   // 換圖片
