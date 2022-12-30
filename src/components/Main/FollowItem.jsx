@@ -58,15 +58,15 @@ function FollowItem(props) {
   async function handleFollow(e) {
     e.stopPropagation();
     e.preventDefault();
-    if (followState === 0) {
-      setFollowState(1);
+    if (followState === false) {
+      setFollowState(true);
       try {
         await followUser(UserId);
       } catch (error) {
         console.error(error);
       }
-    } else if (followState === 1) {
-      setFollowState(0);
+    } else if (followState === true) {
+      setFollowState(false);
       try {
         await unfollowUser(UserId);
       } catch (error) {
@@ -75,6 +75,7 @@ function FollowItem(props) {
     }
   }
 
+  console.log(followState)
   return (
     <NavLink to={`/user/${UserId}/tweet`}>
       <CardStyle>
@@ -86,7 +87,7 @@ function FollowItem(props) {
         <div className="card-content">
           <div className="card-header">
             <h3 className="name mb-0">{name}</h3>
-            {followState === 1 ? (
+            {followState === true ? (
               <Button
                 variant="primary"
                 size="sm"

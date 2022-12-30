@@ -104,7 +104,7 @@ function UserFollowingPage() {
             ) : (
               <Breadcrumb
                 title={info.name}
-                number={info.Tweets.totalTweets}
+                number={info.tweetsCounts}
                 link={true}
                 back={true}
               />

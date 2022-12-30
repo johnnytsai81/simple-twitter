@@ -60,7 +60,7 @@ function ProfileFollowers() {
       const { success, data, message } = await getUser(UserId.UserId);
       if (success) {
         // update data
-        setInfo(data);
+        setInfo(data.user);
       } else {
         // handle error
         console.error(message);
@@ -73,6 +73,7 @@ function ProfileFollowers() {
     startOrder();
     // eslint-disable-next-line
   }, []);
+
   const followersList = followers.map((follower) => {
     return (
       <FollowItem
@@ -98,7 +99,7 @@ function ProfileFollowers() {
             ) : (
               <Breadcrumb
                 title={info.name}
-                number={info.Tweets.totalTweets}
+                number={info.tweetsCounts}
                 back={true}
                 link={true}
               />
