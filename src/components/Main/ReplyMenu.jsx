@@ -168,7 +168,11 @@ function ReplyMenu(props) {
 
   // 愛心狀態
   function handleShowLike() {
-    setShowLike(!showLike);
+    if (showLike === 1) {
+      setShowLike(0);
+    }else if(showLike === 0){
+      setShowLike(1);
+    }
   }
 
   return (
