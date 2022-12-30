@@ -22,9 +22,10 @@ const CardStyle = styled.div`
     width: 50px;
     height: 50px;
     flex: 0 0 50px;
-    object-fit: cover;
     img {
+      height: 50px;
       border-radius: 50px;
+      object-fit: cover;
     }
   }
   .card-content {
