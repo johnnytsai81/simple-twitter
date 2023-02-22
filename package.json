@@ -13,6 +13,7 @@
     "gh-pages": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
+    "n": "^9.0.1",
     "node-sass": "^7.0.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
@@ -21,6 +22,7 @@
     "react-jwt": "^1.1.7",
     "react-router-dom": "^6.4.1",
     "react-scripts": "^4.0.3",
+    "stable": "^0.1.8",
     "styled-components": "^5.3.6",
     "sweetalert2": "^11.6.15",
     "web-vitals": "^2.1.4"
