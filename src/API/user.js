@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "https://ck-mami-2022-twitter.herokuapp.com/api";
+const baseUrl = "http://3.210.171.218:3000/api";
 const basePath = "users";
 
 const axiosInstance = axios.create({

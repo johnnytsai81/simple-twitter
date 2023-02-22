@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Toast } from "../utilities/sweetalert";
 
-const authURL = "https://ck-mami-2022-twitter.herokuapp.com/api";
+const authURL = "http://3.210.171.218:3000/api";
 
 export const userLogin = async ({ account, password }) => {
   try {
