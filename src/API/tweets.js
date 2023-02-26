@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://3.210.171.218:3000/api";
+const baseUrl = "http://www.simpletwitter2023.site/api";
 const basePath = "tweets";
 
 const axiosInstance = axios.create({

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Toast } from "../utilities/sweetalert";
 
-const authURL = "http://3.210.171.218:3000/api";
+const authURL = "http://www.simpletwitter2023.site/api";
 
 export const userLogin = async ({ account, password }) => {
   try {
